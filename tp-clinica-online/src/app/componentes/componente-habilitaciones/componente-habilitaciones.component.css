@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Sora&display=swap');
+
+.container {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 93vh;
+    min-width: 100vw;
+    background-color: darkblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.row{
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../assets/img/fondo-hospital.jpg");
+    background-repeat: no-repeat;
+    overflow-y: auto;
+    border-radius: 20px;
+}
+
+.card {
+    width: 20%;
+    height: 70%;
+    max-height: 70%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos horizontalmente */
+    text-align: center; /* Centra el texto horizontalmente */
+}
+
+.card img {
+    width: 50%;
+    height: auto;
+    margin-top: 10%;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.habilitar-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.habilitar-button:hover {
+    background-color: #45a049;
+}
+
+h2, h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: x-large;
+}
+
+p {
+    font-family: 'Nunito', sans-serif;
+    font-size:medium;
+}

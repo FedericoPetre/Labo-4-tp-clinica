@@ -1,0 +1,27 @@
+<div class=container>
+    <app-botones-seccion-habilitaciones></app-botones-seccion-habilitaciones>
+    <div class="row">
+
+        <!-- TARJETAS -->
+        <div class="card" *ngFor="let usuario of arrayPersonasRegistradas">
+            <img [src]="usuario.fotos[0]" alt="Foto del usuario">
+            <div class="card-content">
+                <h2>{{ usuario.nombre }}</h2>
+                <h3>{{ usuario.tipoUsuario }}</h3>
+                <p>{{ usuario.email }}</p>
+                <ng-container *ngIf="usuario.tipoUsuario === 'especialista'">
+                    <div *ngIf="usuario.flagEstaHabilitado === 'si'; then botonDeshabilitarBlock; else botonHabilitarBlock"></div>
+                </ng-container>
+                <ng-template #botonDeshabilitarBlock>
+                    <button class="habilitar-button" (click)="actualizarHabilitacion(usuario.email,'no')">Deshabilitar</button>
+                </ng-template>
+                <ng-template #botonHabilitarBlock>
+                    <button class="habilitar-button" (click)="actualizarHabilitacion(usuario.email,'si')">Habilitar</button>
+                </ng-template>
+            </div>
+        </div>
+
+        
+
+    </div>
+</div>

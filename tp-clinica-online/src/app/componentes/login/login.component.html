@@ -1,0 +1,61 @@
+<div class="contenedorMayor">
+    <div class="row">
+        <div class="col-12 columna">
+            <div class="formularioDiv">
+                <h1>Iniciar Sesión</h1>
+                <form class="needs-validation" novalidate [formGroup]="form">
+                    <div class="mb-3 controlFormulario">
+                        <label class="form-label" for="idCorreo">Correo</label>
+                        <input type="email" class="form-control" placeholder="Ingrese correo" formControlName="email" id="idCorreo">
+                          <!--Errores de email-->
+                          <div *ngIf="form.controls['email'].errors != null">
+                            <small style="color:red;" *ngIf="form.controls['email'].errors['required'] && form.controls['email'].touched">
+                              Error, el correo es requerido
+                            </small>
+                          </div>
+                    </div>
+            
+                    <div class="mb-3 controlFormulario">
+                        <label class="form-label" for="idClave">Contraseña</label>
+                        <input type="password" class="form-control" placeholder="Ingrese contraseña" formControlName="clave" id="idClave">
+                          <!--Errores de contraseña-->
+                          <div *ngIf="form.controls['clave'].errors != null">
+                            <small style="color:red;" *ngIf="form.controls['clave'].errors['required'] && form.controls['clave'].touched">
+                              Error, el correo es requerido
+                            </small>
+                          </div>
+                    </div>
+
+                    <button [disabled]="form.invalid" (click)="ingresar()">Ingresar</button>
+                
+                </form>
+            </div><!--Fin formularioDiv-->
+
+            <div class="formularioDiv2">
+              <table>
+                <thead>
+                  <td class="accesoRapido" colspan="3">Acceso Rápido</td>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[0])"><img [src]="usuariosAccesoRapido[0].foto" alt="Foto del usuario"></div></td>
+                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[1])"><img [src]="usuariosAccesoRapido[1].foto" alt="Foto del usuario"></div></td>
+                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[2])"><img [src]="usuariosAccesoRapido[2].foto" alt="Foto del usuario"></div></td>
+                  </tr>
+                  <!--
+                  <tr>
+                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[3])"><img [src]="usuariosAccesoRapido[3].foto" alt="Foto del usuario"></div></td>
+                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[4])"><img [src]="usuariosAccesoRapido[4].foto" alt="Foto del usuario"></div></td>
+                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[5])"><img [src]="usuariosAccesoRapido[5].foto" alt="Foto del usuario"></div></td>
+                  </tr>-->
+                </tbody>
+              </table>
+
+
+          </div><!--Fin formularioDiv-->
+        </div>
+    </div>
+</div>
+
+
+

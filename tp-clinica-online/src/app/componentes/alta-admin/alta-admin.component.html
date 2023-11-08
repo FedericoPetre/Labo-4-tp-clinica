@@ -1,0 +1,112 @@
+<div class="contenedorMayor">
+    <app-botones-registro></app-botones-registro>
+      <div class="">
+        <h2 class="text-center mb-4">Formulario de Registro Administrador</h2>
+    
+        <form class="needs-validation" novalidate [formGroup]="form">
+  
+          <div class="row">
+              <div class="col-6 columna"> <!--Izquierda formulario-->
+                  <div class="mb-3 controlFormulario">
+                      <label class="form-label">Nombre</label>
+                      <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre">
+                        <!--Errores de nombre-->
+                        <div *ngIf="form.controls['nombre'].errors != null">
+                          <small style="color:red;" *ngIf="form.controls['nombre'].errors['required'] && form.controls['nombre'].touched">
+                            Error, el nombre es requerido
+                          </small>
+                        </div>
+                        <!--Fin errores de nombre-->  
+                    </div>
+            
+                    <div class="mb-3 controlFormulario">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" class="form-control" placeholder="Ingrese apellido" formControlName="apellido">
+                          <!--Errores de apellido-->
+                          <div *ngIf="form.controls['apellido'].errors != null">
+                            <small style="color:red;" *ngIf="form.controls['apellido'].errors['required'] && form.controls['apellido'].touched">
+                              Error, el apellido es requerido
+                            </small>
+                          </div>
+                          <!--Fin errores de apellido-->  
+                    </div>
+              
+                    <div class="mb-3 controlFormulario">
+                      <label class="form-label">Edad</label>
+                      <input type="number" class="form-control" placeholder="Ingrese edad" formControlName="edad">
+                        <!--Errores de edad-->
+                        <div *ngIf="form.controls['edad'].errors != null">
+                          <small style="color:red;" *ngIf="form.controls['edad'].errors['required'] && form.controls['edad'].touched">
+                            Error, la edad del es requerida
+                          </small>
+                          <small style="color:red;" *ngIf="form.controls['edad'].errors['min'] && form.controls['edad'].touched">
+                            Error, la edad no puede ser negativa
+                          </small>
+                        </div>
+                        <!--Fin errores de edad--> 
+                    </div>
+            
+                    <div class="mb-3 controlFormulario">
+                        <label class="form-label">Dni</label>
+                        <input type="number" class="form-control" placeholder="Ingrese dni" formControlName="dni">
+                          <!--Errores de dni-->
+                          <div *ngIf="form.controls['dni'].errors != null">
+                            <small style="color:red;" *ngIf="form.controls['dni'].errors['required'] && form.controls['dni'].touched">
+                              Error, el dni del es requerido
+                            </small>
+                          </div>
+                          <!--Fin errores de dni--> 
+                    </div>
+              </div>
+      
+      
+              <div class="col-6 columna"> <!--Derecha formulario-->
+                  <div class="mb-3 img">
+                      <img [src]="imagenPerfil" alt="imagenPerfil">
+                  </div>
+  
+  
+                  <div class="mb-3 controlFormulario">
+                      <label class="form-label">Correo</label>
+                      <input type="email" class="form-control" placeholder="Ingrese correo" formControlName="email">
+                        <!--Errores de email-->
+                        <div *ngIf="form.controls['email'].errors != null">
+                          <small style="color:red;" *ngIf="form.controls['email'].errors['required'] && form.controls['email'].touched">
+                            Error, el correo es requerido
+                          </small>
+                        </div>
+                        <!--Fin errores de email-->  
+                  </div>
+          
+                  <div class="mb-3 controlFormulario">
+                      <label class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" placeholder="Ingrese Contraseña" formControlName="clave">
+                        <!--Errores de contraseña-->
+                        <div *ngIf="form.controls['clave'].errors != null">
+                          <small style="color:red;" *ngIf="form.controls['clave'].errors['required'] && form.controls['clave'].touched">
+                            Error, el correo es requerido
+                          </small>
+                        </div>
+                        <!--Fin Errores de contraseña-->  
+                  </div>
+          
+                  <div class="mb-3 controlFormulario">
+                      <label class="form-label">Foto</label><br>
+                      <input type="file" accept=".png, .jpg, .jpeg" (change)="actualizarfotoAdmin($event)" formControlName="foto">
+                      <!--Errores de foto-->
+                      <div *ngIf="form.controls['foto'].errors != null">
+                          <small style="color:red;" *ngIf="form.controls['foto'].errors['required'] && form.controls['foto'].touched">
+                          Error, la foto es requerida
+                          </small>
+                      </div>
+                      <!--Fin Errores de foto-->  
+                  </div>
+              </div>
+          </div>       
+    
+          <button [disabled]="form.invalid" class="w-100 btn btn-primary btn-lg" (click)="registrarAdmin()">Aceptar</button>
+        </form><br><br>
+      </div>
+    </div>
+    
+  

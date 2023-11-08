@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Sora&display=swap');
+
+.contenedorMayor {
+    width: 100vw;
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /*background-color: #40E0D0; acá iría background-image en realidad*/
+    background-image: url("../../../assets/img/fondo-hospital.jpg");
+    background-repeat: no-repeat;
+}
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 4%;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+}
+
+img {
+    width: auto;
+    max-width: 100%; /* La imagen ocupará el 100% del ancho de su contenedor, pero no se desbordará */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción original */
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    margin: 4% 4% 4% 4%;
+}
+
+.formularioDiv{
+    width: 50%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px white;
+    background-color:darkblue;
+    text-align: center;
+    margin-bottom: 4vh;
+    opacity: 0.8;
+}
+
+.formularioDiv2{
+    width: 50%;
+    height: auto;
+    border-radius: 20px;
+    background-color:darkblue;
+    opacity: 0.8;
+}
+
+button{
+    margin-top: 10px;
+    width: 30%;
+    height: fit-content;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px white;
+    transition: 0.9s;
+}
+
+button:active{
+    background-color: darkblue;
+    color:white;
+    box-shadow: 3px 3px 3px black;
+}
+
+h1, label {
+    color:white;
+}
+
+label {
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+}
+
+input {
+    font-family: 'Nunito', sans-serif;
+    font-size:medium; 
+}
+
+h1{
+    padding-top: 10px;
+    font-family: 'Sora', sans-serif;
+}
+
+.accesoRapido{
+    font-family: 'Sora', sans-serif;
+    font-size: medium;
+    text-align: center;
+}
+
+img {
+    width: 30%;
+    height: auto;
+}
+
+.carta {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 95%;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    box-shadow: 3px 3px 3px white;
+    color: black; /* Color de texto para las cartas */
+}
+
+td {
+    width: 30%;
+    text-align: center;
+    color: white;
+}
+
+
+.carta:active{
+    background-color: darkblue;
+}
