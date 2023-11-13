@@ -86,6 +86,7 @@ export class LoginComponent {
       if(this.arrayPersonas[i].email == email){
         flagEstaAutorizado = true;
         this.firebase.tipoUsuario = this.arrayPersonas[i].tipoUsuario;
+        this.firebase.objUsuarioLogueado = this.arrayPersonas[i];
         break;
       }
     }

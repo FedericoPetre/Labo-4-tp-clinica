@@ -1,7 +1,9 @@
 // mis-horarios.component.ts
 
 import { Component, Input } from '@angular/core';
+import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { NotificacionService } from 'src/app/servicios/notificacion.service';
+import { TurnosService } from 'src/app/servicios/turnos.service';
 
 @Component({
   selector: 'app-mis-horarios',
@@ -20,7 +22,7 @@ export class MisHorariosComponent {
   diasDeLaSemana: string[] = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
   duracionCadaTurno: number = 0;
   
-  constructor(private toast : NotificacionService){
+  constructor(private toast : NotificacionService, private firebase : FirebaseService, private turnos: TurnosService){
 
   }
 
@@ -67,8 +69,27 @@ export class MisHorariosComponent {
   }
 
   guardarHorarios(){
+    const especialistaIngresado = this.firebase.objUsuarioLogueado;
+
+    let agendaTurnos : any[] = [];
+
+    this.especialidades.forEach(especialidadItem=>{
+      
+      especialidadItem.horarios.forEach((element : string) => {
+        let dia = this.turnos.retornarValorDia(element);
+        let turnosAgenda = this.turnos.retornarCalendarizacionTurnos(this.duracionCadaTurno, dia, especialidadItem.nombre, especialistaIngresado);
+        agendaTurnos.push(turnosAgenda);
+      });
+    })
+
+    this.firebase.guardarTodosLosTurnos(agendaTurnos);
+
     //acá hay que guardar el especialista (nombre o dni), las especialidades, y los turnos
     //Quedaría Especialista, especialidad, horarios
+
+    /*
+
+    */
   }
 
 }

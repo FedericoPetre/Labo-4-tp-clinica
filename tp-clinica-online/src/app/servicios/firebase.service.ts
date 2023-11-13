@@ -23,6 +23,8 @@ export class FirebaseService {
   nombreUsuario : string = "";
   public tipoUsuario : string = "";
 
+  public objUsuarioLogueado : any;
+
   constructor(private auth : AngularFireAuth, private store : AngularFirestore, private storage : Storage, private notificacion : NotificacionService, private router : Router) {}
 
   async ingresar(email : string, clave : string){
@@ -249,4 +251,28 @@ export class FirebaseService {
       this.notificacion.mostrarError("Error al obtener datos del especialista", error);
     }
   }
+
+  guardarTurnosDelDia(turnos : any[]){
+    turnos.forEach((turnoItem : any)=>{
+      const uId = this.store.createId();
+      const documentoTurno = this.store.doc("Turnos/"+uId);
+      documentoTurno.set({
+        especialista:turnoItem.especialista,
+        especialidad:turnoItem.especialidad,
+        estaDisponible:turnoItem.estaDisponible,
+        estadoTurno:turnoItem.estadoTurno,
+        fecha:turnoItem.fecha,
+        paciente:''
+      });
+    })
+  }
+
+  guardarTodosLosTurnos(turnosArrayAnidado : any[]){
+    turnosArrayAnidado.forEach((turnoItem:any)=>{
+      this.guardarTurnosDelDia(turnoItem);
+    });
+
+    this.notificacion.mostrarExito("Turnos","Horarios guardados exitosamente");
+  }
+
 }

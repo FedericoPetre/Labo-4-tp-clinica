@@ -54,6 +54,7 @@ export class MiPerfilComponent {
     this.usuarioIngresado = arrayNuevo[0];
     this.obserEspecialista$ = this.firebase.traerEspecialistaPorEmail(this.firebase.email).subscribe(datos=>{
       this.especialistaIngresado = datos[0];
+      this.firebase.objUsuarioLogueado = datos[0];
       let especialidadesArray : string[] = this.especialistaIngresado.especialidad.split(',');
       especialidadesArray.forEach((especialidad:string)=>{
         let objEspecialidad = { nombre: especialidad, horarios: [], duracionCadaTurno:0 };
