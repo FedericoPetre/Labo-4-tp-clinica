@@ -13,11 +13,7 @@ export class LoginComponent {
   public form : FormGroup;
   obser$ : any;
   arrayPersonas : any;
-  usuariosAccesoRapido : any[] = [
-    {correo:'breffoiddewetu-7402@yopmail.com', clave:'222222', foto:'https://firebasestorage.googleapis.com/v0/b/tp-clinica-online-3c359.appspot.com/o/Pacientes%2Fbreffoiddewetu-7402%40yopmail.com%2Fpaciente.png?alt=media&token=23bf5cb5-4184-4a88-8930-2580ed3db5a0'},
-    {correo:'fede.wonderstudio@gmail.com', clave:'222222', foto:'https://firebasestorage.googleapis.com/v0/b/tp-clinica-online-3c359.appspot.com/o/Especialistas%2Ffede.wonderstudio%40gmail.com%2F0?alt=media&token=ed65c72f-77f7-4171-8c6d-bbce0ca6ee6b'},
-    {correo:'federicopetremovil@gmail.com', clave:'222222', foto:'https://firebasestorage.googleapis.com/v0/b/tp-clinica-online-3c359.appspot.com/o/Admins%2Ffedericopetremovil%40gmail.com%2F0?alt=media&token=a060ada9-555c-40a2-afcb-e42418f6bc15'},
-   ];
+  usuariosAccesoRapido : any[] = [];
 
 
   public get Email(){
@@ -59,24 +55,28 @@ export class LoginComponent {
 
   cargarUsuariosAutorizados(arrayAux : any[]){
     let arrayNuevo : any[] = [];
+    let arrayTodos : any[] = [];
 
     for(let i=0; i<arrayAux.length; i++){
-
-    if(arrayAux[i].estaHabilitado == 'si'){
-    
       let objPersona = {
         tipoUsuario: arrayAux[i].tipoUsuario,
         flagEstaHabilitado: 'si',
         nombre:arrayAux[i].nombre,
-        email:arrayAux[i].email
+        email:arrayAux[i].email,
+        clave:arrayAux[i].clave,
+        foto:arrayAux[i].fotos[0]
       };
-  
+
+      arrayTodos.push(objPersona);
+
+    if(arrayAux[i].estaHabilitado == 'si'){
       arrayNuevo.push(objPersona);
     }
      
     }
 
     this.arrayPersonas = arrayNuevo;
+    this.usuariosAccesoRapido = arrayTodos;
   }
 
   determinarSiSeEncuentraEnAutorizados(email:string){
@@ -93,7 +93,7 @@ export class LoginComponent {
   }
 
   escribirCorreoYClave(obj : any){
-    this.form.get('email')?.setValue(obj.correo);
+    this.form.get('email')?.setValue(obj.email);
     this.form.get('clave')?.setValue(obj.clave);
   }
 

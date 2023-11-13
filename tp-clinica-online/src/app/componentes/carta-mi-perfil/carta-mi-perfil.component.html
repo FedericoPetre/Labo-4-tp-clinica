@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="contenedorImagenes">
+    <img *ngFor="let imagen of imagenes" [src]="imagen" alt="Imagen del usuario" class="imagen">
+  </div>
+    <div class="informacion">
+      <h2>{{ nombre }} {{ apellido }}</h2>
+      <p>{{edad}} años</p>
+      <p>Dni: {{dni}}</p>
+      <p>{{ email }}</p>
+      <br>
+    </div>
+</div>
+  

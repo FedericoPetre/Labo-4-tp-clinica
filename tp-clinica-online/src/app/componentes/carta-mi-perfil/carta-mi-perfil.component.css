@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Sora&display=swap');
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 53vh; /* Ocupa toda la altura de la pantalla */
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+  }
+  
+  .imagen {
+    width: 10vw;
+    height: auto;
+    margin: 10px 10px 10px 10px;
+    object-fit: contain;
+  }
+  
+  .contenedorImagenes{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    object-fit: contain;
+  }
+
+  .informacion {
+    text-align: center;
+    margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+    
+    font-family: 'Nunito', sans-serif;
+    font-size: x-large;
+  }
+  
+  h2, p {
+    margin: 0;
+  }
+  

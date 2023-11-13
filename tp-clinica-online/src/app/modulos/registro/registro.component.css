@@ -14,9 +14,11 @@
     text-align: center;
 }
 
-button{
+button {
     margin-top: 3%;
-    width: 60%;
+    width: 80%; /* Reduje el ancho para dar espacio a los márgenes y centrar el contenido */
+    margin: 0 auto; /* Agregué esta línea para centrar horizontalmente el botón dentro de su contenedor */
+    position: relative;
 }
 
 .row1 {
@@ -38,21 +40,19 @@ button{
 }
 
 .cartaAlta {
-    width: 100%;
+    width: 55%;
     height: 45%;
     background-color: white;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    margin-bottom: 5%;
 
     display: flex;
     flex-direction: column;
-    justify-content:flex-end;
+    justify-content: flex-end;
     align-items: center;
-    text-align: center;
-    border-radius: 50px;
-    margin-top: 3%;
-    margin-bottom: 7%;
+    border-radius: 50%;
     box-shadow: 15px 15px 15px darkblue;
     transition: 0.9s;
 }
@@ -83,7 +83,7 @@ h2{
 
 h3{
     font-family: 'Nunito', sans-serif;
-    font-size:x-large;
+    font-size:large;
     background-color: darkblue;
     padding: 10px 10px 10px 10px;
     border-radius: 10px;

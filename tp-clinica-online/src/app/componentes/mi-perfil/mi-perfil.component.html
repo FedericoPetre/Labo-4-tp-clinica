@@ -1,0 +1,21 @@
+<div class=container>
+    <div class="row">
+        <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-5">
+            <app-carta-mi-perfil [nombre]="especialistaIngresado.nombre" [apellido]="especialistaIngresado.apellido" [email]="especialistaIngresado.email" [imagenes]="especialistaIngresado.imagen" [edad]="especialistaIngresado.edad" [dni]="especialistaIngresado.dni">   </app-carta-mi-perfil>
+        </div>
+
+        <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-7">
+            <app-mis-horarios [especialidades]="especialidades"></app-mis-horarios>
+            <!--Acá va la parte del especialista
+            FALTA LA PARTE DE ACTUALIZAR LOS TURNOS, GENERAR LOS TURNOS DE ACÁ A 15Días! 
+            PASARLE COMO INPUT LAS ESPECIALIDADES DEL ESPECIALISTA y/o el especialista completo para poder guardar en firebase
+            
+            -->
+        </div>
+
+        <div class="col-12" *ngIf="usuarioIngresado.tipoUsuario !== 'especialista'">
+            <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.fotos">   </app-carta-mi-perfil>
+        </div>
+
+    </div>
+</div>

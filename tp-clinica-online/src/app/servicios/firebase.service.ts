@@ -10,7 +10,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
 import { NotificacionService } from './notificacion.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +83,7 @@ export class FirebaseService {
       const documentoUserPaciente = this.store.doc("Usuarios/"+uId);
       documentoUserPaciente.set({
         nombre:paciente.nombre,
+        apellido:paciente.apellido,
         email:paciente.email,
         tipoUsuario:'paciente',
         estaHabilitado:'si',
@@ -120,6 +121,7 @@ export class FirebaseService {
       const documentoUserAdmin = this.store.doc("Usuarios/"+uId1);
       documentoUserAdmin.set({
         nombre:admin.nombre,
+        apellido:admin.apellido,
         email:admin.email,
         tipoUsuario:'admin',
         estaHabilitado:'si',
@@ -149,6 +151,7 @@ export class FirebaseService {
       documento1.set({
         nombre:especialista.nombre,
         apellido:especialista.apellido,
+        email:especialista.email,
         edad:especialista.edad,
         dni:especialista.dni,
         especialidad:especialista.especialidad,
@@ -158,6 +161,7 @@ export class FirebaseService {
       const documentoUserEspecialista = this.store.doc("Usuarios/"+uId1);
       documentoUserEspecialista.set({
         nombre:especialista.nombre,
+        apellido:especialista.apellido,
         email:especialista.email,
         tipoUsuario:'especialista',
         estaHabilitado:'no',
@@ -187,6 +191,11 @@ export class FirebaseService {
     const especialistas = this.store.collection('Especialistas');
     return especialistas.valueChanges();
   }
+
+  traerEspecialistaPorEmail(email: string): Observable<any> {
+    return this.store.collection('Especialistas', ref => ref.where('email', '==', email)).valueChanges();
+  }
+  
 
   traerPacientesRegistrados(){
     const pacientes = this.store.collection('Pacientes');

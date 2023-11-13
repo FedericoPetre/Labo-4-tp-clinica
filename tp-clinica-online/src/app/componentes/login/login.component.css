@@ -58,11 +58,17 @@ form{
 }
 
 .formularioDiv2{
-    width: 50%;
+    width: auto;
     height: auto;
     border-radius: 20px;
-    background-color:darkblue;
+    background-color: darkblue;
     opacity: 0.8;
+    padding: 5px 5px 5px 5px;
+
+    position: fixed;
+    bottom: 5%; /* Margen inferior del 10% del alto de la pantalla */
+    right: 10%; /* Margen derecho del 10% del ancho de la pantalla */
+    z-index: 1; /* Asegura que esté sobre otros elementos */
 }
 
 button{

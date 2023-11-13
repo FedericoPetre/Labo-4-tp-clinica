@@ -1,0 +1,51 @@
+<!-- mis-horarios.component.html -->
+
+<div class="container">
+    <div class="contenedorImagenes">
+      <button *ngFor="let especialidad of especialidades" (click)="mostrarEspecialidad(especialidad)">{{especialidad.nombre}}</button>
+    </div>
+    <div class="informacion">
+      <h1>Mis Horarios de {{miEspecialidad.nombre}}</h1>
+    </div>
+    <div >
+      <div class="contenedorImagenes">
+        <button *ngFor="let dia of diasDeLaSemana" 
+                (click)="seleccionarDia(dia)" 
+                [ngClass]="{'selected': esDiaSeleccionado(dia), 'inOtraEspecialidad': esDiaEnOtraEspecialidad(dia)}"
+                [disabled]="esDiaEnOtraEspecialidad(dia)">{{dia}}</button>
+      </div>
+      <div class="contenedorDuracion">
+        <label for="txtDuracionTurno">Duración del turno en minutos:</label>
+        <input type="number" id="txtDuracionTurno" placeholder="Ingrese la duración de cada turno" min="0" name="duracionCadaTurno" [(ngModel)]="duracionCadaTurno">
+        <button (click)="agregarDuracion()">Agregar Duración</button>
+      </div>
+<br>
+      <div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead>
+                    <tr>
+                        <td colspan="3" class="nombreJuego">
+                            Mis Horarios de la Semana
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Especialidad</td>
+                        <td>Días</td>
+                        <td>Duración del turno</td>                            
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of especialidades">
+                        <td>{{item.nombre}}</td> 
+                        <td>{{item.horarios.join(', ')}}</td>
+                        <td>{{item.duracionCadaTurno}} minutos</td>     
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  

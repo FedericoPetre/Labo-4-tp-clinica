@@ -10,8 +10,12 @@
                   <a class="nav-link" routerLink="registro" *ngIf="!flagEstaLogueado">Registrarse</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" routerLink="mi-perfil" *ngIf="flagEstaLogueado">Mi perfil</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" routerLink="seccion-usuarios" *ngIf="flagEsAdmin">Sección Usuarios</a>
-            </li>
+              </li>
+
 
           </ul>
       </div>

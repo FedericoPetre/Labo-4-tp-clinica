@@ -38,16 +38,8 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[0])"><img [src]="usuariosAccesoRapido[0].foto" alt="Foto del usuario"></div></td>
-                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[1])"><img [src]="usuariosAccesoRapido[1].foto" alt="Foto del usuario"></div></td>
-                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[2])"><img [src]="usuariosAccesoRapido[2].foto" alt="Foto del usuario"></div></td>
+                    <td *ngFor="let usuario of usuariosAccesoRapido"><app-botones-acceso-rapido [usuario]="usuario" (clickEvent)="escribirCorreoYClave($event)"></app-botones-acceso-rapido></td>
                   </tr>
-                  <!--
-                  <tr>
-                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[3])"><img [src]="usuariosAccesoRapido[3].foto" alt="Foto del usuario"></div></td>
-                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[4])"><img [src]="usuariosAccesoRapido[4].foto" alt="Foto del usuario"></div></td>
-                    <td><div class="carta" (click)="escribirCorreoYClave(usuariosAccesoRapido[5])"><img [src]="usuariosAccesoRapido[5].foto" alt="Foto del usuario"></div></td>
-                  </tr>-->
                 </tbody>
               </table>
 
