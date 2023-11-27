@@ -30,34 +30,36 @@ export class TurnosService {
   
     const fechasUnicas = new Set<string>(); // para evitar duplicados
   
-    const ultimoDiaDelMes = new Date(fechaInicio.getFullYear(), fechaInicio.getMonth() + 1, 0).getDate();
+    // Obtener la fecha actual para comparaciones
+    const fechaActual = new Date(fechaInicio.getTime());
   
-    for (let dia = 1; dia <= ultimoDiaDelMes; dia++) {
-      let fechaActual = new Date(fechaInicio.getTime()); // Copiar la fecha base
-  
+    // Iterar sobre las próximas 4 semanas
+    for (let semana = 0; semana < 4; semana++) {
       // Ajustar la fecha al día de la semana deseado
-      fechaActual.setDate(dia + numeroDiaDeLaSemana - fechaActual.getDay());
+      fechaActual.setDate(fechaActual.getDate() + numeroDiaDeLaSemana - fechaActual.getDay());
   
-      // Verificar si la fecha está dentro del mes actual y no ha pasado
-      if (
-        fechaActual.getMonth() === fechaInicio.getMonth() &&
-        fechaActual > fechaInicio &&
-        fechaActual.getDay() === numeroDiaDeLaSemana
-      ) {
-        while (fechaActual.getHours() < 19 && fechaActual.getMinutes() < 60) {
-          const diaActual = fechaActual.getDate();
-          const mesActual = fechaActual.getMonth() + 1;
-          const anioActual = fechaActual.getFullYear();
-          const horas = fechaActual.getHours();
-          const minutosActual = fechaActual.getMinutes();
-          const segundos = fechaActual.getSeconds();
+      // Iterar sobre los días de la semana
+      for (let dia = 0; dia < 7; dia++) {
+        // Verificar si la fecha está dentro del rango deseado y no ha pasado
+        if (fechaActual > fechaInicio) {
+          while (fechaActual.getHours() < 19 && fechaActual.getMinutes() < 60) {
+            const diaActual = fechaActual.getDate();
+            const mesActual = fechaActual.getMonth() + 1;
+            const anioActual = fechaActual.getFullYear();
+            const horas = fechaActual.getHours();
+            const minutosActual = fechaActual.getMinutes();
+            const segundos = fechaActual.getSeconds();
   
-          const formatoFecha = `${diaActual}/${mesActual}/${anioActual} ${this.agregarCero(horas)}:${this.agregarCero(minutosActual)}:${this.agregarCero(segundos)}`;
-          fechasUnicas.add(formatoFecha);
+            const formatoFecha = `${diaActual}/${mesActual}/${anioActual} ${this.agregarCero(horas)}:${this.agregarCero(minutosActual)}:${this.agregarCero(segundos)}`;
+            fechasUnicas.add(formatoFecha);
   
-          // Agregar el intervalo de minutos proporcionado
-          fechaActual.setMinutes(fechaActual.getMinutes() + minutos);
+            // Agregar el intervalo de minutos proporcionado
+            fechaActual.setMinutes(fechaActual.getMinutes() + minutos);
+          }
         }
+  
+        // Pasar al siguiente día
+        fechaActual.setDate(fechaActual.getDate() + 1);
       }
     }
   
@@ -66,27 +68,41 @@ export class TurnosService {
   
     return diasDelMes;
   }
+  
 
 
-  retornarCalendarizacionTurnos(minutos: number, numeroDiaDeLaSemana: number, especialidad : string, especialista : any){
+  retornarCalendarizacionTurnos(minutos: number, numeroDiaDeLaSemana: number){
     
     let dias = this.mostrarDiasDelMes(minutos, numeroDiaDeLaSemana);
-    
+    console.log(dias);
     let turnos : any[] = [];
 
     dias.forEach(dia=>{
       let obj = {
-        especialista: especialista.nombre + " "+especialista.apellido,
-        especialidad: especialidad,
         estaDisponible: 'true',
         paciente : '',
         estadoTurno:'disponible', //cuando el paciente lo pide, pasará a estado pendiente, y luego el especialista puede aceptar o rechazar el turno
         fecha:dia
       };
-      turnos.push(obj)
-    });
 
+      if(!turnos.includes(obj)){
+        turnos.push(obj)
+      }
+    });
     return turnos;
+  }
+
+  compararFechas = (obj1: Date, obj2: Date): number => {
+    const fechaA = new Date(obj1);
+    const fechaB = new Date(obj2);
+  
+    if (fechaA < fechaB) {
+      return -1;
+    } else if (fechaA > fechaB) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
   
   
@@ -99,26 +115,200 @@ export class TurnosService {
     let number = 0;
     switch(dia){
       case "Lunes":
-        number = 1;
+        number = 0;
         break;
       case "Martes":
-        number = 2;
+        number = 1;
         break;
       case "Miércoles":
-        number = 3;
+        number = 2;
         break;
       case "Jueves":
-        number = 4;
+        number = 3;
         break;
       case "Viernes":
-        number = 5;
+        number = 4;
         break;
       case "Sábado":
-        number = 6;
+        number = 5;
         break;
     }
     return number;
   }
+  
+
+  retornarDia(dia : number) : string {
+   let diasDeLaSemana: string[] = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+   return diasDeLaSemana[dia];
+  }
+
+  retornarDias(dias:number[]) : string[]{
+    let diasDeLaSemana : string[] = [];
+
+    dias.forEach((dia:number)=>{
+      diasDeLaSemana.push(this.retornarDia(dia));
+    })
+
+    return diasDeLaSemana;
+  }
+
+  retornarCantidadDias(mes:number){
+    let cantidadDias : number = -1;
+
+    switch(mes){
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        cantidadDias = 31;
+        break;
+      case 2:
+        cantidadDias = 28;
+        break;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        cantidadDias = 30;
+        break;
+    }
+
+    return cantidadDias;
+  }
+
+  /**
+   * 
+   * @param diaSemana 0:Lunes, 1:Martes, 2:Mie, 3:Jue, 4:Vie, 5:Sa, 6:Dom
+   * @param mes 
+   * @returns 
+   */
+  obtenerDiasDelMesPorDiaSemana(diaSemana: number, mes: number): number[] {
+    const diasDelMes: number[] = [];
+    let diasARetornar : number[] = [];
+    
+    // Crear una fecha para el primer día del mes
+    const primerDia = new Date();
+  
+    // Obtener el día de la semana del primer día del mes (0 para domingo, 1 para lunes, ..., 6 para sábado)
+    let diaActual = primerDia.getDay();
+    let mesActual = primerDia.getMonth();
+  
+    // Calcular la diferencia entre el día de la semana deseado y el primer día del mes
+    let diferencia = diaSemana - diaActual;
+    
+    // Ajustar la diferencia para asegurarse de que sea positiva
+    if (diferencia < 0) {
+      diferencia += 7;
+    }
+  
+    // Iniciar el bucle desde el primer día hasta el último día del mes
+    let cantidadDiasDelMes : number = this.retornarCantidadDias(mes);
+    for (let dia = 1; dia <= cantidadDiasDelMes; dia++) {
+      // Si el día coincide con el día de la semana deseado, agrégalo al array
+      if ((dia + diferencia - 1) % 7 === 0) {
+        diasDelMes.push(dia);
+      }
+    }
+
+    if(mesActual == mes-1){
+      let numeroDiaActual = primerDia.getDate();
+      diasDelMes.forEach((dia:number)=>{
+        if(dia >= numeroDiaActual){
+          diasARetornar.push(dia);
+        }
+      });
+    }
+    else if(mesActual < mes){
+      diasARetornar = diasDelMes;
+    }   
+  
+    return diasARetornar;
+  }
+
+  obtenerHorasConDiferencia(minutos: number) {
+    const horaInicio = new Date();
+    horaInicio.setHours(8, 0, 0, 0); // Establecer la hora a las 08:00:00
+  
+    const horaFin = new Date();
+    horaFin.setHours(19, 0, 0, 0); // Establecer la hora a las 19:00:00
+  
+    const horas = [];
+  
+    let horaActual = new Date(horaInicio.getTime());
+  
+    while (horaActual <= horaFin) {
+      horas.push(new Date(horaActual)); // Almacenar la fecha actual, no solo las horas
+  
+      // Agregar el intervalo de minutos proporcionado
+      horaActual.setMinutes(horaActual.getMinutes() + minutos);
+    }
+  
+    return horas;
+  }
+  
+  
+  obtenerFormatoHora(fecha: Date): Date {
+    const horas = fecha.getHours();
+    const minutos = fecha.getMinutes();
+    const segundos = fecha.getSeconds();
+  
+    const nuevaFecha = new Date(fecha);
+    nuevaFecha.setHours(horas, minutos, segundos);
+  
+    return nuevaFecha;
+  }
+  
+
+  devolverCalendarizacion(diaSemana: number, mes: number, minutos: number) {
+    let turnos: Date[] = [];
+    let diasDelMes: number[] = [];
+    let calendario: Date[] = [];
+  
+    let horariosTurnos: Date[] = this.obtenerHorasConDiferencia(minutos);
+    this.obtenerDiasDelMesPorDiaSemana(diaSemana, mes).forEach((dia: number) => {
+      horariosTurnos.forEach((horario: Date) => {
+        let horarioDate = new Date(2023, mes - 1, dia, horario.getHours(), horario.getMinutes(), horario.getSeconds());
+        if (!calendario.some(date => date.getTime() === horarioDate.getTime())) {
+          calendario.push(horarioDate);
+        }
+      });
+    });
+  
+    return calendario.sort(this.compararFechas);
+  }
+  
+
+  devolverCalendarizacionTodosLosDias(diasSemanas:any[], minutos:number){
+    let calendarioCompleto : any[] = [];
+    diasSemanas.forEach((dia:any)=>{
+      this.devolverCalendarizacion(dia,11,minutos).forEach((horario:any)=>{
+        if(!calendarioCompleto.includes(horario)){
+          calendarioCompleto.push(horario);
+        }
+      });
+      this.devolverCalendarizacion(dia,12,minutos).forEach((horario:any)=>{
+        if(!calendarioCompleto.includes(horario)){
+          calendarioCompleto.push(horario);
+        }
+      });
+    });
+    calendarioCompleto.sort(this.compararFechas);
+
+    let calendarioFormateado : any[] = [];
+
+    calendarioCompleto.forEach((horario:Date)=>{
+      let fechaFormateada : string = horario.getDate()+"/"+(horario.getMonth()+1)+"/"+horario.getFullYear()+" "+this.agregarCero(horario.getHours())+":"+this.agregarCero(horario.getMinutes())+":"+this.agregarCero(horario.getSeconds());
+      calendarioFormateado.push(fechaFormateada);
+    });
+
+    return calendarioFormateado;
+  }
+  
+  
   
   
   

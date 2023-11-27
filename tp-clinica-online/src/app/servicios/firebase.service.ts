@@ -22,8 +22,10 @@ export class FirebaseService {
   email : string = "";
   nombreUsuario : string = "";
   public tipoUsuario : string = "";
+  flagEsAdmin : boolean = false;
 
   public objUsuarioLogueado : any;
+
 
   constructor(private auth : AngularFireAuth, private store : AngularFirestore, private storage : Storage, private notificacion : NotificacionService, private router : Router) {}
 
@@ -46,14 +48,16 @@ export class FirebaseService {
     })
   }
 
-  salir(){
-    this.flagLogueado = false;
-    this.auth.signOut().then(()=>{
-      this.notificacion.mostrarInfo("Cerrar Sesión","Has cerrado tu sesión");
-    }).catch(error=>{
-      this.notificacion.mostrarError("Error","Error al cerrar sesión");
-    });
-    this.router.navigateByUrl('login');
+  salir(salir:boolean){
+    if(salir){
+      this.flagLogueado=false;
+      this.auth.signOut().then(()=>{
+        this.notificacion.mostrarInfo("Cerrar Sesión","Has cerrado tu sesión");
+      }).catch(error=>{
+        this.notificacion.mostrarError("Error","Error al cerrar sesión");
+      });
+      this.router.navigateByUrl('login');
+    }
   }
 
   async registrarPaciente(paciente:Paciente,  imagenes : any[]){
@@ -93,6 +97,7 @@ export class FirebaseService {
       });
 
       this.notificacion.mostrarExito("Registro exitoso","El paciente ha sido registrado en el sistema");
+      this.salir(false);
     
     }).catch((error:any)=>{
       this.notificacion.mostrarError("Error de registro",error);
@@ -131,7 +136,7 @@ export class FirebaseService {
       });
 
       this.notificacion.mostrarExito("Registro exitoso","El Admin ha sido registrado en el sistema");
-    
+      this.salir(false);
     }).catch((error:any)=>{
       this.notificacion.mostrarError("Registro fallido",error);
     });
@@ -171,7 +176,7 @@ export class FirebaseService {
       });
 
       this.notificacion.mostrarExito("Registro exitoso","El especialista ha sido registrado en el sistema");
-    
+      this.salir(false);
     }).catch((error:any)=>{
       this.notificacion.mostrarError("Registro fallido",error);
     });
@@ -252,7 +257,7 @@ export class FirebaseService {
     }
   }
 
-  guardarTurnosDelDia(turnos : any[]){
+  guardarTodosLosTurnos(turnos : any[]){
     turnos.forEach((turnoItem : any)=>{
       const uId = this.store.createId();
       const documentoTurno = this.store.doc("Turnos/"+uId);
@@ -265,14 +270,100 @@ export class FirebaseService {
         paciente:''
       });
     })
-  }
-
-  guardarTodosLosTurnos(turnosArrayAnidado : any[]){
-    turnosArrayAnidado.forEach((turnoItem:any)=>{
-      this.guardarTurnosDelDia(turnoItem);
-    });
-
     this.notificacion.mostrarExito("Turnos","Horarios guardados exitosamente");
   }
+
+  guardarTurnoParaElPaciente(nombreYApellidoPaciente: string, mailPaciente: string, nombreYApellidoEspecialista: string, especialidad: string, diaTurno : string){
+    const uId = this.store.createId();
+    const documentoTurno = this.store.doc("Turnos/"+uId);
+    documentoTurno.set({
+      paciente:nombreYApellidoPaciente,
+      mailPaciente:mailPaciente,
+      nombreEspecialista:nombreYApellidoEspecialista,
+      especialidad:especialidad, 
+      diaTurno:diaTurno,
+      estadoTurno:'pendiente'
+    });
+   this.notificacion.mostrarExito("Turnos",`Has solicitado turno para ${nombreYApellidoPaciente} en ${especialidad} el día ${diaTurno}hs`);
+  }
+
+  traerTurnosOcupados(nombreEspecialista:string, especialidad:string){
+    return this.store.collection("Turnos",ref=>ref.where("nombreEspecialista","==",nombreEspecialista).where("especialidad","==",especialidad)).valueChanges();
+  }
+
+
+traerHorariosEspecialista(especialista:string){
+  return this.store.collection("HorariosEspecialistas", ref=> ref.where("especialista", "==", especialista)).valueChanges();
+}
+
+traerTodosLosHorariosEspecialistas(){
+  return this.store.collection("HorariosEspecialistas").valueChanges();
+}
+
+
+  async guardarHorariosEspecialista(horarios: any[]) {
+    try {
+        // Iterar sobre cada horario
+        for (const horario of horarios) {
+            const uIdHorario = this.store.createId();
+            const documentoHorario = this.store.doc("HorariosEspecialistas/" + uIdHorario);
+
+            // Crear un objeto con los datos del horario
+            await documentoHorario.set ({
+                dias: horario.dias,
+                duracionTurno: horario.duracionTurno,
+                especialidad: horario.especialidad,
+                especialista: horario.especialista
+            });
+        }
+
+        this.notificacion.mostrarExito("Horarios", "Horarios guardados exitosamente");
+    } catch (error) {
+        console.error('Error al intentar guardar los horarios:', error);
+        // Puedes manejar el error de una manera específica o lanzar una excepción.
+    }
+}
+
+
+async modificarHorariosEspecialista(especialidad: string, especialista: string, nuevosDias: string[], nuevaDuracionTurno: number) {
+  const snapshot = await this.store.collection("HorariosEspecialistas", ref=> ref.where("especialidad", "==", especialidad).where("especialista", "==", especialista).limit(1));
+  
+  return snapshot.get().toPromise()
+  .then(async (querySnapshot: any) => {
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+     
+      const docRef = this.store.collection("HorariosEspecialistas").doc(docId);
+
+      // Modificar el documento con los nuevos datos
+      await docRef.update({
+          "dias": nuevosDias,
+          "duracionTurno": nuevaDuracionTurno
+          // Puedes agregar más campos que desees modificar
+      });
+
+      return "Se han modificado tus horarios exitosamente";
+
+    } else {
+            // Si no existen documentos, crear uno nuevo
+            const uIdHorario = this.store.createId();
+            const documentoHorario = this.store.doc("HorariosEspecialistas/" + uIdHorario);
+
+            // Establecer los datos en el nuevo documento
+            await documentoHorario.set({
+              dias: nuevosDias,
+              duracionTurno: nuevaDuracionTurno,
+              especialidad: especialidad,
+              especialista: especialista
+            });
+
+           return "Se han guardado tus horarios exitosamente";
+    }
+  })
+  .catch((error) => {
+    console.error('Error al modificar el documento:', error);
+    return "Error al guardar tus nuevos horarios";
+  });
+}
 
 }

@@ -13,6 +13,7 @@ export class NavbarComponent {
   nombre : string = "";
   flagEstaLogueado : boolean = false;
   flagEsAdmin : boolean = false;
+  flagEsPaciente : boolean = false;
 
   ngOnInit(){
     this.obser$ = this.firebase.retornarUsuarioRegistrados().subscribe((datos)=>{
@@ -23,8 +24,14 @@ export class NavbarComponent {
       this.nombre = this.firebase.nombreUsuario;
       if(this.firebase.tipoUsuario == "admin"){
         this.flagEsAdmin = true;
+        this.firebase.flagEsAdmin = true;
+        this.flagEsPaciente = false;
       }else{
+        if(this.firebase.tipoUsuario == "paciente"){
+          this.flagEsPaciente = true;
+        }
         this.flagEsAdmin = false;
+        this.firebase.flagEsAdmin = false;
       }
     });
   }
@@ -51,7 +58,7 @@ export class NavbarComponent {
       let objPersona = {
         tipoUsuario: arrayAux[i].tipoUsuario,
         flagEstaHabilitado: 'si',
-        nombre:arrayAux[i].nombre,
+        nombre:arrayAux[i].nombre + " "+arrayAux[i].apellido,
         email:arrayAux[i].email
       };
   
@@ -78,7 +85,7 @@ export class NavbarComponent {
 
   async salir() {
     setTimeout(()=>{},1000);
-    await this.firebase.salir();
+    await this.firebase.salir(true);
     this.flagEstaLogueado = this.firebase.flagLogueado;
     this.flagEsAdmin = false;
     this.firebase.tipoUsuario = "";

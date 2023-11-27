@@ -1,0 +1,28 @@
+<div class="contenedorMayor">
+    <div class="contenedorMedio">
+      <div class="arriba">
+        <div class="izquierda">
+          <!-- Contenido del lado izquierdo -->
+          <h1>Especialistas</h1>
+          <button class="boton" *ngFor="let item of especialistas" (click)="cargarEspecialidadesEspecialista(item)">{{item}}</button>
+        </div>
+        <div class="derecha">
+          <h1>Especialidad</h1>
+          <!-- Contenido del lado derecho -->
+          <button class="boton" *ngFor="let item of especialidades" (click)="mostrarTurnosDisponibles(item)">{{item}}</button>
+        </div>
+      </div>
+      <div class="abajo">
+          <div class="turnos">
+            <div class="tituloTurnos">
+                <h2 class="tituloTurnos2">Turnos Disponibles</h2>
+            </div>
+            <br>
+            <div class="botonesTurnos">
+                <button class="boton2" *ngFor="let dia of horariosDisponiblesDeEseEspecialistaConEsaEspecialidad; index as i" (click)="solicitarTurno(dia, i)">{{dia}}</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

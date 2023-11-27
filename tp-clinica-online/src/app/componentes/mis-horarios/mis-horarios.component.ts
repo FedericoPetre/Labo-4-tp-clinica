@@ -21,13 +21,24 @@ export class MisHorariosComponent {
 
   diasDeLaSemana: string[] = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
   duracionCadaTurno: number = 0;
+  obser$ :any;
+  flagModifico : boolean = false;
   
-  constructor(private toast : NotificacionService, private firebase : FirebaseService, private turnos: TurnosService){
-
+  constructor(private toast : NotificacionService, private firebase : FirebaseService, private turnos: TurnosService, private notificacion : NotificacionService){
+    
+  }
+  
+  ngAfterViewInit(){
+    const especialistaIngresado1 = this.firebase.objUsuarioLogueado;
+    this.obser$ = this.firebase.traerHorariosEspecialista(especialistaIngresado1.nombre + " "+especialistaIngresado1.apellido).subscribe(datos=>{
+      this.cargarDias(datos);
+    })
   }
 
-  ngOnInit(){
-    this.mostrarEspecialidad(this.especialidades[0]);
+  ngOnDestroy(){
+    if(this.obser$){
+      this.obser$.unsubscribe();
+    }
   }
 
   mostrarEspecialidad(especialidad: any) {
@@ -71,25 +82,79 @@ export class MisHorariosComponent {
   guardarHorarios(){
     const especialistaIngresado = this.firebase.objUsuarioLogueado;
 
-    let agendaTurnos : any[] = [];
+    let horariosAGuardar : any[] = [];
 
     this.especialidades.forEach(especialidadItem=>{
+      let dias : any[] = [];
       
       especialidadItem.horarios.forEach((element : string) => {
         let dia = this.turnos.retornarValorDia(element);
-        let turnosAgenda = this.turnos.retornarCalendarizacionTurnos(this.duracionCadaTurno, dia, especialidadItem.nombre, especialistaIngresado);
-        agendaTurnos.push(turnosAgenda);
+        dias.push(dia);
+        
       });
+
+      let horarios : any = {
+        dias:dias,
+        duracionTurno:this.duracionCadaTurno,
+        especialidad: especialidadItem.nombre,
+        especialista: especialistaIngresado.nombre + " "+especialistaIngresado.apellido,
+      };
+
+      horariosAGuardar.push(horarios);
+     
     })
 
-    this.firebase.guardarTodosLosTurnos(agendaTurnos);
+    for(let i=0; i<horariosAGuardar.length; i++){
+      let horarioI = horariosAGuardar[i];
+      this.firebase.modificarHorariosEspecialista(horarioI.especialidad, horarioI.especialista, horarioI.dias, horarioI.duracionTurno).then((respuesta:string)=>{
+        if(i==horariosAGuardar.length-1){
+          if(respuesta != "Error al guardar tus nuevos horarios"){
+            this.notificacion.mostrarExito("Horarios", respuesta);
+          }
+          else{
+            this.notificacion.mostrarError("Horarios", respuesta);
+          }
 
-    //acá hay que guardar el especialista (nombre o dni), las especialidades, y los turnos
-    //Quedaría Especialista, especialidad, horarios
+        }
+      });
+    }
 
-    /*
+  }
 
-    */
+cargarDias(arrayDatos: any[]) {
+  if (arrayDatos.length > 0) {
+    arrayDatos.forEach((especialidad: any) => {
+      const especialidadItem = this.encontrarEspecialidad(especialidad.especialidad);
+      if (especialidadItem) {
+        this.mostrarEspecialidad(especialidadItem);
+
+        // Limpiar días en la especialidad actual
+        this.miEspecialidad.horarios = [];
+
+        // Seleccionar días del array de la especialidad
+        this.turnos.retornarDias(especialidad.dias).forEach((dia:string)=>{
+          this.seleccionarDia(dia);
+
+        });    
+
+        this.duracionCadaTurno = especialidad.duracionTurno;
+        this.agregarDuracion();
+      }
+    });
+  }
+}
+
+
+  encontrarEspecialidad(nombreEspecialidad:string){
+    let especialidadObj : any;
+
+    this.especialidades.forEach((especialidad:any)=>{
+      if(especialidad.nombre == nombreEspecialidad){
+        especialidadObj = especialidad;
+      }
+    })
+
+    return especialidadObj;
   }
 
 }

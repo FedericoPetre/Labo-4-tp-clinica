@@ -51,11 +51,11 @@ export class AltaEspecialistaComponent {
   }
 
   ngOnDestroy() {
-    if (this.obser$) 
-    {
+    if (this.obser$) {
       this.obser$.unsubscribe();
     }
   }
+  
 
 
   constructor(private firebase : FirebaseService, private formBuilder : FormBuilder){
@@ -95,17 +95,38 @@ export class AltaEspecialistaComponent {
   }
 
   cargarEspecialidad(especialidad : string){
-    this.form.get('especialidad')?.setValue(especialidad);
+    let especialidades: string = this.Especialidad;
+    let nuevaEspecialidad = "";
+
+    if(!especialidades.includes(especialidad)){
+      if(especialidades.length == 0){
+        nuevaEspecialidad = especialidad+",";
+      }
+      else{
+        if(especialidades.lastIndexOf(',') != especialidades.length -1){
+          nuevaEspecialidad = especialidades+','+especialidad+',';
+        }else{
+          nuevaEspecialidad = especialidades +especialidad+",";
+        }
+      }
+
+      this.form.get('especialidad')?.setValue(nuevaEspecialidad);
+    }
   }
 
   cargarEspecialistas(arrayEspecialistas: any[]){
-    let arrayEspecialistasAux : any = [];
+    let arrayEspecialistasAux : string[] = [];
     
     for(let i=0; i<arrayEspecialistas.length;i++){
       if(!this.determinarSiLaEspecialidadEsta(arrayEspecialistasAux, arrayEspecialistas[i].especialidad)){
-        arrayEspecialistasAux.push(
-          {especialidad:arrayEspecialistas[i].especialidad}
-        );
+        let especialidadesDelDoctor : string[] = arrayEspecialistas[i].especialidad.split(',');
+
+        especialidadesDelDoctor.forEach((especialidad:string)=>{
+          if(!arrayEspecialistasAux.includes(especialidad) && especialidad != ""){
+            arrayEspecialistasAux.push(especialidad);
+
+          }
+        });
       }
     }
 

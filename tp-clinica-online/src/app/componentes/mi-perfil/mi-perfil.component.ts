@@ -57,9 +57,11 @@ export class MiPerfilComponent {
       this.firebase.objUsuarioLogueado = datos[0];
       let especialidadesArray : string[] = this.especialistaIngresado.especialidad.split(',');
       especialidadesArray.forEach((especialidad:string)=>{
-        let objEspecialidad = { nombre: especialidad, horarios: [], duracionCadaTurno:0 };
+        if(especialidad != ""){
+          let objEspecialidad = { nombre: especialidad, horarios: [], duracionCadaTurno:0 };
 
-        this.especialidades.push(objEspecialidad);
+          this.especialidades.push(objEspecialidad);
+        }
       });
     });
   }

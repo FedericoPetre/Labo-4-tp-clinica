@@ -29,6 +29,7 @@ import { BotonesAccesoRapidoComponent } from './componentes/botones-acceso-rapid
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 import { CartaMiPerfilComponent } from './componentes/carta-mi-perfil/carta-mi-perfil.component';
 import { MisHorariosComponent } from './componentes/mis-horarios/mis-horarios.component';
+import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { MisHorariosComponent } from './componentes/mis-horarios/mis-horarios.co
     BotonesAccesoRapidoComponent,
     MiPerfilComponent,
     CartaMiPerfilComponent,
-    MisHorariosComponent
+    MisHorariosComponent,
+    SolicitarTurnoComponent
   ],
   imports: [
     BrowserModule,

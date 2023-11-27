@@ -15,6 +15,13 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="seccion-usuarios" *ngIf="flagEsAdmin">Sección Usuarios</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="turnos/solicitar-turno" *ngIf="flagEsAdmin">Solicitar Turno</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="turnos/solicitar-turno" *ngIf="flagEsPaciente">Solicitar Turno</a>
+              </li>
 
 
           </ul>

@@ -62,7 +62,7 @@
                       <label class="form-label">Especialidad</label>
                       <input class="especialidadClass" type="text" class="form-control" placeholder="Seleccione especialidad (escribala aquí si no se encuentra)" formControlName="especialidad">
                       <!--Acá van los botones de las especialidades ya existentes para cargar los datos--> 
-                      <button class="boton" *ngFor="let boton of botonesEspecialidad" (click)="cargarEspecialidad(boton.especialidad)">{{boton.especialidad}}</button>
+                      <button class="boton" *ngFor="let boton of botonesEspecialidad" (click)="cargarEspecialidad(boton)">{{boton}}</button>
                         
                         <!--Errores de especialidad-->
                         <div *ngIf="form.controls['especialidad'].errors != null">

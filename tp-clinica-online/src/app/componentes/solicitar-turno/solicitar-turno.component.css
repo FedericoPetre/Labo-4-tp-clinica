@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Sora&display=swap');
+.contenedorMayor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 93vh;
+    width: 100%;
+    background-size: 100% 100%;
+    background-image: url("../../../assets/img/pasillo-hospital.jpg");
+    background-repeat: no-repeat;
+}
+
+.columna{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    text-align: left;
+}
+
+.row{
+    width: 80vw;
+}
+
+.contenedorMedio {
+    width: 85vw;
+    height: 80vh;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column; /* Cambiado a column */
+  }
+  
+  .arriba {
+    display: flex;
+    flex-direction: row; /* Cambiado a row */
+    width: 100%;
+  }
+  
+  .abajo {
+    display: flex;
+    flex-direction: row; /* Cambiado a row */
+    width: 100%;
+  }
+  
+  .izquierda {
+    width: 50%;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    height: 30vh;
+    overflow-y: auto; /* Cambiado a auto */
+}
+
+.derecha {
+    width: 50%;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    height: 30vh;
+    overflow-y: auto; /* Cambiado a auto */
+}
+
+.turnos {
+    width: 100%;
+    height: 50vh;
+}
+
+.tituloTurnos {
+    width: 100%;
+    height: 2vh;
+    text-align: center;
+}
+
+.botonesTurnos{
+    max-height: 80%; 
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    overflow-y: auto; /* Cambiado a auto */
+    object-fit: contain;
+}
+
+.row1 {
+    width: 100%;
+    height: 4%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierda, .derecha, .abajo {
+    border-radius: 30px;
+    background-size: 100% 100%;
+    margin: 10px 10px 10px 10px;
+    background-image: url("../../../assets/img/fondo-solicitar-turno.png");
+    background-repeat: no-repeat;
+}
+
+
+img {
+    height: 16vh;
+    width: auto;
+    object-fit: cover;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.img {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    text-align: center;
+    width: 60%;
+    border-radius: 20px;
+    background-color: darkblue;   
+}
+
+.controlFormulario{
+    width: 100%;
+}
+
+.boton {
+    width: 80%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Ajusta según sea necesario */
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px white;
+    display: block;
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-bottom: 10px;
+}
+
+.boton2{
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Ajusta según sea necesario */
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px white;
+    display: block;
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-bottom: 10px;
+}
+
+.boton2:hover {
+    background-color: #001f3f;
+  }
+
+  .boton:hover {
+    background-color: #001f3f;
+  }
+
+h2, label {
+    color:white;
+}
+
+label {
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+}
+
+input {
+    font-family: 'Nunito', sans-serif;
+    font-size:medium; 
+}
+
+h2{
+    font-family: 'Sora', sans-serif;
+    margin-top: 2vh;
+}
+
+.tituloTurnos2{
+    font-family: 'Nunito', sans-serif;
+    color:black;
+}
+
+h1{
+    font-family: 'Nunito', sans-serif;
+}
