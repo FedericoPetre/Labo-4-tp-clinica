@@ -84,6 +84,7 @@ export class FirebaseService {
         dni:paciente.dni,
         obraSocial:paciente.obraSocial,
         imagenes:urlImagenes,
+        email:paciente.email
       });
 
       const documentoUserPaciente = this.store.doc("Usuarios/"+uId);
@@ -123,6 +124,7 @@ export class FirebaseService {
         edad:admin.edad,
         dni:admin.dni,
         imagen:urlImagenes,
+        email:admin.email
       });
 
       const documentoUserAdmin = this.store.doc("Usuarios/"+uId1);
@@ -373,5 +375,151 @@ async modificarHorariosEspecialista(especialidad: string, especialista: string, 
 traerTurnosDelPaciente(mailPaciente:string){
   return this.store.collection("Turnos",ref=>ref.where("mailPaciente","==",mailPaciente)).valueChanges();
 }
+
+traerTurnosDelEspecialista(nombreEspecialista:string){
+  return this.store.collection("Turnos",ref=>ref.where("nombreEspecialista","==",nombreEspecialista)).valueChanges();
+}
+
+async cancelarTurnoPaciente(especialidad: string, especialista: string, paciente:string, comentarioCancelacion:string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+  
+  return snapshot.get().toPromise()
+  .then(async (querySnapshot: any) => {
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+     
+      const docRef = this.store.collection("Turnos").doc(docId);
+
+      // Modificar el documento con los nuevos datos
+      await docRef.update({
+          "comentarioCancelacion": comentarioCancelacion,
+          "estadoTurno": "cancelado"
+          // Puedes agregar más campos que desees modificar
+      });
+
+      return "Se han cancelado el turno";
+
+    } 
+    return "No se ha encontrado ningún turno con esas características";
+  })
+  .catch((error) => {
+    console.error('Error al modificar el documento:', error);
+    return "Error al cancelar el turno";
+  });
+}
+
+async rechazarTurnoPaciente(especialidad: string, especialista: string, paciente:string, comentarioCancelacion:string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+  
+  return snapshot.get().toPromise()
+  .then(async (querySnapshot: any) => {
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+     
+      const docRef = this.store.collection("Turnos").doc(docId);
+
+      // Modificar el documento con los nuevos datos
+      await docRef.update({
+          "comentarioCancelacion": comentarioCancelacion,
+          "estadoTurno": "rechazado"
+          // Puedes agregar más campos que desees modificar
+      });
+
+      return "Se ha rechazado el turno";
+
+    } 
+    return "No se ha encontrado ningún turno con esas características";
+  })
+  .catch((error) => {
+    console.error('Error al modificar el documento:', error);
+    return "Error al rechazar el turno";
+  });
+}
+
+async aceptarTurnoPaciente(especialidad: string, especialista: string, paciente:string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+  
+  return snapshot.get().toPromise()
+  .then(async (querySnapshot: any) => {
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+     
+      const docRef = this.store.collection("Turnos").doc(docId);
+
+      // Modificar el documento con los nuevos datos
+      await docRef.update({
+          "estadoTurno": "aceptado"
+          // Puedes agregar más campos que desees modificar
+      });
+
+      return "Se ha aceptado el turno";
+
+    } 
+    return "No se ha encontrado ningún turno con esas características";
+  })
+  .catch((error) => {
+    console.error('Error al modificar el documento:', error);
+    return "Error al aceptar el turno";
+  });
+}
+
+async finalizarTurnoPaciente(especialidad: string, especialista: string, paciente:string, resenia : string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+  
+  return snapshot.get().toPromise()
+  .then(async (querySnapshot: any) => {
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+     
+      const docRef = this.store.collection("Turnos").doc(docId);
+
+      // Modificar el documento con los nuevos datos
+      await docRef.update({
+          "estadoTurno": "finalizado",
+          "fueRealizado":"true",
+          "resenia":resenia
+          // Puedes agregar más campos que desees modificar
+      });
+
+      return "Se ha finalizado el turno";
+
+    } 
+    return "No se ha encontrado ningún turno con esas características";
+  })
+  .catch((error) => {
+    console.error('Error al modificar el documento:', error);
+    return "Error al finalizar el turno";
+  });
+}
+
+
+async agregarCalificacionServicio(especialidad: string, especialista: string, paciente:string, resenia : string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+  
+  return snapshot.get().toPromise()
+  .then(async (querySnapshot: any) => {
+    if (!querySnapshot.empty) {
+      const docId = querySnapshot.docs[0].id;
+     
+      const docRef = this.store.collection("Turnos").doc(docId);
+
+      // Modificar el documento con los nuevos datos
+      await docRef.update({
+          "calificacionAtencion":resenia
+          // Puedes agregar más campos que desees modificar
+      });
+
+      return "Se ha calificado el turno";
+
+    } 
+    return "No se ha encontrado ningún turno con esas características";
+  })
+  .catch((error) => {
+    console.error('Error al modificar el documento:', error);
+    return "Error al calificar el turno";
+  });
+}
+
+
 
 }

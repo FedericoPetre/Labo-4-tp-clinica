@@ -13,9 +13,11 @@ export class SolicitarTurnoComponent {
 
   public horariosDisponiblesEspecialistas : any[] = [];
   obser$ : any;
+  obserEspecialistas$:any;
 
   public especialistas : any[] = [];
   public especialidades: any[] = [];
+  public especialistasConFoto :any[] = [];
 
   public horariosDisponiblesDeEseEspecialistaConEsaEspecialidad : any[] = [];
   public especialistaElegido : string = "";
@@ -23,15 +25,24 @@ export class SolicitarTurnoComponent {
   obserTurnos$ : any;
 
   ngOnInit(){
+    this.obserEspecialistas$ = this.firebase.traerEspecialistasRegistrados().subscribe(datos=>{
+      this.cargarEspecialistas(datos);
+    });
+
     this.obser$ = this.firebase.traerTodosLosHorariosEspecialistas().subscribe(datos=>{
       this.cargarTurnos(datos);
-    })
+    });
+
 
   }
 
   ngOnDestroy(){
     if(this.obser$){
       this.obser$.unsubscribe();
+    }
+
+    if(this.obserEspecialistas$){
+      this.obserEspecialistas$.unsubscribe();
     }
 
   }
@@ -49,19 +60,42 @@ export class SolicitarTurnoComponent {
     this.especialidades = especialidades;
   }
 
+  cargarEspecialistas(arrayDatos : any[]){
+    let especialistas : any[] = [];
+
+    if(arrayDatos.length > 0){
+      arrayDatos.forEach((dato:any)=>{
+        let objDato = {
+          nombre: dato.nombre + " "+dato.apellido,
+          foto : dato.imagen[0],
+        };
+
+        if(!especialistas.includes(objDato)){
+          especialistas.push(objDato);
+        }
+      });
+    }
+
+    this.especialistasConFoto = especialistas;    
+  }
+
   cargarTurnos(arrayDatos : any[]){
 
     let turnos : any[] = [];
     let horarios : any[] = [];
-    let especialistasNombre : string[] = [];
+    let especialistasNombre : any[] = [];
     let especialidades : string[] = [];
 
     if(arrayDatos.length > 0){
 
       arrayDatos.forEach((dato:any)=>{
+        let objEspecialista = {
+          nombre: dato.especialista,
+          foto: this.traerFotoDelEspecialista(dato.especialista, this.especialistasConFoto),
+        };
 
-        if(!especialistasNombre.includes(dato.especialista)){
-          especialistasNombre.push(dato.especialista)
+        if (!especialistasNombre.some(especialista => especialista.nombre === objEspecialista.nombre)) {
+          especialistasNombre.push(objEspecialista);
         }
 
         if(!especialidades.includes(dato.especialidad)){
@@ -86,6 +120,16 @@ export class SolicitarTurnoComponent {
     this.especialistas = especialistasNombre;
     this.horariosDisponiblesEspecialistas = turnos;
 
+  }
+  
+  traerFotoDelEspecialista(nombreEspecialista : string, arrayEspecialistas : any[]){
+    let fotoEspecialista : string = "";
+    arrayEspecialistas.forEach((especialista:any)=>{
+      if(especialista.nombre == nombreEspecialista){
+        fotoEspecialista = especialista.foto;
+      }
+    });
+    return fotoEspecialista;
   }
 
   mostrarTurnosDisponibles(itemEspecialidad:any){

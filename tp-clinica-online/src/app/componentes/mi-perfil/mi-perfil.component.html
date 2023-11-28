@@ -13,8 +13,12 @@
             -->
         </div>
 
-        <div class="col-12" *ngIf="usuarioIngresado.tipoUsuario !== 'especialista'">
-            <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.fotos">   </app-carta-mi-perfil>
+        <div class="col-12" *ngIf="flagEsPaciente">
+            <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.imagenes" [edad]="usuarioIngresado.edad" [dni]="usuarioIngresado.dni" [obraSocial]="usuarioIngresado.obraSocial">   </app-carta-mi-perfil>
+        </div>
+
+        <div class="col-12" *ngIf="flagEsAdmin">
+            <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.imagen" [edad]="usuarioIngresado.edad" [dni]="usuarioIngresado.dni"> </app-carta-mi-perfil>
         </div>
 
     </div>

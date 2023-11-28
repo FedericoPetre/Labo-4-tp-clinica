@@ -125,20 +125,43 @@ img {
 .controlFormulario{
     width: 100%;
 }
-
 .boton {
     width: 80%;
     height: auto;
     margin-top: 10px;
-    margin-bottom: 10px; /* Ajusta según sea necesario */
+    margin-bottom: 10px;
     background-color: darkblue;
     color: white;
     border-radius: 5px;
     box-shadow: 2px 2px 2px 2px white;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea en el centro verticalmente */
+    justify-content: center; /* Alinea en el centro horizontalmente */
     margin: 0 auto; /* Centrar horizontalmente */
-    margin-bottom: 10px;
-}
+  }
+  
+  .contenidoBoton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nombreEspecialista {
+    margin-bottom: 5px; /* Agrega espacio entre el nombre y la imagen */
+  }
+  
+  .boton img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+  }
+  
+  .boton:hover {
+    background-color: #001f3f;
+  }
+  
+  
 
 .boton2{
     width: auto;

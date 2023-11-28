@@ -1,30 +1,34 @@
 <div class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
-    <div class="text-center">
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover table-dark align-middle">
-          <thead>
-            <tr>
-              <td>Especialidad</td>
-              <td>Especialista</td>
-              <td>Fecha y hora</td>
-              <td>Estado del Turno</td>
-              <td colspan="4">Acciones</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let turno of misTurnosPaciente">
-              <td>{{turno.especialidad}}</td>
-              <td>{{turno.especialista}}</td>
-              <td>{{turno.diaDelTurno}}hs</td>
-              <td>{{turno.estado}}</td>
-              <td *ngIf="turno.fueRealizado == 'false'"><button>Cancelar Turno</button></td>
-              <td *ngIf="turno.fueRealizado != 'false' && turno.resenia != '' "><button>Completar Encuesta</button></td>
-              <td *ngIf="turno.fueRealizado != 'false' && turno.resenia != '' "><button>Ver Reseña</button></td>
-              <td *ngIf="turno.fueRealizado != 'false'"><button>Calificar Atención</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="text-center">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-dark align-middle">
+        <thead>
+          <tr>
+            <td>Especialidad</td>
+            <td>Especialista</td>
+            <td>Fecha y hora</td>
+            <td>Estado del Turno</td>
+            <td colspan="4">Acciones</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let turno of misTurnosPaciente">
+            <td class="table-dark">{{ turno.especialidad }}</td>
+            <td class="table-dark">{{ turno.especialista }}</td>
+            <td class="table-dark">{{ turno.diaDelTurno }}hs</td>
+            <td class="table-dark">{{ turno.estado }}</td>
+            <td class="table-dark" colspan="4">
+              <div class="d-flex flex-column">
+                <button *ngIf="turno.estado == 'completado' && turno.resenia != ''" class="btn btn-primary mb-1">Completar Encuesta</button>
+                <button *ngIf="turno.resenia != ''" class="btn btn-info mb-1" (click)="verResenia(turno.resenia)">Ver Reseña</button>
+                <button *ngIf="turno.estado == 'finalizado' && turno.calificacionAtencion == ''" class="btn btn-success mb-1" (click)="calificarTurno(turno)">Calificar Atención</button>
+                <button *ngIf="turno.fueRealizado == 'false' && turno.estado == 'aceptado'" class="btn btn-danger mb-1" (click)="cancelarTurno(turno)">Cancelar Turno</button>
+                <button *ngIf="turno.comentarioCancelacion != ''" class="btn btn-info mb-1" (click)="verResenia(turno.comentarioCancelacion)">Ver Comentario</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+</div>

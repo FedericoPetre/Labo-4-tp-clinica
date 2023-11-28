@@ -4,7 +4,14 @@
         <div class="izquierda">
           <!-- Contenido del lado izquierdo -->
           <h1>Especialistas</h1>
-          <button class="boton" *ngFor="let item of especialistas" (click)="cargarEspecialidadesEspecialista(item)">{{item}}</button>
+          <button class="boton" *ngFor="let item of especialistas" (click)="cargarEspecialidadesEspecialista(item.nombre)">
+            <div class="contenidoBoton">
+              <span class="nombreEspecialista">{{item.nombre}}</span>
+              <img [src]="item.foto" alt="Imagen del especialista">
+            </div>
+          </button>
+          
+          
         </div>
         <div class="derecha">
           <h1>Especialidad</h1>

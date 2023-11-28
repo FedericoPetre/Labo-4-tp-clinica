@@ -33,6 +33,7 @@ import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar
 import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { FiltroUnicoComponent } from './componentes/filtro-unico/filtro-unico.component';
 import { TablaTurnosPacienteComponent } from './componentes/tabla-turnos-paciente/tabla-turnos-paciente.component';
+import { TablaTurnosEspecialistaComponent } from './componentes/tabla-turnos-especialista/tabla-turnos-especialista.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TablaTurnosPacienteComponent } from './componentes/tabla-turnos-pacient
     SolicitarTurnoComponent,
     MisTurnosComponent,
     FiltroUnicoComponent,
-    TablaTurnosPacienteComponent
+    TablaTurnosPacienteComponent,
+    TablaTurnosEspecialistaComponent,
   ],
   imports: [
     BrowserModule,

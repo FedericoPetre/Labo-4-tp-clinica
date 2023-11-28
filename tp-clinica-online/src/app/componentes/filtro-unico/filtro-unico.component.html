@@ -4,12 +4,21 @@
         <input type="text" placeholder="Ingrese especialidad o especialista" [(ngModel)]="especialidadOEspecialista" (ngModelChange)="buscarTurnosConEseFiltro()">
     </div>
 
-    <div class="filtroEspecialista">
+    <div *ngIf="tipoUsuario == 'paciente'" class="filtroEspecialista">
         <div>
-            <h1>Filtrar por especialista</h1>
+            <h1>Filtrar por Especialista</h1>
         </div>
         <div class="especialistas">
             <button class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
+        </div>
+    </div>
+
+    <div *ngIf="tipoUsuario == 'especialista'" class="filtroEspecialista">
+        <div>
+            <h1>Filtrar por Paciente</h1>
+        </div>
+        <div class="especialistas">
+            <button class="boton" *ngFor="let paciente of pacientes" (click)="filtrar(paciente)">{{paciente}}</button>
         </div>
     </div>
 

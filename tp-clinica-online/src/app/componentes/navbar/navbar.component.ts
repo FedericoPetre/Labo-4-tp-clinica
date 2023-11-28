@@ -14,6 +14,7 @@ export class NavbarComponent {
   flagEstaLogueado : boolean = false;
   flagEsAdmin : boolean = false;
   flagEsPaciente : boolean = false;
+  tipoUsuario : string = "";
 
   ngOnInit(){
     this.obser$ = this.firebase.retornarUsuarioRegistrados().subscribe((datos)=>{
@@ -22,6 +23,7 @@ export class NavbarComponent {
       this.flagEstaLogueado = this.firebase.flagLogueado;
       this.firebase.nombreUsuario = this.determinarNombreDelAutorizado(this.email);
       this.nombre = this.firebase.nombreUsuario;
+      this.tipoUsuario = this.firebase.tipoUsuario;
       if(this.firebase.tipoUsuario == "admin"){
         this.flagEsAdmin = true;
         this.firebase.flagEsAdmin = true;

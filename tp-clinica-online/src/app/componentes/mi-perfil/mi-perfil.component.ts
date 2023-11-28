@@ -13,10 +13,29 @@ export class MiPerfilComponent {
   especialistaIngresado : any;
   especialidades : any[] =  [];
 
+  obserPaciente$ :any;
+  flagEsPaciente: boolean = false;
+  flagEsAdmin : boolean = false;
+
   ngOnInit(){
+    if(this.firebase.tipoUsuario =="especialista"){
     this.obserPersonas$ = this.firebase.retornarUsuarioRegistrados().subscribe(datos=>{
       this.cargarUsuario(datos);
     });
+  }
+
+    if(this.firebase.tipoUsuario == 'paciente'){
+      this.flagEsPaciente = true;
+      this.obserPaciente$ = this.firebase.traerPacientesRegistrados().subscribe(datos=>{
+        this.encontrarPaciente(datos);
+      });
+    }else if(this.firebase.tipoUsuario == 'admin'){
+      this.flagEsAdmin = true;
+      this.obserPaciente$ = this.firebase.traerAdminsRegistrados().subscribe(datos=>{
+        this.encontrarAdmin(datos);
+      });
+    }
+
   }
 
   ngOnDestroy(){
@@ -26,6 +45,10 @@ export class MiPerfilComponent {
 
     if(this.obserEspecialista$){
       this.obserEspecialista$.unsubscribe();
+    }
+
+    if(this.obserPaciente$){
+      this.obserPaciente$.unsubscribe();
     }
   }
 
@@ -64,5 +87,20 @@ export class MiPerfilComponent {
         }
       });
     });
+  }
+
+  encontrarPaciente(arrayAux : any[]){
+    if(arrayAux.length>0){
+      arrayAux.forEach((dato:any)=>{
+        if(dato.email == this.firebase.email){
+          this.usuarioIngresado = dato;
+          console.log(JSON.stringify(this.usuarioIngresado));
+        }
+      });
+    }
+  }
+
+  encontrarAdmin(arrayAux : any[]){
+    this.encontrarPaciente(arrayAux);
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FirebaseService } from 'src/app/servicios/firebase.service';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -8,8 +9,22 @@ import { Component } from '@angular/core';
 export class MisTurnosComponent {
 
   misTurnos : any[] = [];
+  tipoUsuario : string = "";
+  flagHayCambio : boolean = false;
+
+  ngOnInit(){
+    this.tipoUsuario = this.firebase.tipoUsuario;
+  }
+
+  constructor(private firebase : FirebaseService){}
 
   cargarMisTurnos(turnos : any[]){
     this.misTurnos = turnos;
+  }
+
+  avisarCambio(flagHayCambio : any){
+    if(flagHayCambio){
+      this.flagHayCambio = true;
+    }
   }
 }
