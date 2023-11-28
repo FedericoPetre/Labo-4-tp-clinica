@@ -1,0 +1,36 @@
+<div class="contenedor">
+    <div class="filtro">
+        <h1>Filtro Único</h1>
+        <input type="text" placeholder="Ingrese especialidad o especialista" [(ngModel)]="especialidadOEspecialista" (ngModelChange)="buscarTurnosConEseFiltro()">
+    </div>
+
+    <div class="filtroEspecialista">
+        <div>
+            <h1>Filtrar por especialista</h1>
+        </div>
+        <div class="especialistas">
+            <button class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
+        </div>
+    </div>
+
+    <div class="filtroEspecialidad">
+        <div>
+            <h1>Filtrar por especialidad</h1>
+        </div>
+        <div class="especialidades">
+            <button class="boton" *ngFor="let especialidad of especialidades" (click)="filtrar(especialidad)">{{especialidad}}</button>
+        </div>
+    </div>
+
+    <div class="limpiarFiltros">
+        <div>
+            <h1>Limpiar Filtros</h1>
+        </div>
+        <div>
+            <button class="boton" (click)="limpiarFiltro()">Limpiar Filtros</button>
+        </div>
+    </div>
+
+
+
+</div>

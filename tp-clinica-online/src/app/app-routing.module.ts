@@ -5,6 +5,8 @@ import { LoginComponent } from './componentes/login/login.component';
 import { ComponenteHabilitacionesComponent } from './componentes/componente-habilitaciones/componente-habilitaciones.component';
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
+import { FiltroUnicoComponent } from './componentes/filtro-unico/filtro-unico.component';
+import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'bienvenida', pathMatch:'full'},

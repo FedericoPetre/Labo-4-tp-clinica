@@ -42,6 +42,7 @@ export class NavbarComponent {
       this.flagEstaLogueado = false;
       this.flagEsAdmin = false;
       this.firebase.tipoUsuario = "";
+      this.flagEsPaciente = false;
     }
   }
 
@@ -89,6 +90,7 @@ export class NavbarComponent {
     this.flagEstaLogueado = this.firebase.flagLogueado;
     this.flagEsAdmin = false;
     this.firebase.tipoUsuario = "";
+    this.flagEsPaciente = false;
   }
 
 }

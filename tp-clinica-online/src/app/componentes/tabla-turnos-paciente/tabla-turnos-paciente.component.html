@@ -1,0 +1,30 @@
+<div class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
+    <div class="text-center">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-dark align-middle">
+          <thead>
+            <tr>
+              <td>Especialidad</td>
+              <td>Especialista</td>
+              <td>Fecha y hora</td>
+              <td>Estado del Turno</td>
+              <td colspan="4">Acciones</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let turno of misTurnosPaciente">
+              <td>{{turno.especialidad}}</td>
+              <td>{{turno.especialista}}</td>
+              <td>{{turno.diaDelTurno}}hs</td>
+              <td>{{turno.estado}}</td>
+              <td *ngIf="turno.fueRealizado == 'false'"><button>Cancelar Turno</button></td>
+              <td *ngIf="turno.fueRealizado != 'false' && turno.resenia != '' "><button>Completar Encuesta</button></td>
+              <td *ngIf="turno.fueRealizado != 'false' && turno.resenia != '' "><button>Ver Reseña</button></td>
+              <td *ngIf="turno.fueRealizado != 'false'"><button>Calificar Atención</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

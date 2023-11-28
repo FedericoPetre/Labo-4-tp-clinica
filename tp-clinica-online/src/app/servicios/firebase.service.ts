@@ -282,7 +282,11 @@ export class FirebaseService {
       nombreEspecialista:nombreYApellidoEspecialista,
       especialidad:especialidad, 
       diaTurno:diaTurno,
-      estadoTurno:'pendiente'
+      estadoTurno:'pendiente',
+      fueRealizado:'false',
+      comentarioCancelacion:'',
+      resenia:'',
+      calificacionAtencion:'',
     });
    this.notificacion.mostrarExito("Turnos",`Has solicitado turno para ${nombreYApellidoPaciente} en ${especialidad} el día ${diaTurno}hs`);
   }
@@ -364,6 +368,10 @@ async modificarHorariosEspecialista(especialidad: string, especialista: string, 
     console.error('Error al modificar el documento:', error);
     return "Error al guardar tus nuevos horarios";
   });
+}
+
+traerTurnosDelPaciente(mailPaciente:string){
+  return this.store.collection("Turnos",ref=>ref.where("mailPaciente","==",mailPaciente)).valueChanges();
 }
 
 }

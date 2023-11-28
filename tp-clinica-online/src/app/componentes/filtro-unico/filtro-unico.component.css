@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Sora&display=swap');
+.contenedor{
+    width: 100%;
+    height: 90vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../../assets/img/pasillo-hospital.jpg");
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    align-items: center;
+}
+
+h1{
+    margin-top: 5%;
+    font-family: 'Nunito', sans-serif;
+}
+
+input{
+    width: 75%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Ajusta según sea necesario */
+    border-radius: 5%;
+    box-shadow: 2px 2px 2px 2px white;
+    display: block;
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-bottom: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+}
+
+.boton {
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Ajusta según sea necesario */
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px white;
+    display: block;
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-bottom: 10px;
+}
+
+.boton:hover {
+    background-color: #001f3f;
+}
+
+.especialistas{
+    max-height: 17vh;
+    overflow-y: auto;
+}
+
+.especialistas::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+.especialistas::-webkit-scrollbar-thumb {
+    background-color: darkblue; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 6px; /* Borde redondeado del pulgar */
+}
+
+.especialistas::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color del fondo de la barra de desplazamiento */
+}
+
+.especialidades{
+    max-height: 17vh;
+    overflow-y: auto;
+}
+
+.especialidades::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+.especialidades::-webkit-scrollbar-thumb {
+    background-color: darkblue; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 6px; /* Borde redondeado del pulgar */
+}
+
+.especialidades::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color del fondo de la barra de desplazamiento */
+}
+
+.filtro, .filtroEspecialista, .filtroEspecialidad, .limpiarFiltros {
+    background-repeat: no-repeat;
+    background-image: url("../../../assets/img/fondo-solicitar-turno.png");
+    background-size: 100% 100%;
+    border-radius: 20px;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+}

@@ -187,47 +187,57 @@ export class TurnosService {
    * @returns 
    */
   obtenerDiasDelMesPorDiaSemana(diaSemana: number, mes: number): number[] {
-    const diasDelMes: number[] = [];
-    let diasARetornar : number[] = [];
+    let diasDelMes: number[] = [];
     
-    // Crear una fecha para el primer día del mes
+    //dia Semana: 0 Lunes, 1 Martes, 2 Miercoles, 3 Jueves, 4 Viernes, 5 Sábado
     const primerDia = new Date();
-  
-    // Obtener el día de la semana del primer día del mes (0 para domingo, 1 para lunes, ..., 6 para sábado)
-    let diaActual = primerDia.getDay();
-    let mesActual = primerDia.getMonth();
-  
-    // Calcular la diferencia entre el día de la semana deseado y el primer día del mes
-    let diferencia = diaSemana - diaActual;
-    
-    // Ajustar la diferencia para asegurarse de que sea positiva
-    if (diferencia < 0) {
-      diferencia += 7;
-    }
-  
-    // Iniciar el bucle desde el primer día hasta el último día del mes
-    let cantidadDiasDelMes : number = this.retornarCantidadDias(mes);
-    for (let dia = 1; dia <= cantidadDiasDelMes; dia++) {
-      // Si el día coincide con el día de la semana deseado, agrégalo al array
-      if ((dia + diferencia - 1) % 7 === 0) {
-        diasDelMes.push(dia);
+    const diaActual = primerDia.getDate();
+
+    if(mes == 11){
+      switch(diaSemana){
+        case 0:
+          diasDelMes = [27];
+          break;
+        case 1:
+          diasDelMes = [28];
+          break;
+        case 2:
+          diasDelMes = [29];
+          break;
+        case 3:
+          diasDelMes = [30];
+          break;
+      }
+    }else if(mes == 12){
+      switch(diaSemana){
+        case 0:
+          diasDelMes = [4,11,18,25];
+          break;
+        case 1:
+          diasDelMes = [5,12,19,26];
+          break;
+        case 2:
+          diasDelMes = [6,13,20,27];
+          break;
+        case 3:
+          diasDelMes = [7,14,21,28];
+          break;
+        case 4:
+          diasDelMes = [1,8,15,22,29];
+          break;
+        case 5:
+          diasDelMes = [2,9,16,23,30];
+          break;
       }
     }
 
-    if(mesActual == mes-1){
-      let numeroDiaActual = primerDia.getDate();
-      diasDelMes.forEach((dia:number)=>{
-        if(dia >= numeroDiaActual){
-          diasARetornar.push(dia);
-        }
-      });
-    }
-    else if(mesActual < mes){
-      diasARetornar = diasDelMes;
-    }   
+
+
+
   
-    return diasARetornar;
-  }
+    // Obtener el día de la semana del primer día de
+    return diasDelMes;
+}
 
   obtenerHorasConDiferencia(minutos: number) {
     const horaInicio = new Date();
@@ -281,16 +291,10 @@ export class TurnosService {
     return calendario.sort(this.compararFechas);
   }
   
-
   devolverCalendarizacionTodosLosDias(diasSemanas:any[], minutos:number){
     let calendarioCompleto : any[] = [];
     diasSemanas.forEach((dia:any)=>{
-      this.devolverCalendarizacion(dia,11,minutos).forEach((horario:any)=>{
-        if(!calendarioCompleto.includes(horario)){
-          calendarioCompleto.push(horario);
-        }
-      });
-      this.devolverCalendarizacion(dia,12,minutos).forEach((horario:any)=>{
+      this.retornarDiasDeLaQuincenaElegido(dia, minutos).forEach((horario:any)=>{
         if(!calendarioCompleto.includes(horario)){
           calendarioCompleto.push(horario);
         }
@@ -307,11 +311,58 @@ export class TurnosService {
 
     return calendarioFormateado;
   }
+
+
+
+  retornarSiguientesQuinceDias(): Date[] {
+    const listaFechas: Date[] = [];
+    const hoy = new Date();
+
+    for (let i = 0; i < 15; i++) {
+      const fecha = new Date();
+      fecha.setDate(hoy.getDate() + i);
+      listaFechas.push(fecha);
+    }
+
+    return listaFechas;
+  }
+
+  retornarDiasDeLaQuincenaElegido(diaDeLaSemana:number, minutos : number){
+    let diasDeLaSemana : Date[] = [];
+    let siguientesQuinceDias : Date[] = this.retornarSiguientesQuinceDias();
+    let horariosTurnos: Date[] = this.obtenerHorasConDiferencia(minutos);
+
+    let diaSemanaCorregido : number = diaDeLaSemana + 1;
+
+    siguientesQuinceDias.forEach((dia:Date)=>{
+      if(dia.getDay() == diaSemanaCorregido){
+        horariosTurnos.forEach((horario:Date)=>{
+          let horarioDate = new Date(2023, dia.getMonth(), dia.getDate(), horario.getHours(), horario.getMinutes(), horario.getSeconds());
+          if (!diasDeLaSemana.some(date => date.getTime() === horarioDate.getTime())) {
+            diasDeLaSemana.push(horarioDate);
+          }
   
-  
-  
-  
+        });        
+      }
+    });
+
+    return diasDeLaSemana;
+
+  }
+
   
 
 
+  compararDiaDelTurno = (obj1: any, obj2: any): number => {
+    const fechaA = new Date(obj1.diaDelTurno.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3'));
+    const fechaB = new Date(obj2.diaDelTurno.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3'));
+  
+    if (fechaA < fechaB) {
+      return -1;
+    } else if (fechaA > fechaB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }

@@ -76,8 +76,6 @@ export class SolicitarTurnoComponent {
             duracionTurno:dato.duracionTurno,
             horarios : this.turnos.devolverCalendarizacionTodosLosDias(dato.dias, dato.duracionTurno)
           }
-  
-        
           if(!turnos.includes(objTurno)){
             turnos.push(objTurno);
           }

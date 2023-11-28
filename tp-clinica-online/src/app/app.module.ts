@@ -30,6 +30,9 @@ import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 import { CartaMiPerfilComponent } from './componentes/carta-mi-perfil/carta-mi-perfil.component';
 import { MisHorariosComponent } from './componentes/mis-horarios/mis-horarios.component';
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
+import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
+import { FiltroUnicoComponent } from './componentes/filtro-unico/filtro-unico.component';
+import { TablaTurnosPacienteComponent } from './componentes/tabla-turnos-paciente/tabla-turnos-paciente.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar
     MiPerfilComponent,
     CartaMiPerfilComponent,
     MisHorariosComponent,
-    SolicitarTurnoComponent
+    SolicitarTurnoComponent,
+    MisTurnosComponent,
+    FiltroUnicoComponent,
+    TablaTurnosPacienteComponent
   ],
   imports: [
     BrowserModule,
