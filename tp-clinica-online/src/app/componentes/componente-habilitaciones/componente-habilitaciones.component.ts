@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { Subscription } from 'rxjs';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-componente-habilitaciones',
@@ -47,7 +48,7 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
     }
   }
 
-  constructor(private firebase : FirebaseService){
+  constructor(private firebase : FirebaseService, private notificaciones : NotificacionService){
 
   }
 
@@ -64,12 +65,13 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
         }
 
         let hClinica = {
-          altura:historia.altura+"cm",
+          altura:historia.altura+" cm",
           paciente:historia.paciente,
           peso:historia.peso+" kg",
           presion:historia.presion+" mmHg",
           temperatura:historia.temperatura+" °C",
           detalle:detalleStr,
+          mailPaciente:historia.mailPaciente
         };
 
         historiasClinicas.push(hClinica);
@@ -79,8 +81,36 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
 
     this.historiasClinicas = historiasClinicas;
 
-    console.log(this.historiasClinicas);
   }
+
+  async verHistoriaClinica(usuario:any){
+    let historiaClinica = this.encontrarHistoriaPorMailPaciente(usuario.email);
+
+    this.notificaciones.mostrarHistoriaClinica(historiaClinica).then((respuesta:string|null)=>{
+      if(respuesta != null){
+      }
+    });
+  }
+
+  async descargarHistoriaClinica(usuario:any){
+    let historiaClinica = this.encontrarHistoriaPorMailPaciente(usuario.email);
+    let mensaje : string = `Altura: ${historiaClinica.altura},Peso: ${historiaClinica.peso},Presion: ${historiaClinica.presion},Temperatura: ${historiaClinica.temperatura},Detalles: ${historiaClinica.detalle}`;
+    
+  }
+
+
+  private encontrarHistoriaPorMailPaciente(mailPaciente:string){
+    let historia : any;
+    for(let i=0; i<this.historiasClinicas.length; i++){
+      if(this.historiasClinicas[i].mailPaciente == mailPaciente){
+        historia = this.historiasClinicas[i];
+        break;
+      }
+    }
+
+    return historia;
+  }
+
 
   cargarUsuariosAutorizados(arrayAux : any[]){
     let arrayNuevo : any[] = [];
@@ -114,5 +144,6 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
   async actualizarHabilitacion(email:string, nuevoEstado : string){
     await this.firebase.actualizarHabilitacionEspecialista(email, nuevoEstado);
   }
+
 
 }

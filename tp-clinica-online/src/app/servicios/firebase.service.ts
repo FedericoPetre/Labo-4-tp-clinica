@@ -508,7 +508,8 @@ guardarHistoriaClinica(paciente : string, historiaClinica : any){
     peso:historiaClinica.peso,
     temperatura:historiaClinica.temperatura,
     presion:historiaClinica.presion,
-    detalles:historiaClinica.detalles
+    detalles:historiaClinica.detalles,
+    mailPaciente:historiaClinica.mailPaciente
   });
 }
 

@@ -149,7 +149,8 @@ export class FiltroUnicoComponent {
           resenia: dato.resenia,
           calificacionAtencion: dato.calificacionAtencion,
           comentarioCancelacion : dato.comentarioCancelacion,
-          paciente: dato.paciente
+          paciente: dato.paciente,
+          mailPaciente:dato.mailPaciente
         };
 
         arrayAux.push(objTurno);

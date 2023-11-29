@@ -8,12 +8,9 @@
       <p>Dni: {{dni}}</p>
       <p>{{ email }}</p>
       <p *ngIf="obraSocial != ''">Obra Social: {{obraSocial}}</p>
+      <p *ngIf="obraSocial != ''"><button (click)="verHistoriaClinica(email)" class="btn btn-primary">Ver mi historia clínica</button></p>
+      <p *ngIf="obraSocial != ''"><button (click)="descargarHistoriaClinica(email)" class="btn btn-success">Descargar PDF</button></p>
       <br>
-      <p *ngIf="obraSocial != ''">Historia Clínica</p>
-      <p *ngIf="obraSocial != ''">Altura: {{historiaClinica.altura}}cm</p>
-      <p *ngIf="obraSocial != ''">Peso: {{historiaClinica.peso}}kg</p>
-      <p *ngIf="obraSocial != ''">Presion: {{historiaClinica.presion}}mmHg</p>
-      <p *ngIf="obraSocial != ''">Temperatura: {{ historiaClinica.temperatura }}°C</p>
     </div>
 </div>
   

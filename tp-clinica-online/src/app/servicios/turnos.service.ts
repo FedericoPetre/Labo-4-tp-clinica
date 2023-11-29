@@ -104,6 +104,17 @@ export class TurnosService {
       return 0;
     }
   }
+
+  obtenerFechaFormateada(fecha : Date): string {
+    const dia = this.agregarCero(fecha.getDate());
+    const mes = this.agregarCero(fecha.getMonth() + 1);
+    const anio = fecha.getFullYear();
+    const hora = this.agregarCero(fecha.getHours());
+    const minutos = this.agregarCero(fecha.getMinutes());
+    const segundos = this.agregarCero(fecha.getSeconds());
+
+    return `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
+  }
   
   
   

@@ -18,6 +18,10 @@
                 <ng-template #botonHabilitarBlock>
                     <button class="habilitar-button" (click)="actualizarHabilitacion(usuario.email,'si')">Habilitar</button>
                 </ng-template>
+
+                <ng-container *ngIf="usuario.tipoUsuario === 'paciente'">
+                    <button class="habilitar-button" (click)="verHistoriaClinica(usuario)">Ver historia clínica</button>
+                </ng-container>
             </div>
         </div>
 

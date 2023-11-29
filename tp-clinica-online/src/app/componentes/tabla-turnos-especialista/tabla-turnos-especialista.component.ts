@@ -10,6 +10,22 @@ import { NotificacionService } from 'src/app/servicios/notificacion.service';
 export class TablaTurnosEspecialistaComponent {
   @Input() misTurnosEspecialista : any[] = [];
 
+  historiasClinicas : any[] = [];
+  obserHistoriasClinicas$ : any;
+
+  ngOnInit(){
+    console.log(this.misTurnosEspecialista);
+    this.obserHistoriasClinicas$ = this.firebase.traerTodasLasHistoriasClinicas().subscribe((datos=>{
+      this.cargarHistoriasClinicas(datos);
+    }));
+  }
+
+  ngOnDestroy(){
+    if(this.obserHistoriasClinicas$){
+      this.obserHistoriasClinicas$.unsubscribe();
+    }
+  }
+
   constructor(private notificaciones: NotificacionService, private firebase : FirebaseService){}
 
   async verResenia(resenia:string){
@@ -82,7 +98,8 @@ export class TablaTurnosEspecialistaComponent {
         peso:historiaClinica?.peso,
         presion:historiaClinica?.presion,
         temperatura:historiaClinica?.temperatura,
-        detalles:historiaClinica?.detalles
+        detalles:historiaClinica?.detalles,
+        mailPaciente:turno.mailPaciente
       };
 
       if(resenia == null){
@@ -105,4 +122,66 @@ export class TablaTurnosEspecialistaComponent {
 
     }
   }
+
+  cargarHistoriasClinicas(arrayAux :any[]){
+    let historiasClinicas : any[] = [];
+
+    if(arrayAux.length > 0){
+      arrayAux.forEach((historia:any)=>{
+        let detalleStr : string = "";
+        for (const key in historia.detalles) {
+          if (historia.detalles.hasOwnProperty(key)) {
+            detalleStr = detalleStr + `${key}:${historia.detalles[key]}`;
+          }
+        }
+
+        let hClinica = {
+          altura:historia.altura+" cm",
+          paciente:historia.paciente,
+          peso:historia.peso+" kg",
+          presion:historia.presion+" mmHg",
+          temperatura:historia.temperatura+" °C",
+          detalle:detalleStr,
+          mailPaciente:historia.mailPaciente
+        };
+
+        historiasClinicas.push(hClinica);
+
+      });
+    }
+
+    this.historiasClinicas = historiasClinicas;
+
+  }
+
+  async verHistoriaClinica(email:string){
+
+    let historiaClinica = this.encontrarHistoriaPorMailPaciente(email);
+
+    this.notificaciones.mostrarHistoriaClinica(historiaClinica).then((respuesta:string|null)=>{
+      if(respuesta != null){
+      }
+    });
+  }
+
+  async descargarHistoriaClinica(usuario:any){
+    let historiaClinica = this.encontrarHistoriaPorMailPaciente(usuario.email);
+    let mensaje : string = `Altura: ${historiaClinica.altura},Peso: ${historiaClinica.peso},Presion: ${historiaClinica.presion},Temperatura: ${historiaClinica.temperatura},Detalles: ${historiaClinica.detalle}`;
+    
+  }
+
+
+  private encontrarHistoriaPorMailPaciente(mailPaciente:string){
+    let historia : any;
+    for(let i=0; i<this.historiasClinicas.length; i++){
+      if(this.historiasClinicas[i].mailPaciente == mailPaciente){
+        historia = this.historiasClinicas[i];
+        break;
+      }
+    }
+
+    return historia;
+  }
+  
+
 }

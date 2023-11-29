@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { TurnosService } from 'src/app/servicios/turnos.service';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -19,6 +20,8 @@ export class MiPerfilComponent {
   obserHistoriaClinica$:any;
 
   historiaClinica : any;
+  historiaClinicaObj : any;
+  descargaHistoriaClinica : boolean = false;
 
   ngOnInit(){
     if(this.firebase.tipoUsuario =="especialista"){
@@ -63,7 +66,7 @@ export class MiPerfilComponent {
     }
   }
 
-  constructor(private firebase : FirebaseService){
+  constructor(private firebase : FirebaseService, private turnos : TurnosService){
 
   }
 
@@ -123,5 +126,23 @@ export class MiPerfilComponent {
         break;
       }
     }
+  }
+
+  mostrarHistoriaClinica(historia:string){
+    let objHistoria = JSON.parse(historia);
+    let fecha = new Date();
+    let fechaFormateada : string = this.turnos.obtenerFechaFormateada(fecha);
+
+    let historiaClinicaObj1 = {
+      fecha: fechaFormateada,
+      altura:objHistoria.altura,
+      peso:objHistoria.peso,
+      presion:objHistoria.presion,
+      temperatura:objHistoria.temperatura,
+      detalle:objHistoria.detalle
+    };
+
+    this.historiaClinicaObj = historiaClinicaObj1;
+    this.descargaHistoriaClinica = true;
   }
 }

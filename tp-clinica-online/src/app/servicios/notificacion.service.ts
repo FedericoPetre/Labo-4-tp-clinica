@@ -59,6 +59,41 @@ export class NotificacionService {
     }
   }
 
+  async mostrarHistoriaClinica(historiaClinica:any): Promise<string | null> {
+
+    let mensaje : string = `<p>Altura: ${historiaClinica.altura}</p><br><p>Peso: ${historiaClinica.peso}</p><br><p>Presion: ${historiaClinica.presion}</p><br><p>Temperatura: ${historiaClinica.temperatura}</p><br><p>Detalles: ${historiaClinica.detalle}</p>`;
+
+    const resultado = await Swal.fire({
+      title: "Historia Clínica del paciente "+historiaClinica.paciente,
+      html: `${mensaje}`,
+      icon: 'info',
+      confirmButtonText: 'Aceptar',
+    });
+
+    if (resultado.isConfirmed) {
+      // Retorna el texto ingresado si el usuario hace clic en "Aceptar"
+      let mensajeRetorno = mensaje.replace("<p>","");
+      while(mensajeRetorno.includes("<p>")){
+        mensajeRetorno = mensajeRetorno.replace("<p>","");
+      }
+
+      while(mensajeRetorno.includes("<br>")){
+        mensajeRetorno = mensajeRetorno.replace("<br>","");
+      }
+
+      while(mensajeRetorno.includes("</p>")){
+        mensajeRetorno = mensajeRetorno.replace("</p>",",");
+      }
+
+      return mensajeRetorno;
+    } else {
+      // Retorna null si el usuario hace clic en "Cancelar"
+      return null;
+    }
+  }
+
+  
+
   async mostrarFormularioHistoriaClinica(paciente: string): Promise<{ altura: number, peso: number, temperatura: number, presion: number, detalles: any } | null> {
     const { value: formValues,  dismiss: dismissReason } = await Swal.fire({
       title: `Nueva Historia Clínica de ${paciente}`,
