@@ -16,6 +16,9 @@ export class MiPerfilComponent {
   obserPaciente$ :any;
   flagEsPaciente: boolean = false;
   flagEsAdmin : boolean = false;
+  obserHistoriaClinica$:any;
+
+  historiaClinica : any;
 
   ngOnInit(){
     if(this.firebase.tipoUsuario =="especialista"){
@@ -29,6 +32,10 @@ export class MiPerfilComponent {
       this.obserPaciente$ = this.firebase.traerPacientesRegistrados().subscribe(datos=>{
         this.encontrarPaciente(datos);
       });
+
+      this.obserHistoriaClinica$ = this.firebase.traerHistoriaClinicaPaciente(this.firebase.nombreUsuario).subscribe(datos=>{
+        this.cargarHistoriaClinica(datos);
+      })
     }else if(this.firebase.tipoUsuario == 'admin'){
       this.flagEsAdmin = true;
       this.obserPaciente$ = this.firebase.traerAdminsRegistrados().subscribe(datos=>{
@@ -49,6 +56,10 @@ export class MiPerfilComponent {
 
     if(this.obserPaciente$){
       this.obserPaciente$.unsubscribe();
+    }
+
+    if(this.obserHistoriaClinica$){
+      this.obserHistoriaClinica$.unsubscribe();
     }
   }
 
@@ -102,5 +113,15 @@ export class MiPerfilComponent {
 
   encontrarAdmin(arrayAux : any[]){
     this.encontrarPaciente(arrayAux);
+  }
+
+  cargarHistoriaClinica(arrayDatos : any){
+    if(arrayDatos.length > 0){
+      for(let i=0; i<arrayDatos.length; i++){
+        this.historiaClinica = arrayDatos[i];
+        console.log(this.historiaClinica);
+        break;
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@
     <div class="col-md-8"> <!-- Ajusta las clases según sea necesario -->
         <app-tabla-turnos-paciente *ngIf="tipoUsuario=='paciente'" [misTurnosPaciente]="misTurnos"></app-tabla-turnos-paciente>
         <app-tabla-turnos-especialista *ngIf="tipoUsuario=='especialista'" [misTurnosEspecialista]="misTurnos"></app-tabla-turnos-especialista>
-    </div>
+        <app-turnos-admin *ngIf="tipoUsuario=='admin'" [turnosDeLaClinica]="misTurnos"></app-turnos-admin>
+      </div>
   </div>
   

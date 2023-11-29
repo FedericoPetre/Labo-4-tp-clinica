@@ -1,10 +1,10 @@
 <div class=container>
     <div class="row">
-        <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-5">
-            <app-carta-mi-perfil [nombre]="especialistaIngresado.nombre" [apellido]="especialistaIngresado.apellido" [email]="especialistaIngresado.email" [imagenes]="especialistaIngresado.imagen" [edad]="especialistaIngresado.edad" [dni]="especialistaIngresado.dni">   </app-carta-mi-perfil>
+        <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-4" style="margin-top: 6vh;">
+            <app-carta-mi-perfil [nombre]="especialistaIngresado.nombre" [apellido]="especialistaIngresado.apellido" [email]="especialistaIngresado.email" [imagenes]="especialistaIngresado.imagen" [edad]="especialistaIngresado.edad" [dni]="especialistaIngresado.dni"> </app-carta-mi-perfil>
         </div>
 
-        <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-7">
+        <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-8">
             <app-mis-horarios [especialidades]="especialidades"></app-mis-horarios>
             <!--Acá va la parte del especialista
             FALTA LA PARTE DE ACTUALIZAR LOS TURNOS, GENERAR LOS TURNOS DE ACÁ A 15Días! 
@@ -14,7 +14,8 @@
         </div>
 
         <div class="col-12" *ngIf="flagEsPaciente">
-            <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.imagenes" [edad]="usuarioIngresado.edad" [dni]="usuarioIngresado.dni" [obraSocial]="usuarioIngresado.obraSocial">   </app-carta-mi-perfil>
+            <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.imagenes" [edad]="usuarioIngresado.edad" [dni]="usuarioIngresado.dni" [obraSocial]="usuarioIngresado.obraSocial" [historiaClinica]="historiaClinica">   </app-carta-mi-perfil>
+       
         </div>
 
         <div class="col-12" *ngIf="flagEsAdmin">

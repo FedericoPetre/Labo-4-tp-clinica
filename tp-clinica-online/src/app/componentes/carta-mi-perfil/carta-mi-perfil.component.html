@@ -9,6 +9,11 @@
       <p>{{ email }}</p>
       <p *ngIf="obraSocial != ''">Obra Social: {{obraSocial}}</p>
       <br>
+      <p *ngIf="obraSocial != ''">Historia Clínica</p>
+      <p *ngIf="obraSocial != ''">Altura: {{historiaClinica.altura}}cm</p>
+      <p *ngIf="obraSocial != ''">Peso: {{historiaClinica.peso}}kg</p>
+      <p *ngIf="obraSocial != ''">Presion: {{historiaClinica.presion}}mmHg</p>
+      <p *ngIf="obraSocial != ''">Temperatura: {{ historiaClinica.temperatura }}°C</p>
     </div>
 </div>
   

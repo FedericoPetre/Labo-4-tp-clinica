@@ -15,10 +15,22 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
 
   estadoHabilitado: { [email: string]: boolean } = {};
 
+  obserHistoriasClinicas$ :any;
+
+  historiasClinicas :any[] = [];
+
   ngAfterViewInit(){
     this.obserPersonas$ = this.firebase.retornarUsuarioRegistrados().subscribe((datos)=>{
       this.cargarUsuariosAutorizados(datos);
     });
+
+
+  }
+
+  ngOnInit(){
+    this.obserHistoriasClinicas$ = this.firebase.traerTodasLasHistoriasClinicas().subscribe((datos=>{
+      this.cargarHistoriasClinicas(datos);
+    }));
   }
 
   ngOnDestroy(){
@@ -29,10 +41,45 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
     if (this.especialistasSubscription) {
       this.especialistasSubscription.unsubscribe();
     }
+
+    if(this.obserHistoriasClinicas$){
+      this.obserHistoriasClinicas$.unsubscribe();
+    }
   }
 
   constructor(private firebase : FirebaseService){
 
+  }
+
+  cargarHistoriasClinicas(arrayAux :any[]){
+    let historiasClinicas : any[] = [];
+
+    if(arrayAux.length > 0){
+      arrayAux.forEach((historia:any)=>{
+        let detalleStr : string = "";
+        for (const key in historia.detalles) {
+          if (historia.detalles.hasOwnProperty(key)) {
+            detalleStr = detalleStr + `${key}:${historia.detalles[key]}`;
+          }
+        }
+
+        let hClinica = {
+          altura:historia.altura+"cm",
+          paciente:historia.paciente,
+          peso:historia.peso+" kg",
+          presion:historia.presion+" mmHg",
+          temperatura:historia.temperatura+" °C",
+          detalle:detalleStr,
+        };
+
+        historiasClinicas.push(hClinica);
+
+      });
+    }
+
+    this.historiasClinicas = historiasClinicas;
+
+    console.log(this.historiasClinicas);
   }
 
   cargarUsuariosAutorizados(arrayAux : any[]){

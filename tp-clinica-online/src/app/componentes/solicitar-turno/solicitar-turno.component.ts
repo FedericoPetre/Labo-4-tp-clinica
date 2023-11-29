@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 import { TurnosService } from 'src/app/servicios/turnos.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { TurnosService } from 'src/app/servicios/turnos.service';
 })
 export class SolicitarTurnoComponent {
 
-  constructor(private firebase : FirebaseService, private turnos : TurnosService){}
+  constructor(private firebase : FirebaseService, private turnos : TurnosService, private notificaciones : NotificacionService){}
 
   public horariosDisponiblesEspecialistas : any[] = [];
   obser$ : any;
@@ -23,6 +24,10 @@ export class SolicitarTurnoComponent {
   public especialistaElegido : string = "";
   public especialidadElegida : string = "";
   obserTurnos$ : any;
+  
+  obserPacientes$ : any;
+
+  public pacientes:any[] = [];
 
   ngOnInit(){
     this.obserEspecialistas$ = this.firebase.traerEspecialistasRegistrados().subscribe(datos=>{
@@ -32,6 +37,14 @@ export class SolicitarTurnoComponent {
     this.obser$ = this.firebase.traerTodosLosHorariosEspecialistas().subscribe(datos=>{
       this.cargarTurnos(datos);
     });
+
+    if(this.firebase.tipoUsuario == "admin"){
+      this.obserPacientes$ = this.firebase.traerPacientesRegistrados().subscribe(datos=>{
+        this.cargarPacientes(datos);
+      });
+    }
+
+
 
 
   }
@@ -45,6 +58,26 @@ export class SolicitarTurnoComponent {
       this.obserEspecialistas$.unsubscribe();
     }
 
+    if(this.obserPacientes$){
+      this.obserPacientes$.unsubscribe();
+    }
+
+  }
+
+  cargarPacientes(arrayAux:any[]){
+    let pacientes : any[] = [];
+
+    if(arrayAux.length > 0){
+      arrayAux.forEach((paciente:any)=>{
+        let objPaciente = {
+          nombre: paciente.nombre+" "+paciente.apellido,
+          mailPaciente:paciente.email
+        };
+        pacientes.push(objPaciente);
+      });
+    }
+
+    this.pacientes = pacientes;
   }
 
   cargarEspecialidadesEspecialista(item:any){

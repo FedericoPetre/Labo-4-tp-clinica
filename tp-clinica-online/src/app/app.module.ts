@@ -34,6 +34,10 @@ import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.componen
 import { FiltroUnicoComponent } from './componentes/filtro-unico/filtro-unico.component';
 import { TablaTurnosPacienteComponent } from './componentes/tabla-turnos-paciente/tabla-turnos-paciente.component';
 import { TablaTurnosEspecialistaComponent } from './componentes/tabla-turnos-especialista/tabla-turnos-especialista.component';
+import { TurnosAdminComponent } from './componentes/turnos-admin/turnos-admin.component';
+import { CaptchaComponent } from './componentes/captcha/captcha.component';
+import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -56,6 +60,9 @@ import { TablaTurnosEspecialistaComponent } from './componentes/tabla-turnos-esp
     FiltroUnicoComponent,
     TablaTurnosPacienteComponent,
     TablaTurnosEspecialistaComponent,
+    TurnosAdminComponent,
+    CaptchaComponent,
+    QuienSoyComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +75,8 @@ import { TablaTurnosEspecialistaComponent } from './componentes/tabla-turnos-esp
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

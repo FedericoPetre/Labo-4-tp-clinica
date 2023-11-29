@@ -19,6 +19,22 @@
     text-align: left;
 }
 
+app-captcha {
+    width: 100%; /* O el ancho deseado */
+    height: auto; /* Ajusta la altura según sea necesario */
+  }
+
+  .captcha {
+    width: 300px; /* o el ancho deseado */
+    height: 150px; /* o la altura deseada */
+    /* Otros estilos necesarios para el contenedor captcha */
+  }
+
+  app-captcha, .captcha {
+    box-sizing: border-box;
+  }
+  
+
 .row{
     width: 80vw;
 }

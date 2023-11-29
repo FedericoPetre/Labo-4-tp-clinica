@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { Paciente } from 'src/app/clases/paciente';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-alta-paciente',
@@ -16,6 +17,7 @@ export class AltaPacienteComponent
   imagenPerfil1 : any = "../../../assets/img/silueta.png";
   imagenPerfil2 : any = "../../../assets/img/silueta.png";
   obser$: any;
+  flagCaptchaValido : boolean = false;
 
   public get Nombre(){
     return this.form.get('nombre')?.value;
@@ -59,7 +61,7 @@ export class AltaPacienteComponent
     }
   }
 
-  constructor(private firebase : FirebaseService, private formBuilder : FormBuilder){
+  constructor(private firebase : FirebaseService, private formBuilder : FormBuilder, private notificaciones : NotificacionService){
     this.form = formBuilder.group({
       nombre:['',[Validators.required]],
       apellido:['',[Validators.required]],
@@ -73,14 +75,19 @@ export class AltaPacienteComponent
   }
 
   async registrarPaciente(){
-    if(this.fotosPaciente.length == 2){ //si son dos fotos se puede registrar
-      //los datos del paciente tomados del formulario van en el constructor de Paciente
-      const paciente = new Paciente(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.ObraSocial, [{foto:''}]);
-      await this.firebase.registrarPaciente(paciente, this.fotosPaciente);
-      this.limpiarTodo();
+    if(this.flagCaptchaValido){
+      if(this.fotosPaciente.length == 2){ //si son dos fotos se puede registrar
+        //los datos del paciente tomados del formulario van en el constructor de Paciente
+        const paciente = new Paciente(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.ObraSocial, [{foto:''}]);
+        await this.firebase.registrarPaciente(paciente, this.fotosPaciente);
+        this.limpiarTodo();
+      }
+      else{ //si no son dos fotos (son más o son menos) entonces no se registra hasta que sean dos fotos solamente
+        // avisar que no son la cantidad de fotos requeridas
+      }
     }
-    else{ //si no son dos fotos (son más o son menos) entonces no se registra hasta que sean dos fotos solamente
-      // avisar que no son la cantidad de fotos requeridas
+    else{
+      this.notificaciones.mostrarInfo("Captcha","Falta que el captcha ingresado sea el correcto");
     }
 
   }
@@ -159,6 +166,10 @@ export class AltaPacienteComponent
       }
     }
     return flagLaObraSocialExiste;
+  }
+
+  validarCaptcha(respuestaCaptcha:boolean){
+    this.flagCaptchaValido = respuestaCaptcha;
   }
 
 }

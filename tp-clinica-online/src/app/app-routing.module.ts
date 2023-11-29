@@ -7,6 +7,8 @@ import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
 import { FiltroUnicoComponent } from './componentes/filtro-unico/filtro-unico.component';
 import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
+import { CaptchaComponent } from './componentes/captcha/captcha.component';
+import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'bienvenida', pathMatch:'full'},
@@ -15,7 +17,8 @@ const routes: Routes = [
   {path:'login',component:LoginComponent, title:'Ingresar - Clínica'},
   {path:'seccion-usuarios',component:ComponenteHabilitacionesComponent, title:'Sección Usuarios - Clínica Online'},
   {path:'mi-perfil',component:MiPerfilComponent, title:'Mi perfil - Clínica Online'},
-  { path: 'turnos', loadChildren: () => import('./modulos/turnos-module/turnos-module.module').then(m => m.TurnosModuleModule) }
+  { path: 'turnos', loadChildren: () => import('./modulos/turnos-module/turnos-module.module').then(m => m.TurnosModuleModule) },
+  {path:'quien-soy', component:QuienSoyComponent, title:'Creador de la web - Clínica Online'}
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { Especialista } from 'src/app/clases/especialista';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-alta-especialista',
@@ -15,6 +16,7 @@ export class AltaEspecialistaComponent {
   imagenPerfil : any = "../../../assets/img/silueta.png";
   botonesEspecialidad : any[] = [];
   obser$: any;
+  flagCaptchaValido : boolean = false;
 
   public get Nombre(){
     return this.form.get('nombre')?.value;
@@ -58,7 +60,7 @@ export class AltaEspecialistaComponent {
   
 
 
-  constructor(private firebase : FirebaseService, private formBuilder : FormBuilder){
+  constructor(private firebase : FirebaseService, private formBuilder : FormBuilder, private notificaciones : NotificacionService){
     this.form = formBuilder.group({
       nombre:['',[Validators.required]],
       apellido:['',[Validators.required]],
@@ -73,10 +75,16 @@ export class AltaEspecialistaComponent {
 
 
   async registrarEspecialista(){
-    const especialista = new Especialista(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.Especialidad, {foto:''});
-    console.log(JSON.stringify(especialista));
-    await this.firebase.registrarEspecialista(especialista, this.fotoEspecialista);
-    this.limpiarTodo();
+    if(this.flagCaptchaValido){
+      const especialista = new Especialista(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.Especialidad, {foto:''});
+      console.log(JSON.stringify(especialista));
+      await this.firebase.registrarEspecialista(especialista, this.fotoEspecialista);
+      this.limpiarTodo();
+    }
+    else{
+      this.notificaciones.mostrarInfo("Captcha","Falta que el captcha ingresado sea el correcto");
+    }
+
   }
 
   actualizarFotoEspecialista(event : any){
@@ -159,6 +167,10 @@ export class AltaEspecialistaComponent {
       foto:''
     });
     this.imagenPerfil = "../../../assets/img/silueta.png";
+  }
+
+  validarCaptcha(respuestaCaptcha:boolean){
+    this.flagCaptchaValido = respuestaCaptcha;
   }
 
 }

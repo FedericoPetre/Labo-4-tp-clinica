@@ -51,6 +51,7 @@ export class FirebaseService {
   salir(salir:boolean){
     if(salir){
       this.flagLogueado=false;
+      this.flagEsAdmin = false;
       this.auth.signOut().then(()=>{
         this.notificacion.mostrarInfo("Cerrar Sesión","Has cerrado tu sesión");
       }).catch(error=>{
@@ -289,6 +290,7 @@ export class FirebaseService {
       comentarioCancelacion:'',
       resenia:'',
       calificacionAtencion:'',
+      historiaClinica:''
     });
    this.notificacion.mostrarExito("Turnos",`Has solicitado turno para ${nombreYApellidoPaciente} en ${especialidad} el día ${diaTurno}hs`);
   }
@@ -380,8 +382,12 @@ traerTurnosDelEspecialista(nombreEspecialista:string){
   return this.store.collection("Turnos",ref=>ref.where("nombreEspecialista","==",nombreEspecialista)).valueChanges();
 }
 
-async cancelarTurnoPaciente(especialidad: string, especialista: string, paciente:string, comentarioCancelacion:string) {
-  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+traerTodosLosTurnosRegistrados(){
+  return this.store.collection("Turnos").valueChanges();
+}
+
+async cancelarTurnoPaciente(especialidad: string, especialista: string, paciente:string, comentarioCancelacion:string, diaTurno:string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).where("diaTurno","==",diaTurno).limit(1));
   
   return snapshot.get().toPromise()
   .then(async (querySnapshot: any) => {
@@ -408,8 +414,8 @@ async cancelarTurnoPaciente(especialidad: string, especialista: string, paciente
   });
 }
 
-async rechazarTurnoPaciente(especialidad: string, especialista: string, paciente:string, comentarioCancelacion:string) {
-  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+async rechazarTurnoPaciente(especialidad: string, especialista: string, paciente:string, comentarioCancelacion:string, diaTurno:string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).where("diaTurno","==",diaTurno).limit(1));
   
   return snapshot.get().toPromise()
   .then(async (querySnapshot: any) => {
@@ -436,8 +442,8 @@ async rechazarTurnoPaciente(especialidad: string, especialista: string, paciente
   });
 }
 
-async aceptarTurnoPaciente(especialidad: string, especialista: string, paciente:string) {
-  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+async aceptarTurnoPaciente(especialidad: string, especialista: string, paciente:string, diaDelTurno: string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).where("diaTurno","==",diaDelTurno).limit(1));
   
   return snapshot.get().toPromise()
   .then(async (querySnapshot: any) => {
@@ -463,8 +469,8 @@ async aceptarTurnoPaciente(especialidad: string, especialista: string, paciente:
   });
 }
 
-async finalizarTurnoPaciente(especialidad: string, especialista: string, paciente:string, resenia : string) {
-  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+async finalizarTurnoPaciente(especialidad: string, especialista: string, paciente:string, resenia : string, diaDelTurno : string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).where("diaTurno","==",diaDelTurno).limit(1));
   
   return snapshot.get().toPromise()
   .then(async (querySnapshot: any) => {
@@ -477,8 +483,7 @@ async finalizarTurnoPaciente(especialidad: string, especialista: string, pacient
       await docRef.update({
           "estadoTurno": "finalizado",
           "fueRealizado":"true",
-          "resenia":resenia
-          // Puedes agregar más campos que desees modificar
+          "resenia":resenia,
       });
 
       return "Se ha finalizado el turno";
@@ -492,9 +497,31 @@ async finalizarTurnoPaciente(especialidad: string, especialista: string, pacient
   });
 }
 
+guardarHistoriaClinica(paciente : string, historiaClinica : any){
+  let fecha : Date = new Date();
+  const uIdHistoriaClinica = this.store.createId();
+  const docHistoria = this.store.doc("HistoriasClinicas/"+uIdHistoriaClinica);
+  docHistoria.set({
+    fecha:fecha,
+    paciente:paciente,
+    altura:historiaClinica.altura,
+    peso:historiaClinica.peso,
+    temperatura:historiaClinica.temperatura,
+    presion:historiaClinica.presion,
+    detalles:historiaClinica.detalles
+  });
+}
 
-async agregarCalificacionServicio(especialidad: string, especialista: string, paciente:string, resenia : string) {
-  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).limit(1));
+traerHistoriaClinicaPaciente(paciente:string){
+  return this.store.collection("HistoriasClinicas",ref=>ref.where("paciente","==",paciente)).valueChanges();
+}
+
+traerTodasLasHistoriasClinicas(){
+  return this.store.collection("HistoriasClinicas").valueChanges();
+}
+
+async agregarCalificacionServicio(especialidad: string, especialista: string, paciente:string, resenia : string, diaDelTurno : string) {
+  const snapshot = await this.store.collection("Turnos", ref=> ref.where("especialidad", "==", especialidad).where("nombreEspecialista", "==", especialista).where("paciente","==",paciente).where("diaTurno","==",diaDelTurno).limit(1));
   
   return snapshot.get().toPromise()
   .then(async (querySnapshot: any) => {

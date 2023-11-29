@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+
+.Pantalla
+{
+    background-image: url("../../../assets/img/pasillo-hospital.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 93vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+h3{
+    margin-bottom: 20px;
+}
+
+h3, h4, tr, p {
+    color:black;
+    text-shadow: 2px 2px 2px white;
+}
+
+h4 {
+    text-align: center;
+}
+
+tr {
+    font-size: large;
+    text-align: left;
+}
+
+.cartasYPuntajes{
+    background-color: white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+}
+
+p {
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 1px white;
+}
+
+
+.tablita{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  /* margin: 0 auto; */
+}
+
+ .tablet {
+    max-height: 350px;
+    overflow-y: auto; 
+    border-collapse: collapse;
+    margin: 0 auto;
+    border-radius: 30px;
+    opacity: 0.95;
+    box-shadow: 0 0 16px #ff2d38;
+} 
+
+.boton{
+    min-height: 6vh;
+    min-width: 3vw;
+    background-color: #ff0364;
+    border-radius: 20px;
+    color: azure;
+    box-shadow: 0 0 16px #ff2d38;
+
+}
+
+.imagen-de-perfil {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.imagenJuego{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    border: 2px solid black;
+    background-color: #00988d;
+}
+
+h1 {
+    font-weight: 200;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 35px;
+    color: black;
+    text-shadow: 3px 3px 3px white;
+}
+
+h2 {
+    font-weight: 150;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 25px;
+    color: black;
+    text-shadow: 3px 3px 3px white;
+}
+
+p {
+    font-weight: 120;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 25px;
+    color: black;
+    text-shadow: 3px 3px 3px white;
+}
+
+td{
+    background-color: #00988d;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: medium;
+}
+
+table{
+    max-height: 70%;
+    overflow: scroll;
+}
+
+.btn {
+    text-align: center;
+    background-color: white;
+    width: 16vw;
+    padding: 10px;
+    margin:5px;
+    transition: 0.4s;
+}
+
+.btn:hover {
+    border: 2px solid #00988d;
+    cursor:pointer;
+}
+
+.btn:active{
+    background-color: #00988d;
+}
+
+.encabezado1 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.nombreJuego{
+    font-family: 'Permanent Marker', cursive;
+    font-size: x-large;
+}
+
+.tablero {
+    width: 75vw;
+    height: 60vh;
+    background-color: #FF8040;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    margin: auto;
+    border-radius: 12px;
+    margin-top: 2.5vh;
+    border: 3px solid #00988d;
+    box-shadow: 5px 5px 5px white;
+}
+
+img{
+    width: 175px;
+    height: 175px;
+}
+
+.img{
+    width: 175px;
+    height: 175px;  
+}
+
+.botonesJugar {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    width: 25vw;
+    height: 4vh;
+    margin: auto;
+    border-radius: 12px;
+    background-color: #00988d;
+    margin-top: 1%;
+    margin-bottom: .5%;
+    font-weight: 150px;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 5px 5px 5px white;
+
+    /* Centro el texto horizontal y verticalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carta{
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border: 2px solid black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 12px;
+}
+
+/* Establece la opacidad del botón deshabilitado */
+button:disabled {
+    background-color: #00988d; /* Color de fondo del botón deshabilitado */
+    opacity: 1; /* Establece la opacidad a 1 para evitar la transparencia */
+    pointer-events: none; /* Evita que el botón deshabilitado reciba eventos del mouse */
+}

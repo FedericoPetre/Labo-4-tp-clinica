@@ -22,7 +22,7 @@
                 <button *ngIf="turno.estado == 'completado' && turno.resenia != ''" class="btn btn-primary mb-1">Completar Encuesta</button>
                 <button *ngIf="turno.resenia != ''" class="btn btn-info mb-1" (click)="verResenia(turno.resenia)">Ver Reseña</button>
                 <button *ngIf="turno.estado == 'finalizado' && turno.calificacionAtencion == ''" class="btn btn-success mb-1" (click)="calificarTurno(turno)">Calificar Atención</button>
-                <button *ngIf="turno.fueRealizado == 'false' && turno.estado == 'aceptado'" class="btn btn-danger mb-1" (click)="cancelarTurno(turno)">Cancelar Turno</button>
+                <button *ngIf="turno.fueRealizado == 'false' && turno.estado == 'aceptado' || turno.estado == 'pendiente'" class="btn btn-danger mb-1" (click)="cancelarTurno(turno)">Cancelar Turno</button>
                 <button *ngIf="turno.comentarioCancelacion != ''" class="btn btn-info mb-1" (click)="verResenia(turno.comentarioCancelacion)">Ver Comentario</button>
               </div>
             </td>

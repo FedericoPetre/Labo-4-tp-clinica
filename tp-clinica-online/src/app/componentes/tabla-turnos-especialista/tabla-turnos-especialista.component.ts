@@ -28,7 +28,7 @@ export class TablaTurnosEspecialistaComponent {
       }
 
       let respuesta1 : string = "";
-      this.firebase.rechazarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, comentarioCancelacion).then((respuesta:string)=>{
+      this.firebase.rechazarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, comentarioCancelacion, turno.diaDelTurno).then((respuesta:string)=>{
         respuesta1 = respuesta;
 
         if(respuesta1 != "Se ha rechazado el turno"){
@@ -51,7 +51,7 @@ export class TablaTurnosEspecialistaComponent {
       // Lógica cuando el usuario hace clic en "Sí"
   
       let respuesta1 : string = "";
-      this.firebase.aceptarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente).then((respuesta:string)=>{
+      this.firebase.aceptarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, turno.diaDelTurno).then((respuesta:string)=>{
         respuesta1 = respuesta;
 
         if(respuesta1 != "Se ha aceptado el turno"){
@@ -75,14 +75,24 @@ export class TablaTurnosEspecialistaComponent {
 
       let resenia : string | null = await this.notificaciones.mostrarConfirmacionConTexto("Agrega Reseña", '¿Que indicaciones debe seguir el paciente?');
       
+      let historiaClinica = await this.notificaciones.mostrarFormularioHistoriaClinica(turno.paciente);
+
+      let objHistoriaClinica = {
+        altura:historiaClinica?.altura,
+        peso:historiaClinica?.peso,
+        presion:historiaClinica?.presion,
+        temperatura:historiaClinica?.temperatura,
+        detalles:historiaClinica?.detalles
+      };
+
       if(resenia == null){
         resenia= "";
       }
   
       let respuesta1 : string = "";
-      this.firebase.finalizarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, resenia).then((respuesta:string)=>{
+      this.firebase.finalizarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, resenia, turno.diaDelTurno).then((respuesta:string)=>{
         respuesta1 = respuesta;
-
+        this.firebase.guardarHistoriaClinica(turno.paciente, objHistoriaClinica);
         if(respuesta1 != "Se ha finalizado el turno"){
           this.notificaciones.mostrarError("Error", respuesta1);
         }else{

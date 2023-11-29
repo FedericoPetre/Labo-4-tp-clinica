@@ -3,12 +3,12 @@ import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
-  selector: 'app-tabla-turnos-paciente',
-  templateUrl: './tabla-turnos-paciente.component.html',
-  styleUrls: ['./tabla-turnos-paciente.component.css']
+  selector: 'app-turnos-admin',
+  templateUrl: './turnos-admin.component.html',
+  styleUrls: ['./turnos-admin.component.css']
 })
-export class TablaTurnosPacienteComponent {
-  @Input() misTurnosPaciente : any[] = [];
+export class TurnosAdminComponent {
+  @Input() turnosDeLaClinica : any[] = [];
 
   constructor(private notificaciones: NotificacionService, private firebase : FirebaseService){}
 
@@ -53,7 +53,7 @@ export class TablaTurnosPacienteComponent {
     }
     let respuesta1 : string = '';
 
-    this.firebase.agregarCalificacionServicio(turno.especialidad, turno.especialista, turno.paciente, calificacion, turno.diaDelTurno).then((respuesta:string)=>{
+    this.firebase.agregarCalificacionServicio(turno.especialidad, turno.especialista, turno.paciente, calificacion,  turno.diaDelTurno).then((respuesta:string)=>{
       respuesta1 = respuesta;
 
       if(respuesta1 != "Se ha calificado el turno"){
@@ -64,4 +64,5 @@ export class TablaTurnosPacienteComponent {
     });
      
   }
+
 }

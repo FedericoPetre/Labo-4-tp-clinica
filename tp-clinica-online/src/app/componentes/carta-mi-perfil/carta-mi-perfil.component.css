@@ -5,14 +5,13 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 30vw;
-    height: 53vh; /* Ocupa toda la altura de la pantalla */
+    width: auto;
+    height: auto; /* Ocupa toda la altura de la pantalla */
     background-color: white;
     border-radius: 20px;
-    margin-top: 20vh;
-    margin-bottom: 20vh;
+    margin-top: 3%;
   }
   
   .imagen {
@@ -32,7 +31,8 @@
   .informacion {
     text-align: center;
     margin-top: 10px; /* Ajusta el margen superior según sea necesario */
-    
+    height: auto;
+    width: 100%;
     font-family: 'Nunito', sans-serif;
     font-size: x-large;
   }

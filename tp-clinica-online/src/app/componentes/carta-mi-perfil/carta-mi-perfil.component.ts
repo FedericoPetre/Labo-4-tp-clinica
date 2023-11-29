@@ -13,4 +13,5 @@ export class CartaMiPerfilComponent {
   @Input() dni: string = '';
   @Input() imagenes: any[] = [];
   @Input() obraSocial = "";
+  @Input() historiaClinica : any;
 }

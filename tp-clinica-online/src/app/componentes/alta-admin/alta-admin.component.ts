@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { Persona } from 'src/app/clases/persona';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-alta-admin',
@@ -13,6 +14,8 @@ export class AltaAdminComponent {
   fotoAdmin : any[] = [];
   public form : FormGroup;
   imagenPerfil : any = "../../../assets/img/silueta.png";
+
+  flagCaptchaValido : boolean = false;
 
   public get Nombre(){
     return this.form.get('nombre')?.value;
@@ -39,7 +42,7 @@ export class AltaAdminComponent {
   }
 
 
-  constructor(private firebase : FirebaseService, private formBuilder : FormBuilder){
+  constructor(private firebase : FirebaseService, private formBuilder : FormBuilder, private notificaciones : NotificacionService){
     this.form = formBuilder.group({
       nombre:['',[Validators.required]],
       apellido:['',[Validators.required]],
@@ -53,10 +56,14 @@ export class AltaAdminComponent {
 
 
   async registrarAdmin(){
-    const admin = new Persona(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave);
-    console.log(JSON.stringify(admin));
-    await this.firebase.registrarAdmin(admin, this.fotoAdmin);
-    this.limpiarTodo();
+    if(this.flagCaptchaValido){
+      const admin = new Persona(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave);
+      await this.firebase.registrarAdmin(admin, this.fotoAdmin);
+      this.limpiarTodo();
+    }
+    else{
+      this.notificaciones.mostrarInfo("Captcha","Falta que el captcha ingresado sea el correcto");
+    }
   }
 
   actualizarfotoAdmin(event : any){
@@ -85,5 +92,9 @@ export class AltaAdminComponent {
       foto:''
     });
     this.imagenPerfil = "../../../assets/img/silueta.png";
+  }
+
+  validarCaptcha(respuestaCaptcha:boolean){
+    this.flagCaptchaValido = respuestaCaptcha;
   }
 }

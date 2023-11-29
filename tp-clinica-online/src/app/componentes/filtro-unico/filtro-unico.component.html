@@ -22,6 +22,16 @@
         </div>
     </div>
 
+    
+    <div *ngIf="tipoUsuario == 'admin'" class="filtroEspecialista">
+        <div>
+            <h1>Filtrar por Especialista</h1>
+        </div>
+        <div class="especialistas">
+            <button class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
+        </div>
+    </div>
+
     <div class="filtroEspecialidad">
         <div>
             <h1>Filtrar por especialidad</h1>

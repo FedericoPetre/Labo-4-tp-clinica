@@ -77,6 +77,20 @@ export class LoginComponent {
 
     this.arrayPersonas = arrayNuevo;
     this.usuariosAccesoRapido = arrayTodos;
+
+    this.usuariosAccesoRapido.sort((a, b) => {
+      if (a.tipoUsuario === 'paciente' && b.tipoUsuario !== 'paciente') {
+          return -1; // 'paciente' antes de cualquier otro tipo
+      }
+      if (a.tipoUsuario === 'especialista' && b.tipoUsuario === 'admin') {
+          return -1; // 'especialista' antes de 'admin'
+      }
+      if (a.tipoUsuario === 'admin' && b.tipoUsuario !== 'admin') {
+          return 1; // 'admin' después de cualquier otro tipo
+      }
+      return 0; // No cambian de posición
+  });
+  
   }
 
   determinarSiSeEncuentraEnAutorizados(email:string){

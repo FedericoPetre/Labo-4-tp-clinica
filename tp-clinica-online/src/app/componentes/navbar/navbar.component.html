@@ -9,6 +9,11 @@
               <li class="nav-item">
                   <a class="nav-link" routerLink="registro" *ngIf="!flagEstaLogueado">Registrarse</a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="quien-soy" >¿Quién Soy?</a>
+              </li>
+              
               <li class="nav-item">
                 <a class="nav-link" routerLink="mi-perfil" *ngIf="flagEstaLogueado">Mi perfil</a>
               </li>
@@ -25,13 +30,16 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="turnos/mis-turnos" *ngIf="flagEsPaciente || tipoUsuario=='especialista'">Mis Turnos</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="turnos" *ngIf="flagEsAdmin">Turnos</a>
+              </li>
           </ul>
       </div>
       <ul *ngIf="flagEstaLogueado" class="navbar-nav ml-auto">
-          <li class="nav-item" *ngIf="flagEstaLogueado">
+          <li class="nav-item">
               <a class="nav-link">{{nombre}}</a>
           </li>
-          <li class="nav-item" *ngIf="flagEstaLogueado">
+          <li class="nav-item">
             <a class="nav-link" (click)="salir()">Cerrar Sesión</a>
         </li>
       </ul>
