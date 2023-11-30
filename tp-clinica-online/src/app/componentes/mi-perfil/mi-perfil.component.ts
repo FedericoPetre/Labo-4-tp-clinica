@@ -1,6 +1,9 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { TurnosService } from 'src/app/servicios/turnos.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-mi-perfil',
@@ -22,6 +25,9 @@ export class MiPerfilComponent {
   historiaClinica : any;
   historiaClinicaObj : any;
   descargaHistoriaClinica : boolean = false;
+
+  @ViewChild('content') content: ElementRef | undefined;
+
 
   ngOnInit(){
     if(this.firebase.tipoUsuario =="especialista"){
@@ -122,7 +128,6 @@ export class MiPerfilComponent {
     if(arrayDatos.length > 0){
       for(let i=0; i<arrayDatos.length; i++){
         this.historiaClinica = arrayDatos[i];
-        console.log(this.historiaClinica);
         break;
       }
     }
@@ -144,5 +149,45 @@ export class MiPerfilComponent {
 
     this.historiaClinicaObj = historiaClinicaObj1;
     this.descargaHistoriaClinica = true;
+    setTimeout(() => {
+      this.generarPDF();   
+    }, 1500);
   }
+
+  generarPDF() {
+    const DATA = document.getElementById('pdf');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 2,
+    };
+    //@ts-ignore
+    html2canvas(DATA, options)
+      .then((canvas: any) => {
+        const img = canvas.toDataURL('image/PNG');
+
+        const bufferX = 30;
+        const bufferY = 30;
+        const imgProps = (doc as any).getImageProperties(img);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          img,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult: any) => {
+        docResult.save(`historia-clinica.pdf`);
+      });
+  }
+
 }
+
+

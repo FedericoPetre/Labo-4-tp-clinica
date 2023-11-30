@@ -142,7 +142,13 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
   }
 
   async actualizarHabilitacion(email:string, nuevoEstado : string){
-    await this.firebase.actualizarHabilitacionEspecialista(email, nuevoEstado);
+
+    this.notificaciones.mostrarSpinner();
+
+    setTimeout(async()=>{
+      await this.firebase.actualizarHabilitacionEspecialista(email, nuevoEstado);
+      this.notificaciones.ocultarSpinner();
+    },2000);
   }
 
 

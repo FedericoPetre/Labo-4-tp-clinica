@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
@@ -6,7 +7,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class NotificacionService {
-  constructor(private toast: ToastrService) {}
+  constructor(private toast: ToastrService, private spinner : NgxSpinnerService) {}
 
   mostrarExito(titulo: string, mensajeExito: string) {
     this.toast.success(mensajeExito, titulo);
@@ -221,6 +222,14 @@ export class NotificacionService {
     } else {
       return null;
     }
+  }
+
+  mostrarSpinner(){
+    this.spinner.show();
+  }
+
+  ocultarSpinner(){
+    this.spinner.hide();
   }
   
 }

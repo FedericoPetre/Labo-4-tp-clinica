@@ -76,10 +76,12 @@ export class AltaEspecialistaComponent {
 
   async registrarEspecialista(){
     if(this.flagCaptchaValido){
+      this.notificaciones.mostrarSpinner();
       const especialista = new Especialista(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.Especialidad, {foto:''});
       console.log(JSON.stringify(especialista));
       await this.firebase.registrarEspecialista(especialista, this.fotoEspecialista);
       this.limpiarTodo();
+      this.notificaciones.ocultarSpinner();
     }
     else{
       this.notificaciones.mostrarInfo("Captcha","Falta que el captcha ingresado sea el correcto");

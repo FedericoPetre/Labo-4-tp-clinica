@@ -57,9 +57,11 @@ export class AltaAdminComponent {
 
   async registrarAdmin(){
     if(this.flagCaptchaValido){
+      this.notificaciones.mostrarSpinner();
       const admin = new Persona(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave);
       await this.firebase.registrarAdmin(admin, this.fotoAdmin);
       this.limpiarTodo();
+      this.notificaciones.ocultarSpinner();
     }
     else{
       this.notificaciones.mostrarInfo("Captcha","Falta que el captcha ingresado sea el correcto");

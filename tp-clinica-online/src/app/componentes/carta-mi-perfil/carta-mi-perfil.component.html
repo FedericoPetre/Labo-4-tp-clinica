@@ -8,9 +8,38 @@
       <p>Dni: {{dni}}</p>
       <p>{{ email }}</p>
       <p *ngIf="obraSocial != ''">Obra Social: {{obraSocial}}</p>
-      <p *ngIf="obraSocial != ''"><button (click)="verHistoriaClinica(email)" class="btn btn-primary">Ver mi historia clínica</button></p>
       <p *ngIf="obraSocial != ''"><button (click)="descargarHistoriaClinica(email)" class="btn btn-success">Descargar PDF</button></p>
       <br>
+
+      <div *ngIf="obraSocial != ''" class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
+        <div class="text-center">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-dark align-middle">
+              <thead>
+                <tr><td colspan="6">Historia Clínica de {{nombre}} {{apellido}}</td></tr>
+                <tr>
+                  <td>Fecha</td>
+                  <td>Altura</td>
+                  <td>Peso</td>
+                  <td>Presion</td>
+                  <td>Temperatura</td>
+                  <td>Detalle</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td>{{historiaClinica.fecha}}</td>
+                    <td>{{historiaClinica.altura}}</td>
+                    <td>{{historiaClinica.peso}}</td>
+                    <td>{{historiaClinica.presion}}</td>
+                    <td>{{historiaClinica.temperatura}}</td>
+                    <td>{{historiaClinica.detalle}}</td> 
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
   

@@ -7,6 +7,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 /**TOAST */
 import { ToastrModule } from 'ngx-toastr';
 /** */
@@ -38,6 +39,7 @@ import { TurnosAdminComponent } from './componentes/turnos-admin/turnos-admin.co
 import { CaptchaComponent } from './componentes/captcha/captcha.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

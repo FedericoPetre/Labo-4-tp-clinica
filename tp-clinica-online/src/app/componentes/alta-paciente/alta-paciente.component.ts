@@ -77,10 +77,12 @@ export class AltaPacienteComponent
   async registrarPaciente(){
     if(this.flagCaptchaValido){
       if(this.fotosPaciente.length == 2){ //si son dos fotos se puede registrar
+        this.notificaciones.mostrarSpinner();
         //los datos del paciente tomados del formulario van en el constructor de Paciente
         const paciente = new Paciente(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.ObraSocial, [{foto:''}]);
         await this.firebase.registrarPaciente(paciente, this.fotosPaciente);
         this.limpiarTodo();
+        this.notificaciones.ocultarSpinner();
       }
       else{ //si no son dos fotos (son más o son menos) entonces no se registra hasta que sean dos fotos solamente
         // avisar que no son la cantidad de fotos requeridas

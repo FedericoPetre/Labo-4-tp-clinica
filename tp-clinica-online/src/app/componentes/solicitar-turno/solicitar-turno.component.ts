@@ -197,9 +197,15 @@ export class SolicitarTurnoComponent {
 
 
   solicitarTurno(dia:string, indice : number){
+
+    this.notificaciones.mostrarSpinner();
     if(indice != -1){
       this.horariosDisponiblesDeEseEspecialistaConEsaEspecialidad.splice(indice,1);
     }
+
+    setTimeout(()=>{
+      this.notificaciones.ocultarSpinner();
+    },1500);
 
     if(!this.firebase.flagEsAdmin){
       this.firebase.guardarTurnoParaElPaciente(this.firebase.nombreUsuario, this.firebase.email, this.especialistaElegido, this.especialidadElegida, dia);

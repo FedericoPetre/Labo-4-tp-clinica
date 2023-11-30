@@ -1,4 +1,5 @@
-<div class=container>
+
+<div class="container" id="pdf" >
     <div class="row">
         <div *ngIf="usuarioIngresado.tipoUsuario === 'especialista'" class="col-4" style="margin-top: 6vh;">
             <app-carta-mi-perfil [nombre]="especialistaIngresado.nombre" [apellido]="especialistaIngresado.apellido" [email]="especialistaIngresado.email" [imagenes]="especialistaIngresado.imagen" [edad]="especialistaIngresado.edad" [dni]="especialistaIngresado.dni"> </app-carta-mi-perfil>
@@ -16,35 +17,6 @@
         <div class="col-12" *ngIf="flagEsPaciente">
             <app-carta-mi-perfil [nombre]="usuarioIngresado.nombre" [apellido]="usuarioIngresado.apellido" [email]="usuarioIngresado.email" [imagenes]="usuarioIngresado.imagenes" [edad]="usuarioIngresado.edad" [dni]="usuarioIngresado.dni" [obraSocial]="usuarioIngresado.obraSocial" [historiaClinica]="historiaClinica" (eventEmiterHistoria)="mostrarHistoriaClinica($event)"> </app-carta-mi-perfil>
             
-            <div *ngIf="descargaHistoriaClinica" class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
-                <div class="text-center">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-dark align-middle">
-                      <thead>
-                        <tr>
-                          <td>Fecha</td>
-                          <td>Altura</td>
-                          <td>Peso</td>
-                          <td>Presion</td>
-                          <td>Temperatura</td>
-                          <td>Detalle</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                            <td>{{historiaClinicaObj.fecha}}</td>
-                            <td>{{historiaClinicaObj.altura}}</td>
-                            <td>{{historiaClinicaObj.peso}}</td>
-                            <td>{{historiaClinicaObj.presion}}</td>
-                            <td>{{historiaClinicaObj.temperatura}}</td>
-                            <td>{{historiaClinicaObj.detalle}}</td> 
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              
         </div>
 
         <div class="col-12" *ngIf="flagEsAdmin">

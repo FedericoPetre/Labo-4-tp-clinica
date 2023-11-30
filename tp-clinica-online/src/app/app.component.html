@@ -1,2 +1,11 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div id="pdf">
+    <app-navbar></app-navbar>
+    <div [@routeAnimations]="getRouteAnimationData()">
+        <router-outlet></router-outlet>
+      </div>
+</div>
+
+
+<ngx-spinner style='display: block'>
+    <img src='../assets/img/spinner.gif' alt='Loading Spinner' style='border-radius: 50%;'>
+</ngx-spinner>

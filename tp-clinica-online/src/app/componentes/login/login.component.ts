@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -44,12 +45,17 @@ export class LoginComponent {
   }
 
   async ingresar(){
-    if(this.determinarSiSeEncuentraEnAutorizados(this.Email)){
-      await this.firebase.ingresar(this.Email, this.Clave);
-    }
-    else{
-      this.notificacion.mostrarError("Inicio Sesión","No estás autorizado para ingresar al sistema");
-    }
+    this.notificacion.mostrarSpinner();
+    setTimeout(async()=>{
+      if(this.determinarSiSeEncuentraEnAutorizados(this.Email)){
+        await this.firebase.ingresar(this.Email, this.Clave);
+      }
+      else{
+        this.notificacion.mostrarError("Inicio Sesión","No estás autorizado para ingresar al sistema");
+      }
+      this.notificacion.ocultarSpinner();
+    },3000);
+
 
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { NotificacionService } from 'src/app/servicios/notificacion.service';
+import { TurnosService } from 'src/app/servicios/turnos.service';
 
 @Component({
   selector: 'app-carta-mi-perfil',
@@ -23,12 +24,16 @@ export class CartaMiPerfilComponent {
 
   obserHistoriasClinicas$ : any;
 
-  constructor(private firebase : FirebaseService, private notificaciones : NotificacionService){}
+  constructor(private firebase : FirebaseService, private notificaciones : NotificacionService, private turnos : TurnosService){}
 
   ngOnInit(){
     if(this.firebase.tipoUsuario == "paciente"){
       this.obserHistoriasClinicas$ = this.firebase.traerTodasLasHistoriasClinicas().subscribe(datos=>{
         this.cargarHistoriasClinicas(datos);
+
+        setTimeout(() => {
+          this.historiaClinica = this.encontrarHistoriaPorMailPaciente(this.firebase.email);
+        }, 500);
       });
     }
   }
@@ -96,9 +101,18 @@ export class CartaMiPerfilComponent {
       }
     }
 
-    return historia;
+    let fecha = new Date();
+    let fechaFormateada : string = this.turnos.obtenerFechaFormateada(fecha);
+
+    let historiaClinicaObj1 = {
+      fecha: fechaFormateada,
+      altura:historia.altura,
+      peso:historia.peso,
+      presion:historia.presion,
+      temperatura:historia.temperatura,
+      detalle:historia.detalle
+    };
+
+    return historiaClinicaObj1;
   }
-
-
-
 }

@@ -2,3 +2,6 @@
 
 /*TOAST*/
 @import 'ngx-toastr/toastr';
+
+/*ANIMISTA*/
+@import url('https://cdn.animista.net/css/animations.css');

@@ -9,16 +9,17 @@ import { FiltroUnicoComponent } from './componentes/filtro-unico/filtro-unico.co
 import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { CaptchaComponent } from './componentes/captcha/captcha.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
+import { slideInAnimation } from './animaciones/animaciones';
 
 const routes: Routes = [
   {path:'', redirectTo:'bienvenida', pathMatch:'full'},
-  {path:'bienvenida',title:'Ingreso Clínica Online', component:BienvenidaComponent},
-  { path: 'registro', loadChildren: () => import('./modulos/registro/registro.module').then(m => m.RegistroModule) },
-  {path:'login',component:LoginComponent, title:'Ingresar - Clínica'},
+  {path:'bienvenida',title:'Ingreso Clínica Online', component:BienvenidaComponent, data: { animation: 'bienvenida' }},
+  { path: 'registro', loadChildren: () => import('./modulos/registro/registro.module').then(m => m.RegistroModule), data: { animation: 'registro' } },
+  {path:'login',component:LoginComponent, title:'Ingresar - Clínica', data: { animation: 'login' }},
   {path:'seccion-usuarios',component:ComponenteHabilitacionesComponent, title:'Sección Usuarios - Clínica Online'},
-  {path:'mi-perfil',component:MiPerfilComponent, title:'Mi perfil - Clínica Online'},
-  { path: 'turnos', loadChildren: () => import('./modulos/turnos-module/turnos-module.module').then(m => m.TurnosModuleModule) },
-  {path:'quien-soy', component:QuienSoyComponent, title:'Creador de la web - Clínica Online'}
+  {path:'mi-perfil',component:MiPerfilComponent, title:'Mi perfil - Clínica Online', data: { animation: 'mi-perfil' }},
+  { path: 'turnos', loadChildren: () => import('./modulos/turnos-module/turnos-module.module').then(m => m.TurnosModuleModule), data: { animation: 'turnos' }},
+  {path:'quien-soy', component:QuienSoyComponent, title:'Creador de la web - Clínica Online', data: { animation: 'quien-soy' }}
 ];
 
 @NgModule({
