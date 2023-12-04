@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ExcelService } from 'src/app/servicios/excel.service';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { NotificacionService } from 'src/app/servicios/notificacion.service';
 import { TurnosService } from 'src/app/servicios/turnos.service';
@@ -23,8 +24,12 @@ export class CartaMiPerfilComponent {
   historiasClinicas : any[] = [];
 
   obserHistoriasClinicas$ : any;
+  obserTurnos$ :any;
 
-  constructor(private firebase : FirebaseService, private notificaciones : NotificacionService, private turnos : TurnosService){}
+  misTurnos:any[] = [];
+  especialistasQueMeAtendieron :any[] = [];
+
+  constructor(private firebase : FirebaseService, private notificaciones : NotificacionService, private turnos : TurnosService, private excel : ExcelService){}
 
   ngOnInit(){
     if(this.firebase.tipoUsuario == "paciente"){
@@ -35,12 +40,20 @@ export class CartaMiPerfilComponent {
           this.historiaClinica = this.encontrarHistoriaPorMailPaciente(this.firebase.email);
         }, 500);
       });
+
+      this.obserTurnos$ = this.firebase.traerTurnosDelPaciente(this.firebase.email).subscribe(datos=>{
+        this.cargarMisTurnos(datos);
+      });
     }
   }
 
   ngOnDestroy(){
     if(this.obserHistoriasClinicas$){
       this.obserHistoriasClinicas$.unsubscribe();
+    }
+
+    if(this.obserTurnos$){
+      this.obserTurnos$.unsubscribe();
     }
   }
 
@@ -114,5 +127,47 @@ export class CartaMiPerfilComponent {
       detalle:historia.detalle
     };
     return historiaClinicaObj1;
+  }
+
+  cargarMisTurnos(arrayAux:any[]){
+    let misTurnosArray :any[] = [];
+    let especialistas :any[] = [];
+
+    if(arrayAux.length >0){
+      arrayAux.forEach(turno=>{
+        let objTurno = {
+          calificacion:turno.calificacionAtencion,
+          comentario:turno.comentarioCancelacion,
+          diaDelTurno:turno.diaTurno,
+          especialidad:turno.especialidad,
+          estado:turno.estadoTurno,
+          especialista:turno.nombreEspecialista,
+          resenia:turno.resenia,
+          paciente:turno.paciente
+        };
+
+        misTurnosArray.push(objTurno);
+
+        if(!especialistas.includes(objTurno.especialista)){
+          especialistas.push(objTurno.especialista);
+        }
+
+      });
+    }
+
+    this.misTurnos = misTurnosArray;
+    this.especialistasQueMeAtendieron = especialistas;
+  }
+
+  descargarTurnosConElEspecialista(especialista:string){
+    let turnos :any[] = [];
+
+    this.misTurnos.forEach(turno=>{
+      if(turno.especialista == especialista){
+        turnos.push(turno);
+      }
+    });
+
+    this.excel.descargarExcel(turnos, "turnosCon"+especialista);
   }
 }
