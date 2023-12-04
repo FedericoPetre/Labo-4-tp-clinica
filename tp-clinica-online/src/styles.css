@@ -1,7 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-/*TOAST*/
 @import 'ngx-toastr/toastr';
 
 /*ANIMISTA*/
 @import url('https://cdn.animista.net/css/animations.css');
+
+
+.sweetalert-toast-container {
+    width: auto; /* Ajusta el ancho según tus preferencias */
+  }
+  
+  .sweetalert-toast-popup {
+    border-radius: 10px; /* Ajusta el radio de borde según tus preferencias */
+  }
+  
+  .sweetalert-toast-title {
+    font-size: 12px; /* Ajusta el tamaño del texto según tus preferencias */
+    /* Otros estilos de texto */
+  }
+  

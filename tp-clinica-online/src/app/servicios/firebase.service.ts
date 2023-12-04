@@ -497,7 +497,7 @@ async finalizarTurnoPaciente(especialidad: string, especialista: string, pacient
   });
 }
 
-guardarHistoriaClinica(paciente : string, historiaClinica : any){
+async guardarHistoriaClinica(paciente : string, historiaClinica : any){
   let fecha : Date = new Date();
   const uIdHistoriaClinica = this.store.createId();
   const docHistoria = this.store.doc("HistoriasClinicas/"+uIdHistoriaClinica);
@@ -511,6 +511,32 @@ guardarHistoriaClinica(paciente : string, historiaClinica : any){
     detalles:historiaClinica.detalles,
     mailPaciente:historiaClinica.mailPaciente
   });
+}
+
+async modificarHistoriaClinica(mailPaciente : string, historiaClinica : any){
+  const collectionRef = this.store.collection('HistoriasClinicas');
+  let fecha : Date = new Date();
+
+  try {
+    collectionRef.ref.where('mailPaciente', '==', mailPaciente).limit(1).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // Actualizar el token en cada documento
+        collectionRef.doc(doc.id).update({
+          fecha:fecha,
+          altura:historiaClinica.altura,
+          peso:historiaClinica.peso,
+          temperatura:historiaClinica.temperatura,
+          presion:historiaClinica.presion,
+          detalles:historiaClinica.detalles,
+        });
+      });
+    });
+    
+    console.log(`Documentos para el paciente ${mailPaciente} eliminados con éxito.`);
+  } catch (error) {
+    console.error('Error al eliminar documentos:', error);
+    throw error;
+  }
 }
 
 traerHistoriaClinicaPaciente(paciente:string){
@@ -546,6 +572,10 @@ async agregarCalificacionServicio(especialidad: string, especialista: string, pa
     console.error('Error al modificar el documento:', error);
     return "Error al calificar el turno";
   });
+}
+
+traerMisTurnosFinalizados(nombreEspecialista : string){
+  return this.store.collection("Turnos",ref=>ref.where("nombreEspecialista","==",nombreEspecialista).where("estadoTurno","==","finalizado")).valueChanges();
 }
 
 

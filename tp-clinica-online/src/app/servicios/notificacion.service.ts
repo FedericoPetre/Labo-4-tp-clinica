@@ -9,16 +9,55 @@ import Swal from 'sweetalert2';
 export class NotificacionService {
   constructor(private toast: ToastrService, private spinner : NgxSpinnerService) {}
 
-  mostrarExito(titulo: string, mensajeExito: string) {
-    this.toast.success(mensajeExito, titulo);
+  async mostrarExito(titulo: string, mensajeExito: string) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000, // Duración en milisegundos
+        timerProgressBar: true, // Muestra una barra de progreso
+        icon: 'success', // Puedes cambiarlo a 'info', 'warning', 'error', etc.
+        title: mensajeExito,
+        customClass: {
+          container: 'sweetalert-toast-container',
+          popup: 'sweetalert-toast-popup',
+          title: 'sweetalert-toast-title',
+        },
+      });
+    }
+
+ async mostrarError(titulo: string, mensajeError: string) {
+  Swal.fire({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000, // Duración en milisegundos
+    timerProgressBar: true, // Muestra una barra de progreso
+    icon: 'error', // Puedes cambiarlo a 'info', 'warning', 'error', etc.
+    title: mensajeError,
+    customClass: {
+      container: 'sweetalert-toast-container',
+      popup: 'sweetalert-toast-popup',
+      title: 'sweetalert-toast-title',
+    },
+  });
   }
 
-  mostrarError(titulo: string, mensajeError: string) {
-    this.toast.error(mensajeError, titulo);
-  }
-
-  mostrarInfo(titulo: string, mensajeInfo: string) {
-    this.toast.info(mensajeInfo, titulo);
+  async mostrarInfo(titulo: string, mensajeInfo: string) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000, // Duración en milisegundos
+      timerProgressBar: true, // Muestra una barra de progreso
+      icon: 'info', // Puedes cambiarlo a 'info', 'warning', 'error', etc.
+      title: mensajeInfo,
+      customClass: {
+        container: 'sweetalert-toast-container',
+        popup: 'sweetalert-toast-popup',
+        title: 'sweetalert-toast-title',
+      },
+    });
   }
 
   mostrarConfirmacion(titulo: string, mensaje: string): Promise<any> {
@@ -60,9 +99,18 @@ export class NotificacionService {
     }
   }
 
-  async mostrarHistoriaClinica(historiaClinica:any): Promise<string | null> {
 
-    let mensaje : string = `<p>Altura: ${historiaClinica.altura}</p><br><p>Peso: ${historiaClinica.peso}</p><br><p>Presion: ${historiaClinica.presion}</p><br><p>Temperatura: ${historiaClinica.temperatura}</p><br><p>Detalles: ${historiaClinica.detalle}</p>`;
+  
+
+  async mostrarHistoriaClinica(historiaClinica:any): Promise<string | null> {
+    let detalleStr = "";
+    for (const key in historiaClinica.detalle) {
+      if (historiaClinica.detalle.hasOwnProperty(key)) {
+        detalleStr = detalleStr + `${key}:${historiaClinica.detalle[key]}, `;
+      }
+    }
+
+    let mensaje : string = `<p>Altura: ${historiaClinica.altura}</p><br><p>Peso: ${historiaClinica.peso}</p><br><p>Presion: ${historiaClinica.presion}</p><br><p>Temperatura: ${historiaClinica.temperatura}</p><br><p>Detalles: ${detalleStr}</p>`;
 
     const resultado = await Swal.fire({
       title: "Historia Clínica del paciente "+historiaClinica.paciente,

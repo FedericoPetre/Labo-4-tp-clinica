@@ -52,7 +52,7 @@ export class CartaMiPerfilComponent {
         let detalleStr : string = "";
         for (const key in historia.detalles) {
           if (historia.detalles.hasOwnProperty(key)) {
-            detalleStr = detalleStr + `${key}:${historia.detalles[key]}`;
+            detalleStr = detalleStr + `${key}:${historia.detalles[key]}, `;
           }
         }
 
@@ -104,6 +104,7 @@ export class CartaMiPerfilComponent {
     let fecha = new Date();
     let fechaFormateada : string = this.turnos.obtenerFechaFormateada(fecha);
 
+
     let historiaClinicaObj1 = {
       fecha: fechaFormateada,
       altura:historia.altura,
@@ -112,7 +113,6 @@ export class CartaMiPerfilComponent {
       temperatura:historia.temperatura,
       detalle:historia.detalle
     };
-
     return historiaClinicaObj1;
   }
 }

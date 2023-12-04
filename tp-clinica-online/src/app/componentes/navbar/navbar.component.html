@@ -32,6 +32,9 @@
                 <a class="nav-link" routerLink="turnos/mis-turnos" *ngIf="flagEsPaciente || tipoUsuario=='especialista'">Mis Turnos</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" routerLink="pacientes" *ngIf="tipoUsuario=='especialista'">Sección Pacientes</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" routerLink="turnos" *ngIf="flagEsAdmin">Turnos</a>
               </li>
           </ul>

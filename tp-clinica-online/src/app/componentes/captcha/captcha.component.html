@@ -2,7 +2,7 @@
     <h1>Captcha</h1>
     <div class="container">
         <form name="form1">
-            <input type="text" class="captchaGenerado" name="captcha" [(ngModel)]="captcha" id="captchaTxtArea">
+            <input type="text" class="captchaGenerado" name="captcha" readonly="true" [(ngModel)]="captcha" id="captchaTxtArea">
             <input type="text" placeholder="Ingrese el captcha" name="captchaIngresado" [(ngModel)]="captchaIngresado" id="CaptchaEnter" [readonly]="!flagMuestraBoton">
             <button class="btn btn-primary"*ngIf="flagMuestraBoton" (click)="checkearCaptcha()">Verificar Captcha</button>
            </form>

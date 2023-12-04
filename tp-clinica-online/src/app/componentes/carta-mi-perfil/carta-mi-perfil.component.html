@@ -8,10 +8,10 @@
       <p>Dni: {{dni}}</p>
       <p>{{ email }}</p>
       <p *ngIf="obraSocial != ''">Obra Social: {{obraSocial}}</p>
-      <p *ngIf="obraSocial != ''"><button (click)="descargarHistoriaClinica(email)" class="btn btn-success">Descargar PDF</button></p>
+      <p *ngIf="historiaClinica != undefined"><button (click)="descargarHistoriaClinica(email)" class="btn btn-success">Descargar PDF</button></p>
       <br>
 
-      <div *ngIf="obraSocial != ''" class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
+      <div *ngIf="historiaClinica != undefined" class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
         <div class="text-center">
           <div class="table-responsive">
             <table class="table table-bordered table-hover table-dark align-middle">

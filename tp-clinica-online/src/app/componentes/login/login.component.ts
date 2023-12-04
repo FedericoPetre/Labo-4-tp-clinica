@@ -82,7 +82,14 @@ export class LoginComponent {
     }
 
     this.arrayPersonas = arrayNuevo;
-    this.usuariosAccesoRapido = arrayTodos;
+    let accesosRapido :any[] = [];
+    
+    arrayTodos.forEach((usuario:any)=>{
+      if(usuario.email == "trummofreffiso-6202@yopmail.com" || usuario.email == 'breffoiddewetu-7402@yopmail.com' || usuario.email == "preuwubrocicroi-5676@yopmail.com" || usuario.email == "fede.wonderstudio@gmail.com" || usuario.email == "hetijed362@mainoj.com" || usuario.email == "federicopetremovil@gmail.com"){
+        accesosRapido.push(usuario);
+      }});
+      
+    this.usuariosAccesoRapido = accesosRapido;
 
     this.usuariosAccesoRapido.sort((a, b) => {
       if (a.tipoUsuario === 'paciente' && b.tipoUsuario !== 'paciente') {

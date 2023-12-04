@@ -114,7 +114,6 @@ export class MiPerfilComponent {
       arrayAux.forEach((dato:any)=>{
         if(dato.email == this.firebase.email){
           this.usuarioIngresado = dato;
-          console.log(JSON.stringify(this.usuarioIngresado));
         }
       });
     }
@@ -138,13 +137,21 @@ export class MiPerfilComponent {
     let fecha = new Date();
     let fechaFormateada : string = this.turnos.obtenerFechaFormateada(fecha);
 
+    let detalleStr = "";
+    for (const key in objHistoria.detalle) {
+      if (objHistoria.detalle.hasOwnProperty(key)) {
+        detalleStr = detalleStr + `${key}:${objHistoria.detalle[key]}, `;
+      }
+    }
+    
+
     let historiaClinicaObj1 = {
       fecha: fechaFormateada,
       altura:objHistoria.altura,
       peso:objHistoria.peso,
       presion:objHistoria.presion,
       temperatura:objHistoria.temperatura,
-      detalle:objHistoria.detalle
+      detalle:detalleStr
     };
 
     this.historiaClinicaObj = historiaClinicaObj1;

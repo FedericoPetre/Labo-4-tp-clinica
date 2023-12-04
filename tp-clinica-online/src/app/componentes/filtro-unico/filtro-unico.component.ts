@@ -15,7 +15,10 @@ export class FiltroUnicoComponent {
   especialidades : any[] = [];
   pacientes : any[] = [];
 
+  historiasClinicas :any[] = [];
+
   obser$ : any;
+  obserHistoriasClinicas$ :any;
 
   turnosFiltrados : any[] = [];
   @Output() eventItemMisTurnos = new EventEmitter<any>();
@@ -44,11 +47,17 @@ export class FiltroUnicoComponent {
         this.cargarEspecialistasYEspecialidades(datos);
       });
     }
+
+
   }
 
   ngOnDestroy(){
     if(this.obser$){
       this.obser$.unsubscribe();
+    }
+
+    if(this.obserHistoriasClinicas$){
+      this.obserHistoriasClinicas$.unsubscribe();
     }
   }
 
@@ -95,108 +104,199 @@ export class FiltroUnicoComponent {
   }
 
   cargarEspecialistasYEspecialidades(arrayDatos : any[]){
-    let arrayAux : any[] = [];
-    let arrayEspecialistas : any[] = [];
-    let arrayEspecialidades : any[] = [];
 
-    if(arrayDatos.length > 0){
+    this.obserHistoriasClinicas$ = this.firebase.traerTodasLasHistoriasClinicas().subscribe(datos=>{
+      this.cargarHistoriasClinicas(datos);
+      let arrayAux : any[] = [];
+      let arrayEspecialistas : any[] = [];
+      let arrayEspecialidades : any[] = [];
+  
+      if(arrayDatos.length > 0){
+  
+        arrayDatos.forEach((dato:any)=>{
+          let historiaClinica = this.encontrarHistoriaPorMailPaciente(dato.mailPaciente);
+          let historiaStr = "";
+          let detalleStr = "";
 
-      arrayDatos.forEach((dato:any)=>{
-        let objTurno = {
-          diaDelTurno : dato.diaTurno,
-          especialidad : dato.especialidad,
-          estado : dato.estadoTurno,
-          especialista: dato.nombreEspecialista,
-          fueRealizado: dato.fueRealizado,
-          resenia: dato.resenia,
-          calificacionAtencion: dato.calificacionAtencion,
-          comentarioCancelacion : dato.comentarioCancelacion,
-          paciente: dato.paciente
-        };
+          for (const key in historiaClinica) {
+            if (historiaClinica.hasOwnProperty(key)) {
+              if(key == 'detalle'){
+                for(const key1 in historiaClinica[key]){
+                  detalleStr = detalleStr + `${key1}:${historiaClinica[key][key1]}`;
+                }
+                historiaStr =  historiaStr + `${key}${detalleStr}, `;
 
-        arrayAux.push(objTurno);
+              }else{
+                historiaStr =  historiaStr + `${key}:${historiaClinica[key]}, `;
+              }
+            }
+          }
 
-        if(!arrayEspecialistas.includes(objTurno.especialista)){
-          arrayEspecialistas.push(objTurno.especialista);
-        }
+          historiaStr = historiaStr.toLowerCase();
+  
+          let objTurno = {
+            diaDelTurno : dato.diaTurno,
+            especialidad : dato.especialidad,
+            estado : dato.estadoTurno,
+            especialista: dato.nombreEspecialista,
+            fueRealizado: dato.fueRealizado,
+            resenia: dato.resenia,
+            calificacionAtencion: dato.calificacionAtencion,
+            comentarioCancelacion : dato.comentarioCancelacion,
+            paciente: dato.paciente,
+            historiaClinica : historiaStr 
+          };
+  
+          arrayAux.push(objTurno);
+  
+          if(!arrayEspecialistas.includes(objTurno.especialista)){
+            arrayEspecialistas.push(objTurno.especialista);
+          }
+  
+          if(!arrayEspecialidades.includes(objTurno.especialidad)){
+            arrayEspecialidades.push(objTurno.especialidad);
+          }
+        });
+      }
+      this.misTurnos = arrayAux;
+      this.especialidades = arrayEspecialidades;
+      this.especialistas = arrayEspecialistas;
+      
+      this.buscarTurnosConEseFiltro();
+    });
 
-        if(!arrayEspecialidades.includes(objTurno.especialidad)){
-          arrayEspecialidades.push(objTurno.especialidad);
-        }
-      });
-    }
-    this.misTurnos = arrayAux;
-    this.especialidades = arrayEspecialidades;
-    this.especialistas = arrayEspecialistas;
-    
-    this.buscarTurnosConEseFiltro();
+
+
   }
 
   cargarPacientesYEspecialidades(arrayDatos : any[]){
-    let arrayAux : any[] = [];
-    let arrayPacientes : any[] = [];
-    let arrayEspecialidades : any[] = [];
 
+    this.obserHistoriasClinicas$ = this.firebase.traerTodasLasHistoriasClinicas().subscribe(datos=>{
+      this.cargarHistoriasClinicas(datos);
+      let arrayAux : any[] = [];
+      let arrayPacientes : any[] = [];
+      let arrayEspecialidades : any[] = [];
+      
+  
+      if(arrayDatos.length > 0){
+  
+        
+        arrayDatos.forEach((dato:any)=>{
+          let historiaClinica = this.encontrarHistoriaPorMailPaciente(dato.mailPaciente);
+          let historiaStr = "";
+          let detalleStr = "";
+
+          for (const key in historiaClinica) {
+            if (historiaClinica.hasOwnProperty(key)) {
+              if(key == 'detalle'){
+                for(const key1 in historiaClinica[key]){
+                  detalleStr = detalleStr + `${key1}:${historiaClinica[key][key1]}`;
+                }
+                historiaStr =  historiaStr + `${key}${detalleStr}, `;
+
+              }else{
+                historiaStr =  historiaStr + `${key}:${historiaClinica[key]}, `;
+              }
+            }
+          }
+
+          historiaStr = historiaStr.toLowerCase();
+  
+          let objTurno = {
+            diaDelTurno : dato.diaTurno,
+            especialidad : dato.especialidad,
+            estado : dato.estadoTurno,
+            especialista: dato.nombreEspecialista,
+            fueRealizado: dato.fueRealizado,
+            resenia: dato.resenia,
+            calificacionAtencion: dato.calificacionAtencion,
+            comentarioCancelacion : dato.comentarioCancelacion,
+            paciente: dato.paciente,
+            mailPaciente:dato.mailPaciente,
+            historiaClinica : historiaStr
+          };
+  
+          arrayAux.push(objTurno);
+  
+          if(!arrayPacientes.includes(objTurno.paciente)){
+            arrayPacientes.push(objTurno.paciente);
+          }
+  
+          if(!arrayEspecialidades.includes(objTurno.especialidad)){
+            arrayEspecialidades.push(objTurno.especialidad);
+          }
+        });
+      }
+      this.misTurnos = arrayAux;
+      this.especialidades = arrayEspecialidades;
+      this.pacientes = arrayPacientes;
+
+      this.buscarTurnosConEseFiltro();
+    });
+
+  }
+
+  cargarHistoriasClinicas(arrayDatos :any[]){
+    let historias :any[] = [];
     if(arrayDatos.length > 0){
-
-      arrayDatos.forEach((dato:any)=>{
-        let objTurno = {
-          diaDelTurno : dato.diaTurno,
-          especialidad : dato.especialidad,
-          estado : dato.estadoTurno,
-          especialista: dato.nombreEspecialista,
-          fueRealizado: dato.fueRealizado,
-          resenia: dato.resenia,
-          calificacionAtencion: dato.calificacionAtencion,
-          comentarioCancelacion : dato.comentarioCancelacion,
-          paciente: dato.paciente,
-          mailPaciente:dato.mailPaciente
+      arrayDatos.forEach((historia:any)=>{
+        let objHistoriaClinica = {
+          altura:historia.altura+" cm",
+          paciente:historia.paciente,
+          peso:historia.peso+" kg",
+          presion:historia.presion+" mmHg",
+          temperatura:historia.temperatura+" °C",
+          detalle:historia.detalles,
+          mailPaciente:historia.mailPaciente
         };
 
-        arrayAux.push(objTurno);
-
-        if(!arrayPacientes.includes(objTurno.paciente)){
-          arrayPacientes.push(objTurno.paciente);
-        }
-
-        if(!arrayEspecialidades.includes(objTurno.especialidad)){
-          arrayEspecialidades.push(objTurno.especialidad);
-        }
-      });
+        historias.push(objHistoriaClinica);
+      })
     }
-    this.misTurnos = arrayAux;
-    this.especialidades = arrayEspecialidades;
-    this.pacientes = arrayPacientes;
 
-    this.buscarTurnosConEseFiltro();
+    this.historiasClinicas = historias;
   }
 
   buscarTurnosConEseFiltro(){
-    this.turnosFiltrados = [];
+    let turnosFiltradosArray : any[] = [];
     if(this.tipoUsuario == "paciente"){
       this.misTurnos.forEach((turno:any)=>{
-        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase())){
-          this.turnosFiltrados.push(turno);
+        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase())){
+          turnosFiltradosArray.push(turno);
         }
       });
+
+      this.turnosFiltrados = turnosFiltradosArray.sort(this.turnos1.compararDiaDelTurno);
+      console.log(this.turnosFiltrados);
+      this.eventItemMisTurnos.emit(this.turnosFiltrados);
     }
     else if(this.tipoUsuario == "especialista"){
       this.misTurnos.forEach((turno:any)=>{
-        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.paciente.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase())){
-          this.turnosFiltrados.push(turno);
+
+        let flagEsta1 : boolean = turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase());
+
+        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.paciente.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase())|| flagEsta1){
+          turnosFiltradosArray.push(turno);
         }
       });
+      console.log(turnosFiltradosArray);
+
+      this.turnosFiltrados = turnosFiltradosArray.sort(this.turnos1.compararDiaDelTurno);
+      console.log(this.turnosFiltrados);
+      this.eventItemMisTurnos.emit(this.turnosFiltrados);
+
+
     }else{
       this.misTurnos.forEach((turno:any)=>{
-        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase())){
-          this.turnosFiltrados.push(turno);
+        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()|| turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase()))){
+          turnosFiltradosArray.push(turno);
         }
       });
-    }
 
-    this.turnosFiltrados = this.turnosFiltrados.sort(this.turnos1.compararDiaDelTurno);
-    console.log(this.turnosFiltrados);
-    this.eventItemMisTurnos.emit(this.turnosFiltrados);
+      this.turnosFiltrados = turnosFiltradosArray.sort(this.turnos1.compararDiaDelTurno);
+      console.log(this.turnosFiltrados);
+      this.eventItemMisTurnos.emit(this.turnosFiltrados);
+    }
   }
 
   filtrar(item:string){
@@ -208,5 +308,17 @@ export class FiltroUnicoComponent {
     this.especialidadOEspecialista = "";
     this.turnosFiltrados = this.misTurnos;
     this.eventItemMisTurnos.emit(this.turnosFiltrados);
+  }
+
+  private encontrarHistoriaPorMailPaciente(mailPaciente:string){
+    let historia : any = "";
+    for(let i=0; i<this.historiasClinicas.length; i++){
+      if(this.historiasClinicas[i].mailPaciente == mailPaciente){
+        historia = this.historiasClinicas[i];
+        break;
+      }
+    }
+
+    return historia;
   }
 }

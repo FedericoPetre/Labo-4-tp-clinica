@@ -10,6 +10,7 @@ import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.componen
 import { CaptchaComponent } from './componentes/captcha/captcha.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { slideInAnimation } from './animaciones/animaciones';
+import { SeccionPacientesComponent } from './componentes/seccion-pacientes/seccion-pacientes.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'bienvenida', pathMatch:'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:'seccion-usuarios',component:ComponenteHabilitacionesComponent, title:'Sección Usuarios - Clínica Online'},
   {path:'mi-perfil',component:MiPerfilComponent, title:'Mi perfil - Clínica Online', data: { animation: 'mi-perfil' }},
   { path: 'turnos', loadChildren: () => import('./modulos/turnos-module/turnos-module.module').then(m => m.TurnosModuleModule), data: { animation: 'turnos' }},
-  {path:'quien-soy', component:QuienSoyComponent, title:'Creador de la web - Clínica Online', data: { animation: 'quien-soy' }}
+  {path:'quien-soy', component:QuienSoyComponent, title:'Creador de la web - Clínica Online', data: { animation: 'quien-soy' }},
+  {path:'pacientes',component:SeccionPacientesComponent, title:'Sección Pacientes - Clínica Online'}
 ];
 
 @NgModule({

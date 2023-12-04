@@ -1,0 +1,28 @@
+<div class="contenedorMayor">
+    <div class="contenedorMedio">
+        <div class="tituloTurnos">
+            <h1>Pacientes</h1>
+        </div><br><br><br>
+      <div class="arriba">
+        <button class="btn btn-primary fab-btn btn-sm boton" type="button" *ngFor="let item of misPacientes" (click)="mostrarTurnosDelPaciente(item.nombre)" [style.backgroundImage]="'url(' + item.foto + ')'">
+            <div class="contenidoBoton">
+              <span class="nombreEspecialista">{{item.nombre}}</span>
+            </div>
+          </button>
+          
+        </div>
+
+      <div class="abajo">
+          <div class="turnos">
+            <div class="tituloTurnos">
+                <h2 class="tituloTurnos2">Turnos Finalizados</h2>
+            </div>
+            <br>
+            <div class="botonesTurnos">
+                <br>
+                <app-tabla-turnos-especialista [misTurnosEspecialista]="turnosFinalizadosDelPaciente"></app-tabla-turnos-especialista>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

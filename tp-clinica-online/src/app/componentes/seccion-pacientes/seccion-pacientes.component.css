@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&family=Sora&display=swap');
+.contenedorMayor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 93vh;
+    width: 100%;
+    background-size: 100% 100%;
+    background-image: url("../../../assets/img/pasillo-hospital.jpg");
+    background-repeat: no-repeat;
+}
+
+.columna{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    text-align: left;
+}
+
+.row{
+    width: 80vw;
+}
+
+.contenedorMedio {
+    width: 85vw;
+    height: 80vh;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column; /* Cambiado a column */
+  }
+  
+  .arriba {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 45%;
+    text-align: center;
+    overflow-x: auto; 
+  }
+  
+  .abajo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 55%; 
+  }
+  
+  .izquierda {
+    width: 50%;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    height: 30vh;
+    overflow-y: auto; /* Cambiado a auto */
+}
+
+.derecha {
+    width: 50%;
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    height: 30vh;
+    overflow-y: auto; /* Cambiado a auto */
+}
+
+.turnos {
+    width: 100%;
+    height: 50vh;
+}
+
+h1{
+    text-align: center;
+}
+
+.tituloTurnos {
+    width: 100%;
+    height: 2vh;
+    text-align: center;
+}
+
+.botonesTurnos{
+    max-height: 80%; 
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    overflow-y: auto; /* Cambiado a auto */
+    object-fit: contain;
+}
+
+.row1 {
+    width: 100%;
+    height: 4%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.izquierda, .derecha, .abajo {
+    border-radius: 30px;
+    background-size: 100% 100%;
+    margin: 10px 10px 10px 10px;
+    background-image: url("../../../assets/img/fondo-solicitar-turno.png");
+    background-repeat: no-repeat;
+}
+
+.controlFormulario{
+    width: 100%;
+}
+.boton {
+    width: 10vw;
+    height: 10vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea en el centro verticalmente */
+    justify-content: center; /* Alinea en el centro horizontalmente */
+    margin: 0 auto; /* Centrar horizontalmente */
+    object-fit: contain;
+    border-radius: 50%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
+
+    overflow: hidden; /* Asegura que la imagen no se desborde */
+  }
+  
+  .contenidoBoton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .nombreEspecialista {
+    margin-bottom: 5px; /* Agrega espacio entre el nombre y la imagen */
+  }
+  
+  .boton img {
+    width: 100%; /* Hace que la imagen ocupe el 100% del ancho del botón */
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .boton:hover {
+    background-color: #001f3f;
+  }
+  
+  
+
+.boton2{
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Ajusta según sea necesario */
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px white;
+    display: block;
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-bottom: 10px;
+}
+
+.boton2:hover {
+    background-color: #001f3f;
+  }
+
+  .boton:hover {
+    background-color: #001f3f;
+  }
+
+h2, label {
+    color:white;
+}
+
+label {
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+}
+
+input {
+    font-family: 'Nunito', sans-serif;
+    font-size:medium; 
+}
+
+h2{
+    font-family: 'Sora', sans-serif;
+    margin-top: 2vh;
+}
+
+.tituloTurnos2{
+    font-family: 'Nunito', sans-serif;
+    color:black;
+}
+
+h1{
+    font-family: 'Nunito', sans-serif;
+}

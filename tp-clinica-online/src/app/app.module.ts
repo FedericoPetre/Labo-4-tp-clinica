@@ -23,6 +23,7 @@ import { BotonesRegistroComponent } from './componentes/botones-registro/botones
 import { LoginComponent } from './componentes/login/login.component';
 // Importa BrowserAnimationsModule
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ComponenteHabilitacionesComponent } from './componentes/componente-habilitaciones/componente-habilitaciones.component';
 import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
 import { BotonesSeccionHabilitacionesComponent } from './componentes/botones-seccion-habilitaciones/botones-seccion-habilitaciones.component';
@@ -40,6 +41,7 @@ import { CaptchaComponent } from './componentes/captcha/captcha.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SeccionPacientesComponent } from './componentes/seccion-pacientes/seccion-pacientes.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TurnosAdminComponent,
     CaptchaComponent,
     QuienSoyComponent,
+    SeccionPacientesComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,10 +79,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
-    BrowserAnimationsModule,
     HttpClientModule,
-    NgxSpinnerModule
+    ToastrModule.forRoot(),
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

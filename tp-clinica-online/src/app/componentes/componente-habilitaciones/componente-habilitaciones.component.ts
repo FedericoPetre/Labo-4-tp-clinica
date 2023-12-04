@@ -21,16 +21,15 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
   historiasClinicas :any[] = [];
 
   ngAfterViewInit(){
-    this.obserPersonas$ = this.firebase.retornarUsuarioRegistrados().subscribe((datos)=>{
-      this.cargarUsuariosAutorizados(datos);
-    });
-
-
   }
 
   ngOnInit(){
     this.obserHistoriasClinicas$ = this.firebase.traerTodasLasHistoriasClinicas().subscribe((datos=>{
       this.cargarHistoriasClinicas(datos);
+
+      this.obserPersonas$ = this.firebase.retornarUsuarioRegistrados().subscribe((datos)=>{
+        this.cargarUsuariosAutorizados(datos);
+      });
     }));
   }
 
@@ -57,20 +56,13 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
 
     if(arrayAux.length > 0){
       arrayAux.forEach((historia:any)=>{
-        let detalleStr : string = "";
-        for (const key in historia.detalles) {
-          if (historia.detalles.hasOwnProperty(key)) {
-            detalleStr = detalleStr + `${key}:${historia.detalles[key]}`;
-          }
-        }
-
         let hClinica = {
           altura:historia.altura+" cm",
           paciente:historia.paciente,
           peso:historia.peso+" kg",
           presion:historia.presion+" mmHg",
           temperatura:historia.temperatura+" °C",
-          detalle:detalleStr,
+          detalle: historia.detalles,
           mailPaciente:historia.mailPaciente
         };
 
@@ -116,24 +108,35 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
     let arrayNuevo : any[] = [];
 
     for(let i=0; i<arrayAux.length; i++){
-
       let objPersona = {
         tipoUsuario: arrayAux[i].tipoUsuario,
         flagEstaHabilitado:arrayAux[i].estaHabilitado,
-        nombre:arrayAux[i].nombre,
+        nombre:arrayAux[i].nombre + " "+arrayAux[i].apellido,
         email:arrayAux[i].email,
-        fotos:arrayAux[i].fotos
+        fotos:arrayAux[i].fotos,
+        flagTieneHistoriaClinica: false
       };
+
+      let tipoUsuario = objPersona.tipoUsuario;
+      if(tipoUsuario == 'paciente'){
+        let historiaClinica = this.encontrarHistoriaPorMailPaciente(objPersona.email);
+        if(historiaClinica){
+          objPersona.flagTieneHistoriaClinica = true;
+        }
+      }
   
       arrayNuevo.push(objPersona);
      
     }
     arrayNuevo.sort((a, b) => {
-      if (a.tipoUsuario === 'paciente' && b.tipoUsuario === 'especialista') {
-          return -1; // 'paciente' antes de 'especialista'
+      if (a.tipoUsuario === 'paciente' && b.tipoUsuario !== 'paciente') {
+          return -1; // 'paciente' antes de cualquier otro tipo
       }
-      if (a.tipoUsuario === 'especialista' && b.tipoUsuario === 'paciente') {
-          return 1; // 'especialista' después de 'paciente'
+      if (a.tipoUsuario === 'especialista' && b.tipoUsuario === 'admin') {
+          return -1; // 'especialista' antes de 'admin'
+      }
+      if (a.tipoUsuario === 'admin' && b.tipoUsuario !== 'admin') {
+          return 1; // 'admin' después de cualquier otro tipo
       }
       return 0; // No cambian de posición
   });
@@ -149,6 +152,18 @@ export class ComponenteHabilitacionesComponent implements AfterViewInit {
       await this.firebase.actualizarHabilitacionEspecialista(email, nuevoEstado);
       this.notificaciones.ocultarSpinner();
     },2000);
+  }
+
+  descargarTodosLosDatosDeLosUsuarios(){
+    //acá descarga todo y lo pone en el excel
+    alert("funciona el botón");
+  }
+
+  descargarTurnosUsuario(item:any){
+    //busca todos los turnos del paciente y los descarga en el excel
+    if(item.tipoUsuario == 'paciente'){
+      alert("es paciente");
+    }
   }
 
 

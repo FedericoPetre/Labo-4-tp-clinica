@@ -107,9 +107,15 @@ export class TablaTurnosEspecialistaComponent {
       }
   
       let respuesta1 : string = "";
-      this.firebase.finalizarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, resenia, turno.diaDelTurno).then((respuesta:string)=>{
+      this.firebase.finalizarTurnoPaciente(turno.especialidad, turno.especialista, turno.paciente, resenia, turno.diaDelTurno).then(async (respuesta:string)=>{
         respuesta1 = respuesta;
-        this.firebase.guardarHistoriaClinica(turno.paciente, objHistoriaClinica);
+
+        let historia = this.encontrarHistoriaPorMailPaciente(objHistoriaClinica.mailPaciente);
+        if(historia != null){
+          await this.firebase.modificarHistoriaClinica(objHistoriaClinica.mailPaciente, objHistoriaClinica);
+        }else{
+          await this.firebase.guardarHistoriaClinica(turno.paciente, objHistoriaClinica);
+        }
         if(respuesta1 != "Se ha finalizado el turno"){
           this.notificaciones.mostrarError("Error", respuesta1);
         }else{
@@ -128,20 +134,13 @@ export class TablaTurnosEspecialistaComponent {
 
     if(arrayAux.length > 0){
       arrayAux.forEach((historia:any)=>{
-        let detalleStr : string = "";
-        for (const key in historia.detalles) {
-          if (historia.detalles.hasOwnProperty(key)) {
-            detalleStr = detalleStr + `${key}:${historia.detalles[key]}`;
-          }
-        }
-
         let hClinica = {
           altura:historia.altura+" cm",
           paciente:historia.paciente,
           peso:historia.peso+" kg",
           presion:historia.presion+" mmHg",
           temperatura:historia.temperatura+" °C",
-          detalle:detalleStr,
+          detalle:historia.detalles,
           mailPaciente:historia.mailPaciente
         };
 
@@ -172,7 +171,7 @@ export class TablaTurnosEspecialistaComponent {
 
 
   private encontrarHistoriaPorMailPaciente(mailPaciente:string){
-    let historia : any;
+    let historia : any = null;
     for(let i=0; i<this.historiasClinicas.length; i++){
       if(this.historiasClinicas[i].mailPaciente == mailPaciente){
         historia = this.historiasClinicas[i];
