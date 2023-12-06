@@ -8,7 +8,7 @@
       <p>Dni: {{dni}}</p>
       <p>{{ email }}</p>
       <p *ngIf="obraSocial != ''">Obra Social: {{obraSocial}}</p>
-      <p *ngIf="historiaClinica != undefined"><button (click)="descargarHistoriaClinica(email)" class="btn btn-success">Descargar PDF</button></p>
+      <p *ngIf="historiaClinica != undefined"><button appCambiarEstiloBoton (click)="descargarHistoriaClinica(email)" class="btn btn-success">Descargar PDF</button></p>
       <br>
 
       <div *ngIf="historiaClinica != undefined" class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
@@ -50,7 +50,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let especialista of especialistasQueMeAtendieron">
-                    <td colspan="6"><button class="btn btn-success" (click)="descargarTurnosConElEspecialista(especialista)">Descargar el registro de mis turnos con {{especialista}}</button></td>
+                    <td colspan="6"><button appCambiarEstiloBoton class="btn btn-success" (click)="descargarTurnosConElEspecialista(especialista)">Descargar el registro de mis turnos con {{especialista}}</button></td>
                 </tr>
               </tbody>
             </table>

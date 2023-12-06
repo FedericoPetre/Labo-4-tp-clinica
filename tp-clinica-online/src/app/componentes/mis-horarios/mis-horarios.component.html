@@ -2,14 +2,14 @@
 
 <div class="container">
     <div class="contenedorImagenes">
-      <button *ngFor="let especialidad of especialidades" (click)="mostrarEspecialidad(especialidad)">{{especialidad.nombre}}</button>
+      <button appCambiarEstiloBoton *ngFor="let especialidad of especialidades" (click)="mostrarEspecialidad(especialidad)">{{especialidad.nombre}}</button>
     </div>
     <div class="informacion">
       <h1>Mis Horarios de {{miEspecialidad.nombre}}</h1>
     </div>
     <div >
       <div class="contenedorImagenes">
-        <button *ngFor="let dia of diasDeLaSemana" 
+        <button appCambiarEstiloBoton *ngFor="let dia of diasDeLaSemana" 
                 (click)="seleccionarDia(dia)" 
                 [ngClass]="{'selected': esDiaSeleccionado(dia), 'inOtraEspecialidad': esDiaEnOtraEspecialidad(dia)}"
                 [disabled]="esDiaEnOtraEspecialidad(dia)">{{dia}}</button>
@@ -17,7 +17,7 @@
       <div class="contenedorDuracion">
         <label for="txtDuracionTurno">Duración del turno en minutos:</label>
         <input type="number" id="txtDuracionTurno" placeholder="Ingrese la duración de cada turno" min="0" name="duracionCadaTurno" [(ngModel)]="duracionCadaTurno">
-        <button (click)="agregarDuracion()">Agregar Duración</button>
+        <button appCambiarEstiloBoton (click)="agregarDuracion()">Agregar Duración</button>
       </div>
 <br>
       <div>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="contenedorImagenes">
-            <button (click)="guardarHorarios()">Guardar mis horarios</button>
+            <button appCambiarEstiloBoton (click)="guardarHorarios()">Guardar mis horarios</button>
           </div>
 
       </div>

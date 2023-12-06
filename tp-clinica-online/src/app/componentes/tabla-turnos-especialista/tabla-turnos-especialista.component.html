@@ -19,12 +19,12 @@
               <td class="table-dark">{{ turno.estado }}</td>
               <td class="table-dark" colspan="4">
                 <div class="d-flex flex-column">
-                <button *ngIf="turno.estado == 'pendiente'" class="btn btn-success mb-1" (click)="aceptarTurno(turno)">Aceptar Turno</button>
-                <button *ngIf="turno.estado == 'pendiente'" class="btn btn-danger mb-1" (click)="rechazarTurno(turno)">Rechazar Turno</button>
-                <button *ngIf="turno.estado == 'aceptado'" class="btn btn-primary mb-1" (click)="finalizarTurno(turno)">Finalizar Turno</button>
-                <button *ngIf="turno.estado == 'finalizado'" class="btn btn-primary mb-1" (click)="verHistoriaClinica(turno.mailPaciente)">Ver Historia Clínica</button>
-                <button *ngIf="turno.calificacionAtencion != ''" class="btn btn-info mb-1" (click)="verResenia(turno.calificacionAtencion)">Ver Reseña</button>
-                <button *ngIf="turno.comentarioCancelacion != ''" class="btn btn-info mb-1" (click)="verResenia(turno.comentarioCancelacion)">Ver Comentario</button>
+                <button appCambiarEstiloBoton *ngIf="turno.estado == 'pendiente'" class="btn btn-success mb-1" (click)="aceptarTurno(turno)">Aceptar Turno</button>
+                <button appCambiarEstiloBoton *ngIf="turno.estado == 'pendiente'" class="btn btn-danger mb-1" (click)="rechazarTurno(turno)">Rechazar Turno</button>
+                <button appCambiarEstiloBoton *ngIf="turno.estado == 'aceptado'" class="btn btn-primary mb-1" (click)="finalizarTurno(turno)">Finalizar Turno</button>
+                <button appCambiarEstiloBoton *ngIf="turno.estado == 'finalizado'" class="btn btn-primary mb-1" (click)="verHistoriaClinica(turno.mailPaciente)">Ver Historia Clínica</button>
+                <button appCambiarEstiloBoton *ngIf="turno.calificacionAtencion != ''" class="btn btn-info mb-1" (click)="verResenia(turno.calificacionAtencion)">Ver Reseña</button>
+                <button appCambiarEstiloBoton *ngIf="turno.comentarioCancelacion != ''" class="btn btn-info mb-1" (click)="verResenia(turno.comentarioCancelacion)">Ver Comentario</button>
                 </div>
               </td>
             </tr>

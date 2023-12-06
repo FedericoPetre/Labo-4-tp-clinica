@@ -35,7 +35,7 @@ export class GraficoTurnosSolicitadosPorMedicoComponent {
      this.chart.destroy();
    }
  
-   let colores :string [] = ["#1a2b3c", "#4f5a6d", "#8c93a1", "#b7c0d2", "#e3e8f1", "#f5a623", "#fc6e51", "#18bc9c", "#2ecc71", "#3498db", "#9b59b6", "#e74c3c", "#f39c12", "#2c3e50", "#c0392b", "#27ae60", "#2980b9", "#8e44ad", "#d35400", "#16a085"];
+   let colores :string [] = ['#3F51B5', '#8BC34A', '#FF5722', "#fc6e51","#d35400","#c0392b","#4f5a6d", "#8c93a1", "#b7c0d2", "#e3e8f1", "#f5a623",  "#18bc9c","#1a2b3c",  "#2ecc71", "#3498db", "#9b59b6", "#e74c3c", "#f39c12", "#2c3e50",  "#27ae60", "#2980b9", "#8e44ad", "#16a085"];
  
    const ctx = (<any>document.getElementById('graficoTurnosSolicitados')).getContext('2d');
  

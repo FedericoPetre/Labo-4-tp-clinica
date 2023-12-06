@@ -1,7 +1,7 @@
 <div class="contenedorMayor">
     <div class="row">
         <div class="col-12 columna">
-            <div class="formularioDiv">
+            <div class="formularioDiv" appCambiarColorSegunHoraDelDia>
                 <h1>Iniciar Sesión</h1>
                 <form class="needs-validation" novalidate [formGroup]="form">
                     <div class="mb-3 controlFormulario">
@@ -26,12 +26,12 @@
                           </div>
                     </div>
 
-                    <button [disabled]="form.invalid" (click)="ingresar()">Ingresar</button>
+                    <button appCambiarEstiloBoton [disabled]="form.invalid" (click)="ingresar()">Ingresar</button>
                 
                 </form>
             </div><!--Fin formularioDiv-->
 
-            <div class="formularioDiv2">
+            <div class="formularioDiv2" appCambiarColorSegunHoraDelDia>
               <table>
                 <thead>
                   <td class="accesoRapido" colspan="6">Acceso Rápido</td>

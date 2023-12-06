@@ -19,7 +19,7 @@
               <td class="table-dark">{{ turno.estado }}</td>
               <td class="table-dark" colspan="4">
                 <div class="d-flex flex-column">
-                  <button *ngIf="turno.fueRealizado == 'false' && turno.estado !='rechazado' && turno.estado !='aceptado' && turno.estado !='finalizado'" class="btn btn-danger mb-1" (click)="cancelarTurno(turno)">Cancelar Turno</button>
+                  <button appCambiarEstiloBoton *ngIf="turno.fueRealizado == 'false' && turno.estado !='rechazado' && turno.estado !='aceptado' && turno.estado !='finalizado'" class="btn btn-danger mb-1" (click)="cancelarTurno(turno)">Cancelar Turno</button>
                 </div>
               </td>
             </tr>

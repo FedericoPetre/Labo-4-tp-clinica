@@ -66,6 +66,16 @@ createBarChart() {
 cargarDiasDeLaSemanaYCantidades(){
   let cantidades :number[] = [];
   let diasDeLaSemana : string[] = [];
+
+const ordenDias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+this.turnosPorDiaDeLaSemana.sort((a, b) => {
+  const indiceA = ordenDias.indexOf(a.dia);
+  const indiceB = ordenDias.indexOf(b.dia);
+  
+  return indiceA - indiceB;
+});
+
   this.turnosPorDiaDeLaSemana.forEach((turno:any)=>{
     diasDeLaSemana.push(turno.dia);
     cantidades.push(turno.cantidadTurnos);

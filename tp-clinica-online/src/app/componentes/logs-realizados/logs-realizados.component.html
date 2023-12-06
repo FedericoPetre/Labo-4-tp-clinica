@@ -10,7 +10,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let log of arrayLogs">
+            <tr *ngFor="let log of arrayLogs | ordenFecha">
               <td class="table-dark">{{ log.fecha }}</td>
               <td class="table-dark">{{ log.email }}</td>
               <td class="table-dark">{{ log.usuario }}</td>

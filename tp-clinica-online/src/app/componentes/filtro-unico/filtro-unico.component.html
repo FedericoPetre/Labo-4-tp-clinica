@@ -9,7 +9,7 @@
             <h1>Filtrar por Especialista</h1>
         </div>
         <div class="especialistas">
-            <button class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
+            <button appCambiarEstiloBoton class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
             <h1>Filtrar por Paciente</h1>
         </div>
         <div class="especialistas">
-            <button class="boton" *ngFor="let paciente of pacientes" (click)="filtrar(paciente)">{{paciente}}</button>
+            <button appCambiarEstiloBoton class="boton" *ngFor="let paciente of pacientes" (click)="filtrar(paciente)">{{paciente}}</button>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
             <h1>Filtrar por Especialista</h1>
         </div>
         <div class="especialistas">
-            <button class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
+            <button appCambiarEstiloBoton class="boton" *ngFor="let especialista of especialistas" (click)="filtrar(especialista)">{{especialista}}</button>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
             <h1>Filtrar por especialidad</h1>
         </div>
         <div class="especialidades">
-            <button class="boton" *ngFor="let especialidad of especialidades" (click)="filtrar(especialidad)">{{especialidad}}</button>
+            <button appCambiarEstiloBoton class="boton" *ngFor="let especialidad of especialidades" (click)="filtrar(especialidad)">{{especialidad}}</button>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
             <h1>Limpiar Filtros</h1>
         </div>
         <div>
-            <button class="boton" (click)="limpiarFiltro()">Limpiar Filtros</button>
+            <button appCambiarEstiloBoton class="boton" (click)="limpiarFiltro()">Limpiar Filtros</button>
         </div>
     </div>
 

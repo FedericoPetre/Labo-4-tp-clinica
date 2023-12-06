@@ -49,6 +49,9 @@ import { GraficoBarrasComponent } from './componentes/grafico-barras/grafico-bar
 import { GraficoTurnosSolicitadosPorMedicoComponent } from './componentes/grafico-turnos-solicitados-por-medico/grafico-turnos-solicitados-por-medico.component';
 import { GraficoTurnosFinalizadosComponent } from './componentes/grafico-turnos-finalizados/grafico-turnos-finalizados.component';
 import { LogsRealizadosComponent } from './componentes/logs-realizados/logs-realizados.component';
+import { OrdenFechaPipe } from './pipes/orden-fecha.pipe';
+import { CambiarColorSegunHoraDelDiaDirective } from './directivas/cambiar-color-segun-hora-del-dia.directive';
+import { CambiarEstiloBotonDirective } from './directivas/cambiar-estilo-boton.directive';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,9 @@ import { LogsRealizadosComponent } from './componentes/logs-realizados/logs-real
     GraficoTurnosSolicitadosPorMedicoComponent,
     GraficoTurnosFinalizadosComponent,
     LogsRealizadosComponent,
+    OrdenFechaPipe,
+    CambiarColorSegunHoraDelDiaDirective,
+    CambiarEstiloBotonDirective,
   ],
   imports: [
     BrowserModule,

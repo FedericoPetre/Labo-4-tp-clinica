@@ -1,119 +1,48 @@
-.container {
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 100vh; /* Cambiado a min-height para asegurar que ocupe al menos la altura de la ventana */
-    max-width: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin: 0;
-    padding: 0;
-}
-
-.row1 {
+    .contenedor-principal {
     width: 100%;
     height: 100%;
     background-image: url("../../../assets/img/fondo-hospital.jpg");
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-size: cover;
-}
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
 
-.row{
+  .fila {
     width: 100%;
-    height: 100%;
-}
-
-.turnosEspecialidad {
-    margin-top: 2%;
-    width: 25%; 
-    min-height: 90%; 
-    max-height: 90%; 
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
-    background-color: white;
-    object-fit: contain;
-    margin-left: 2%;
-    margin-right: 2%;
-}
+    box-sizing: border-box;
+    margin-bottom: 10px; 
+  }
 
-.turnosDiasSemana{
-    margin-top: 2%;
-    width: 25%; 
-    min-height: 90%; 
-    max-height: 90%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
-    background-color: white;
-    object-fit: contain;
-    margin-left: 2%;
-    margin-right: 2%;
-}
+  .columna {
+    width: 30%;
+    box-sizing: border-box;
+    margin-bottom: 10px; 
+  }
 
-.turnosSolicitadoEspecialistas{
-    margin-top: 2%;
-    width: 25%; 
-    min-height: 90%;  
-    max-height: 90%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
-    background-color: white;
-    object-fit: contain;
-    margin-left: 2%;
-    margin-right: 2%;
-}
+  .columna2 {
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
 
-.turnosFinalizadosPorEspecialista{
-    margin-top: 2%;
-    width: 25%; 
-    height: 50%;
-    min-height: 50%; 
-    max-height: 50%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
-    background-color: white;
-    object-fit: contain;
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-bottom: 2%;
-}
-
-.logsSistema{      
-    margin-top: 2%;
-    width: auto; 
-    min-height: 90%; 
-    max-height: 90%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
-    background-color: white;
-    object-fit: contain;
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-bottom: 2%;
-}
-
-app-grafico-torta {
+  .contenido {
+    color: black;
     width: 100%;
-    height: 100%;
-}
+  }
 
-.button-container {
+  .contenido2{
+    color: black;
+    width: 95%;
+  }
+
+  .button-container {
     display: flex;
     gap: 10px; 
 }
@@ -136,4 +65,88 @@ img{
     width: 5vw;
     height: 5vw;
     object-fit: contain;
+}
+
+  .turnosEspecialidad {
+    margin-top: 2%;
+    width: 100%; 
+     
+     
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+    object-fit: contain;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.turnosDiasSemana{
+    margin-top: 2%;
+    width: 100%; 
+     
+     
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+    object-fit: contain;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.turnosSolicitadoEspecialistas{
+    margin-top: 2%;
+    width: 100%; 
+      
+     
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+    object-fit: contain;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.logsSistema{      
+    margin-top: 2%;
+    width: 100%; 
+     
+     
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+    object-fit: contain;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+app-logs-realizados{
+    width: 90%;
+}
+
+.turnosFinalizadosPorEspecialista{
+    margin-top: 2%;
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+    object-fit: contain;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
 }

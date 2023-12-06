@@ -1,12 +1,12 @@
 <div class=container>
     <app-botones-seccion-habilitaciones></app-botones-seccion-habilitaciones>
     <div class="habilitar-button1 d-flex justify-content-center">
-        <button class="btn btn-info botonDescargarTodo" (click)="descargarTodosLosDatosDeLosUsuarios()">Descargar datos de todos los usuarios</button>
+        <button appCambiarEstiloBoton  class="btn btn-info botonDescargarTodo" (click)="descargarTodosLosDatosDeLosUsuarios()">Descargar datos de todos los usuarios</button>
     </div>
     <div class="row">
         <!-- TARJETAS -->
         <div class="card" *ngFor="let usuario of arrayPersonasRegistradas">
-            <button class="btn btn-primary fab-btn btn-sm boton" type="button" [style.backgroundImage]="'url(' + usuario.fotos[0] + ')'" (click)="descargarTurnosUsuario(usuario)">
+            <button appCambiarEstiloBoton  class="btn btn-primary fab-btn btn-sm boton" type="button" [style.backgroundImage]="'url(' + usuario.fotos[0] + ')'" (click)="descargarTurnosUsuario(usuario)">
               </button>
 
             <div class="card-content">
@@ -18,11 +18,11 @@
                     <button class="habilitar-button btn btn-danger" (click)="actualizarHabilitacion(usuario.email,'no')">Deshabilitar</button>
                 </ng-template>
                 <ng-template #botonHabilitarBlock>
-                    <button class="habilitar-button btn btn-success" (click)="actualizarHabilitacion(usuario.email,'si')">Habilitar</button>
+                    <button  class="habilitar-button btn btn-success" (click)="actualizarHabilitacion(usuario.email,'si')">Habilitar</button>
                 </ng-template>
 
                 <ng-container *ngIf="usuario.tipoUsuario === 'paciente' && usuario.flagTieneHistoriaClinica == true">
-                    <button class="habilitar-button btn btn-primary" (click)="verHistoriaClinica(usuario)">Ver historia clínica</button>
+                    <button  class="habilitar-button btn btn-primary" (click)="verHistoriaClinica(usuario)">Ver historia clínica</button>
                 </ng-container>
             </div>
         </div>

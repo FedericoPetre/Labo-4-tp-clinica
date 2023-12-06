@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-4"> <!-- Ajusta las clases según sea necesario (puedes usar col-sm-4, col-lg-4, etc.) -->
+    <div class="col-md-4">
       <app-filtro-unico (eventItemMisTurnos)="cargarMisTurnos($event)"></app-filtro-unico>
     </div>
-    <div class="col-md-8"> <!-- Ajusta las clases según sea necesario -->
+    <div class="col-md-8"> 
         <app-tabla-turnos-paciente *ngIf="tipoUsuario=='paciente'" [misTurnosPaciente]="misTurnos"></app-tabla-turnos-paciente>
         <app-tabla-turnos-especialista *ngIf="tipoUsuario=='especialista'" [misTurnosEspecialista]="misTurnos"></app-tabla-turnos-especialista>
         <app-turnos-admin *ngIf="tipoUsuario=='admin'" [turnosDeLaClinica]="misTurnos"></app-turnos-admin>

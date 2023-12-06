@@ -1,44 +1,44 @@
-<nav class="navbar navbar-expand-lg">
+<nav appCambiarColorSegunHoraDelDia class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <img src="../../../favicon.ico" alt="Logo de la clínica">
       <a class="navbar-brand" routerLink="bienvenida">Bienvenida</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                  <a class="nav-link" aria-current="page" routerLink="login" *ngIf="!flagEstaLogueado">Ingreso</a>
+                  <a class="nav-link"  aria-current="page" routerLink="login" *ngIf="!flagEstaLogueado">Ingreso</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" routerLink="registro" *ngIf="!flagEstaLogueado">Registrarse</a>
+                  <a class="nav-link"  routerLink="registro" *ngIf="!flagEstaLogueado">Registrarse</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" routerLink="quien-soy" >¿Quién Soy?</a>
+                <a class="nav-link"  routerLink="quien-soy" >¿Quién Soy?</a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" routerLink="mi-perfil" *ngIf="flagEstaLogueado">Mi perfil</a>
+                <a class="nav-link"  routerLink="mi-perfil" *ngIf="flagEstaLogueado">Mi perfil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="seccion-usuarios" *ngIf="flagEsAdmin">Sección Usuarios</a>
+                <a class="nav-link"  routerLink="seccion-usuarios" *ngIf="flagEsAdmin">Sección Usuarios</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="turnos/solicitar-turno" *ngIf="flagEsAdmin">Solicitar Turno</a>
+                <a class="nav-link"  routerLink="turnos/solicitar-turno" *ngIf="flagEsAdmin">Solicitar Turno</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" routerLink="turnos/solicitar-turno" *ngIf="flagEsPaciente">Solicitar Turno</a>
+                <a class="nav-link"  routerLink="turnos/solicitar-turno" *ngIf="flagEsPaciente">Solicitar Turno</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="turnos/mis-turnos" *ngIf="flagEsPaciente || tipoUsuario=='especialista'">Mis Turnos</a>
+                <a class="nav-link"  routerLink="turnos/mis-turnos" *ngIf="flagEsPaciente || tipoUsuario=='especialista'">Mis Turnos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="pacientes" *ngIf="tipoUsuario=='especialista'">Sección Pacientes</a>
+                <a class="nav-link"  routerLink="pacientes" *ngIf="tipoUsuario=='especialista'">Sección Pacientes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="turnos" *ngIf="flagEsAdmin">Turnos</a>
+                <a class="nav-link"  routerLink="turnos" *ngIf="flagEsAdmin">Turnos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="graficos-y-estadisticas" *ngIf="flagEsAdmin">Gráficos</a>
+                <a class="nav-link"  routerLink="graficos-y-estadisticas" *ngIf="flagEsAdmin">Gráficos</a>
               </li>
 
 
@@ -50,7 +50,7 @@
               <a class="nav-link">{{nombre}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="salir()">Cerrar Sesión</a>
+            <a class="nav-link"  (click)="salir()">Cerrar Sesión</a>
         </li>
       </ul>
   </div>
