@@ -35,7 +35,7 @@ export class GraficoTurnosFinalizadosComponent {
      this.chart.destroy();
    }
  
-   let colores :string [] = ["#18bc9c", "#2ecc71", "#3498db", "#9b59b6", "#e74c3c", "#f39c12", "#2c3e50", "#c0392b", "#27ae60", "#2980b9", "#8e44ad", "#d35400", "#16a085"];
+   let colores :string [] = ["#18bc9c", "#3498db","#2ecc71", "#9b59b6", "#e74c3c", "#f39c12", "#2c3e50", "#c0392b", "#27ae60", "#2980b9", "#8e44ad", "#d35400", "#16a085"];
  
    const ctx = (<any>document.getElementById('graficoTurnosFinalizados')).getContext('2d');
  

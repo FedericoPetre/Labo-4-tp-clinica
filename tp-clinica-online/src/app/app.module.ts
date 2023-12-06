@@ -48,6 +48,7 @@ import { FechaPipe } from './pipes/fecha.pipe';
 import { GraficoBarrasComponent } from './componentes/grafico-barras/grafico-barras.component';
 import { GraficoTurnosSolicitadosPorMedicoComponent } from './componentes/grafico-turnos-solicitados-por-medico/grafico-turnos-solicitados-por-medico.component';
 import { GraficoTurnosFinalizadosComponent } from './componentes/grafico-turnos-finalizados/grafico-turnos-finalizados.component';
+import { LogsRealizadosComponent } from './componentes/logs-realizados/logs-realizados.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { GraficoTurnosFinalizadosComponent } from './componentes/grafico-turnos-
     GraficoBarrasComponent,
     GraficoTurnosSolicitadosPorMedicoComponent,
     GraficoTurnosFinalizadosComponent,
+    LogsRealizadosComponent,
   ],
   imports: [
     BrowserModule,

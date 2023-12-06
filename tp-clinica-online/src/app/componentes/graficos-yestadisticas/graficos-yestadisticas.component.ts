@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ExcelService } from 'src/app/servicios/excel.service';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { PdfService } from 'src/app/servicios/pdf.service';
 import { TurnosService } from 'src/app/servicios/turnos.service';
 
 @Component({
@@ -9,6 +10,11 @@ import { TurnosService } from 'src/app/servicios/turnos.service';
   styleUrls: ['./graficos-yestadisticas.component.css']
 })
 export class GraficosYEstadisticasComponent {
+
+  // TODO: Falta armar los logs en el html y poder descargar con excel y pdf
+  // TODO: Agregar Pipes y directivas propias
+  // TODO: Hacer el README
+  // TODO: PONER LOS GUARDS
 
   especialistas :string[] = []; //guarda los nombres de los especialistas en formato string (sin repeticiones)
   especialidades : string[] = []; // guarda las especialidades sin repeticiones que se encuentran en los turnos
@@ -30,7 +36,7 @@ export class GraficosYEstadisticasComponent {
 
   fechaActual = new Date() // para la fecha
 
-  constructor(private firebase : FirebaseService, private turnosServ : TurnosService, private excel : ExcelService){}
+  constructor(private firebase : FirebaseService, private turnosServ : TurnosService, private excel : ExcelService, private pdf : PdfService){}
 
   ngOnInit(){
     this.obserTurnos$ = this.firebase.traerTodosLosTurnosRegistrados().subscribe(datos=>{
@@ -281,6 +287,10 @@ export class GraficosYEstadisticasComponent {
 
   descargarExcel(datos:any[], tituloArchivo:string){
     this.excel.descargarExcel(datos, tituloArchivo);
+  }
+
+  descargarPdf(idElemento:string, nombreArchivo:string){
+    this.pdf.generarPDF(idElemento, nombreArchivo);
   }
 
 }

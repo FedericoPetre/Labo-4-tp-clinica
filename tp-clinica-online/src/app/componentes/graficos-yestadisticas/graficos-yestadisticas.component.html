@@ -1,36 +1,36 @@
 <div class="container">
     <div class="row1">
         <div class="row">
-            <div class="turnosEspecialidad">
+            <div class="turnosEspecialidad" id="turnosEspecialidad">
                 <h1>{{fechaActual | fechaPipeFormat}}</h1>
                 <img src="../../../favicon.ico" alt="">
-                <h2>Cantidad de turnos dados por especialidad</h2>
+                <h2>Cantidad de turnos por especialidad</h2>
                 <app-grafico-torta [turnosPorEspecialidad]="cantidadTurnosPorEspecialidad"></app-grafico-torta>
                 <div class="button-container">
                     <button class="btn btn-primary" (click)="descargarExcel(cantidadTurnosPorEspecialidad, 'turnos-por-especialidad')">Descargar Excel</button>
-                    <button class="btn btn-success">Descargar PDF</button>
+                    <button class="btn btn-success" (click)="descargarPdf('turnosEspecialidad', 'turnosPorEspecialidad')">Descargar PDF</button>
                 </div>
             </div>
     
-            <div class="turnosDiasSemana">
+            <div class="turnosDiasSemana" id="turnosPorDiasSemana">
                 <h1>{{fechaActual | fechaPipeFormat}}</h1>
                 <img src="../../../favicon.ico" alt="">
                 <h2>Cantidad de turnos por dia de la semana</h2>
                 <app-grafico-barras [turnosPorDiaDeLaSemana]="cantidadTurnosPorDia"></app-grafico-barras>
                 <div class="button-container">
                     <button class="btn btn-primary" (click)="descargarExcel(cantidadTurnosPorDia, 'turnos-por-dia')">Descargar Excel</button>
-                    <button class="btn btn-success">Descargar PDF</button>
+                    <button class="btn btn-success" (click)="descargarPdf('turnosPorDiasSemana', 'turnosPorDiaDeLaSemana')">Descargar PDF</button>
                 </div>
             </div>
     
-            <div class="turnosSolicitadoEspecialistas">
+            <div class="turnosSolicitadoEspecialistas" id="turnosSolicitados">
                 <h1>{{fechaActual | fechaPipeFormat}}</h1>
                 <img src="../../../favicon.ico" alt="">
                 <h2>Turnos solicitados en los próximos 10 días</h2>
                 <app-grafico-turnos-solicitados-por-medico [turnosPorEspecialistaLapsoDeTiempo]="cantidadTurnosSolicitadosPorMedico"></app-grafico-turnos-solicitados-por-medico>
                 <div class="button-container">
                     <button class="btn btn-primary" (click)="descargarExcel(cantidadTurnosSolicitadosPorMedico, 'turnos-solicitados-por-especialista')">Descargar Excel</button>
-                    <button class="btn btn-success">Descargar PDF</button>
+                    <button class="btn btn-success" (click)="descargarPdf('turnosSolicitados','turnosSolicitados10Dias')">Descargar PDF</button>
                 </div>
             </div>
         </div>
@@ -38,16 +38,30 @@
 
         <div class="row">
 
-            <div class="turnosFinalizadosPorEspecialista">
+            <div class="logsSistema" id="logsRealizados">
+                <h1>{{fechaActual | fechaPipeFormat}}</h1>
+                <img src="../../../favicon.ico" alt="">
+                <h2>Logs Realizados por usuarios</h2>
+                <app-logs-realizados [logsUsuarios]="arrayLogs"></app-logs-realizados>
+                <div class="button-container">
+                    <button class="btn btn-primary" (click)="descargarExcel(arrayLogs, 'logs-realizados-por-usuarios')">Descargar Excel</button>
+                    <button class="btn btn-success" (click)="descargarPdf('logsRealizados', 'logsRealizados')">Descargar PDF</button>
+                </div>
+            </div>
+
+
+            <div class="turnosFinalizadosPorEspecialista" id="turnosFinalizados">
                 <h1>{{fechaActual | fechaPipeFormat}}</h1>
                 <img src="../../../favicon.ico" alt="">
                 <h2>Turnos finalizados en los últimos 10 días</h2>
                 <app-grafico-turnos-finalizados [turnosFinalizadosEspecialistas]="cantidadTurnosFinalizadosPorMedico"></app-grafico-turnos-finalizados>
                 <div class="button-container">
                     <button class="btn btn-primary" (click)="descargarExcel(cantidadTurnosFinalizadosPorMedico, 'turnos-finalizados-por-especialista')">Descargar Excel</button>
-                    <button class="btn btn-success">Descargar PDF</button>
+                    <button class="btn btn-success" (click)="descargarPdf('turnosFinalizados', 'turnosFinalizados10Dias')">Descargar PDF</button>
                 </div>
             </div>
+
+
 
         </div>
 
