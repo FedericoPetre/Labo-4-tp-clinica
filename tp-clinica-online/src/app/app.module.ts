@@ -42,6 +42,12 @@ import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SeccionPacientesComponent } from './componentes/seccion-pacientes/seccion-pacientes.component';
+import { GraficosYEstadisticasComponent } from './componentes/graficos-yestadisticas/graficos-yestadisticas.component';
+import { GraficoTortaComponent } from './componentes/grafico-torta/grafico-torta.component';
+import { FechaPipe } from './pipes/fecha.pipe';
+import { GraficoBarrasComponent } from './componentes/grafico-barras/grafico-barras.component';
+import { GraficoTurnosSolicitadosPorMedicoComponent } from './componentes/grafico-turnos-solicitados-por-medico/grafico-turnos-solicitados-por-medico.component';
+import { GraficoTurnosFinalizadosComponent } from './componentes/grafico-turnos-finalizados/grafico-turnos-finalizados.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +74,12 @@ import { SeccionPacientesComponent } from './componentes/seccion-pacientes/secci
     CaptchaComponent,
     QuienSoyComponent,
     SeccionPacientesComponent,
+    GraficosYEstadisticasComponent,
+    GraficoTortaComponent,
+    FechaPipe,
+    GraficoBarrasComponent,
+    GraficoTurnosSolicitadosPorMedicoComponent,
+    GraficoTurnosFinalizadosComponent,
   ],
   imports: [
     BrowserModule,

@@ -579,5 +579,20 @@ traerMisTurnosFinalizados(nombreEspecialista : string){
 }
 
 
+guardarLog(emailUsuario :string, nombreUsuario :string=""){
+  let fecha : Date = new Date();
+  const uIdLog= this.store.createId();
+  const docLog = this.store.doc("Logs/"+uIdLog);
+  
+  docLog.set({
+    fecha:fecha,
+    usuario:nombreUsuario,
+    email:emailUsuario,
+  });
+}
+
+traerTodosLosLogs(){
+  return this.store.collection("Logs").valueChanges();
+}
 
 }

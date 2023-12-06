@@ -49,6 +49,7 @@ export class LoginComponent {
     setTimeout(async()=>{
       if(this.determinarSiSeEncuentraEnAutorizados(this.Email)){
         await this.firebase.ingresar(this.Email, this.Clave);
+        this.firebase.guardarLog(this.firebase.objUsuarioLogueado.email, this.firebase.objUsuarioLogueado.nombre+" "+this.firebase.objUsuarioLogueado.apellido);
       }
       else{
         this.notificacion.mostrarError("Inicio Sesión","No estás autorizado para ingresar al sistema");
@@ -68,6 +69,7 @@ export class LoginComponent {
         tipoUsuario: arrayAux[i].tipoUsuario,
         flagEstaHabilitado: 'si',
         nombre:arrayAux[i].nombre,
+        apellido:arrayAux[i].apellido,
         email:arrayAux[i].email,
         clave:arrayAux[i].clave,
         foto:arrayAux[i].fotos[0]

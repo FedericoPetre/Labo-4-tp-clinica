@@ -261,7 +261,8 @@ export class FiltroUnicoComponent {
     let turnosFiltradosArray : any[] = [];
     if(this.tipoUsuario == "paciente"){
       this.misTurnos.forEach((turno:any)=>{
-        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase())){
+        let flagEsta1 : boolean = turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase());
+        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase()) || flagEsta1){
           turnosFiltradosArray.push(turno);
         }
       });
@@ -288,7 +289,8 @@ export class FiltroUnicoComponent {
 
     }else{
       this.misTurnos.forEach((turno:any)=>{
-        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()|| turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase()))){
+        let flagEsta1 : boolean = turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase());
+        if(turno.especialidad.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase()) || turno.especialista.toLowerCase().includes(this.especialidadOEspecialista.toLowerCase())|| turno.historiaClinica.includes(this.especialidadOEspecialista.toLowerCase()) || flagEsta1){
           turnosFiltradosArray.push(turno);
         }
       });

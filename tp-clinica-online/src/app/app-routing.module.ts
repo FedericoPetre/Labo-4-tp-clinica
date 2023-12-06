@@ -11,6 +11,8 @@ import { CaptchaComponent } from './componentes/captcha/captcha.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { slideInAnimation } from './animaciones/animaciones';
 import { SeccionPacientesComponent } from './componentes/seccion-pacientes/seccion-pacientes.component';
+import { GraficosYEstadisticasComponent } from './componentes/graficos-yestadisticas/graficos-yestadisticas.component';
+import { GraficoTortaComponent } from './componentes/grafico-torta/grafico-torta.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'bienvenida', pathMatch:'full'},
@@ -21,7 +23,8 @@ const routes: Routes = [
   {path:'mi-perfil',component:MiPerfilComponent, title:'Mi perfil - Clínica Online', data: { animation: 'mi-perfil' }},
   { path: 'turnos', loadChildren: () => import('./modulos/turnos-module/turnos-module.module').then(m => m.TurnosModuleModule), data: { animation: 'turnos' }},
   {path:'quien-soy', component:QuienSoyComponent, title:'Creador de la web - Clínica Online', data: { animation: 'quien-soy' }},
-  {path:'pacientes',component:SeccionPacientesComponent, title:'Sección Pacientes - Clínica Online'}
+  {path:'pacientes',component:SeccionPacientesComponent, title:'Sección Pacientes - Clínica Online'},
+  {path:'graficos-y-estadisticas',component:GraficosYEstadisticasComponent, title:'Gráficos y estadísticas - Clínica Online'},
 ];
 
 @NgModule({

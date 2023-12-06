@@ -376,4 +376,63 @@ export class TurnosService {
       return 0;
     }
   }
+
+  private convertirAFecha(fechaString :string) {
+    // Dividir la cadena y convertir a fecha
+    const partesFecha = fechaString.split('/');
+    const dia = parseInt(partesFecha[0], 10);
+    const mes = parseInt(partesFecha[1], 10) - 1; 
+    const anio = parseInt(partesFecha[2], 10);
+
+    return new Date(anio, mes, dia);
+  }
+
+  obtenerNombreDia(fechaString :string) {
+    let fecha  = this.convertirAFecha(fechaString);
+    const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const indiceDia = fecha.getDay();
+    return diasSemana[indiceDia];
+  }
+
+  determinarSiLafechaSeEncuentraEnLosProximos10Dias(fechaString: string): boolean {
+    const partesFecha = fechaString.split('/');
+    const dia = parseInt(partesFecha[0], 10);
+    const mes = parseInt(partesFecha[1], 10) - 1; 
+    const anio = parseInt(partesFecha[2], 10);
+  
+    // JavaScript cuenta los meses desde 0, por lo que restamos 1 al mes
+    const fecha = new Date(
+      parseInt(partesFecha[2]),
+      parseInt(partesFecha[1]) - 1,
+      parseInt(partesFecha[0]),
+    );
+  
+    const hoy = new Date();
+    const diferenciaEnMilisegundos = fecha.getTime() - hoy.getTime();
+    const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
+  
+    return diferenciaEnDias >= 0 && diferenciaEnDias <= 10;
+  }
+  
+  determinarSiLafechaSeEncuentraEnLosUltimos10Dias(fechaString: string): boolean {
+    const partesFecha = fechaString.split('/');
+    const dia = parseInt(partesFecha[0], 10);
+    const mes = parseInt(partesFecha[1], 10) - 1; 
+    const anio = parseInt(partesFecha[2], 10);
+  
+    // JavaScript cuenta los meses desde 0, por lo que restamos 1 al mes
+    const fecha = new Date(
+      parseInt(partesFecha[2]),
+      parseInt(partesFecha[1]) - 1,
+      parseInt(partesFecha[0]),
+    );
+
+    const hoy = new Date();
+    const diferenciaEnMilisegundos = hoy.getTime() - fecha.getTime();
+    const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
+  
+    return diferenciaEnDias >= 0 && diferenciaEnDias <= 10;
+  }
+  
+  
 }

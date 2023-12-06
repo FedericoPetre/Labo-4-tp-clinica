@@ -8,7 +8,7 @@ export class ExcelService {
 
   constructor() { }
 
-  crearExcel(data: any[], fileName: string): void {
+  private crearExcel(data: any[], fileName: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
 
     // Ajustar el ancho de las columnas según el contenido
@@ -42,7 +42,7 @@ export class ExcelService {
     XLSX.writeFile(wb, fileName + '.xlsx');
   }
 
-  obtenerAnchoColumnas(datos: any[]): Array<number> {
+  private obtenerAnchoColumnas(datos: any[]): Array<number> {
     const columnCount = datos.length > 0 ? Object.keys(datos[0]).length : 0;
 
     // Inicializar el ancho mínimo de las columnas
