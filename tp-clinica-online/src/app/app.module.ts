@@ -52,6 +52,11 @@ import { LogsRealizadosComponent } from './componentes/logs-realizados/logs-real
 import { OrdenFechaPipe } from './pipes/orden-fecha.pipe';
 import { CambiarColorSegunHoraDelDiaDirective } from './directivas/cambiar-color-segun-hora-del-dia.directive';
 import { CambiarEstiloBotonDirective } from './directivas/cambiar-estilo-boton.directive';
+import { ScrollListadoDirective } from './directivas/scroll-listado.directive';
+import { RecortarArrayPipe } from './pipes/recortar-array.pipe';
+import { EspacioInputDirective } from './directivas/espacio-input.directive';
+import { GirarDirective } from './directivas/girar.directive';
+import { CapitalizarPipe } from './pipes/capitalizar.pipe';
 
 @NgModule({
   declarations: [
@@ -88,6 +93,11 @@ import { CambiarEstiloBotonDirective } from './directivas/cambiar-estilo-boton.d
     OrdenFechaPipe,
     CambiarColorSegunHoraDelDiaDirective,
     CambiarEstiloBotonDirective,
+    ScrollListadoDirective,
+    RecortarArrayPipe,
+    EspacioInputDirective,
+    GirarDirective,
+    CapitalizarPipe,
   ],
   imports: [
     BrowserModule,

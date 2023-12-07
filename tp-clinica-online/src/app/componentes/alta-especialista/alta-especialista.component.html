@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-6 columna"> <!--Izquierda formulario-->
                 <div class="mb-3 controlFormulario">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre">
+                    <label class="form-label" >Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre" appEspacioInput>
                       <!--Errores de nombre-->
                       <div *ngIf="form.controls['nombre'].errors != null">
                         <small style="color:red;" *ngIf="form.controls['nombre'].errors['required'] && form.controls['nombre'].touched">
@@ -20,8 +20,8 @@
                   </div>
           
                   <div class="mb-3 controlFormulario">
-                      <label class="form-label">Apellido</label>
-                      <input type="text" class="form-control" placeholder="Ingrese apellido" formControlName="apellido">
+                      <label class="form-label" >Apellido</label>
+                      <input type="text" class="form-control" placeholder="Ingrese apellido" formControlName="apellido" appEspacioInput>
                         <!--Errores de apellido-->
                         <div *ngIf="form.controls['apellido'].errors != null">
                           <small style="color:red;" *ngIf="form.controls['apellido'].errors['required'] && form.controls['apellido'].touched">
@@ -32,7 +32,7 @@
                   </div>
             
                   <div class="mb-3 controlFormulario">
-                    <label class="form-label">Edad</label>
+                    <label class="form-label" >Edad</label>
                     <input type="number" class="form-control" placeholder="Ingrese edad" formControlName="edad">
                       <!--Errores de edad-->
                       <div *ngIf="form.controls['edad'].errors != null">
@@ -47,7 +47,7 @@
                   </div>
           
                   <div class="mb-3 controlFormulario">
-                      <label class="form-label">Dni</label>
+                      <label class="form-label" >Dni</label>
                       <input type="number" class="form-control" placeholder="Ingrese dni" formControlName="dni">
                         <!--Errores de dni-->
                         <div *ngIf="form.controls['dni'].errors != null">
@@ -59,8 +59,8 @@
                   </div>
           
                   <div class="mb-3 controlFormulario">
-                      <label class="form-label">Especialidad</label>
-                      <input class="especialidadClass" type="text" class="form-control" placeholder="Seleccione especialidad (escribala aquí si no se encuentra)" formControlName="especialidad">
+                      <label class="form-label" >Especialidad</label>
+                      <input class="especialidadClass" type="text" class="form-control" placeholder="Seleccione especialidad (escribala aquí si no se encuentra)" formControlName="especialidad" appEspacioInput>
                       <!--Acá van los botones de las especialidades ya existentes para cargar los datos--> 
                       <button class="boton" *ngFor="let boton of botonesEspecialidad" (click)="cargarEspecialidad(boton)">{{boton}}</button>
                         
@@ -76,13 +76,13 @@
     
     
             <div class="col-6 columna"> <!--Derecha formulario-->
-                <div class="mb-3 img">
+                <div class="mb-3 img" appGirar>
                     <img [src]="imagenPerfil" alt="imagenPerfil">
                 </div>
 
 
                 <div class="mb-3 controlFormulario">
-                    <label class="form-label">Correo</label>
+                    <label class="form-label" >Correo</label>
                     <input type="email" class="form-control" placeholder="Ingrese correo" formControlName="email">
                       <!--Errores de email-->
                       <div *ngIf="form.controls['email'].errors != null">
@@ -94,7 +94,7 @@
                 </div>
         
                 <div class="mb-3 controlFormulario">
-                    <label class="form-label">Contraseña</label>
+                    <label class="form-label" >Contraseña</label>
                     <input type="password" class="form-control" placeholder="Ingrese Contraseña" formControlName="clave">
                       <!--Errores de contraseña-->
                       <div *ngIf="form.controls['clave'].errors != null">
@@ -106,7 +106,7 @@
                 </div>
         
                 <div class="mb-3 controlFormulario">
-                    <label class="form-label">Foto</label><br>
+                    <label class="form-label" >Foto</label><br>
                     <input type="file" accept=".png, .jpg, .jpeg" (change)="actualizarFotoEspecialista($event)" formControlName="foto">
                     <!--Errores de foto-->
                     <div *ngIf="form.controls['foto'].errors != null">

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-registro',
@@ -8,16 +9,28 @@ import { Router } from '@angular/router';
 })
 export class RegistroComponent {
 
-  constructor(private router : Router){
+  constructor(private router : Router, private notificaciones : NotificacionService){
 
   }
 
   redirigirARegistroPaciente(){
-    this.router.navigateByUrl('registro/paciente');
+    this.notificaciones.mostrarSpinner();
+
+    setTimeout(()=>{
+      this.notificaciones.ocultarSpinner();
+      this.router.navigateByUrl('registro/paciente');
+    },1500);
+
   }
 
   redirigirARegistroEspecialista(){
-    this.router.navigateByUrl('registro/especialista');
+
+    this.notificaciones.mostrarSpinner();
+
+    setTimeout(()=>{
+      this.notificaciones.ocultarSpinner();
+      this.router.navigateByUrl('registro/especialista');
+    },1500);
   }
 
 }

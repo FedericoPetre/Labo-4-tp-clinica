@@ -1,6 +1,6 @@
 <div class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
     <div class="text-center">
-      <div class="table-responsive">
+      <div class="table-responsive" >
         <table *ngIf="arrayLogs.length != 0" class="table table-bordered table-hover table-dark align-middle">
           <thead>
             <tr>
@@ -10,7 +10,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let log of arrayLogs | ordenFecha">
+            <tr *ngFor="let log of arrayLogs | ordenFecha | recortarArray">
               <td class="table-dark">{{ log.fecha }}</td>
               <td class="table-dark">{{ log.email }}</td>
               <td class="table-dark">{{ log.usuario }}</td>

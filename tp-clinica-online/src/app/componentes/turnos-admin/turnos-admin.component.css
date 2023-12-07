@@ -4,7 +4,8 @@
 td {
     color: white;
     font-family: 'Nunito', sans-serif;
-    font-size: large;
+    font-size: small;
+    height: auto;
 }
 
 table{

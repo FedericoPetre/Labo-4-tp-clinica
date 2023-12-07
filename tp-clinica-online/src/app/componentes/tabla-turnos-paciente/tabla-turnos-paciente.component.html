@@ -1,6 +1,6 @@
 <div class="h-80 d-flex justify-content-center align-items-center text-white rounded-3">
   <div class="text-center">
-    <div class="table-responsive">
+    <div class="table-responsive" >
       <table class="table table-bordered table-hover table-dark align-middle">
         <thead>
           <tr>
@@ -13,10 +13,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let turno of misTurnosPaciente">
-            <td class="table-dark">{{ turno.especialidad }}</td>
-            <td class="table-dark">{{ turno.especialista }}</td>
-            <td class="table-dark">{{ turno.diaDelTurno }}hs</td>
-            <td class="table-dark">{{ turno.estado }}</td>
+            <td class="table-dark">{{ turno.especialidad | capitalizar}}</td>
+            <td class="table-dark">{{ turno.especialista | capitalizar}}</td>
+            <td class="table-dark">{{ turno.diaDelTurno | capitalizar}}hs</td>
+            <td class="table-dark">{{ turno.estado | capitalizar}}</td>
             <td class="table-dark" colspan="4">
               <div class="d-flex flex-column">
                 <button appCambiarEstiloBoton *ngIf="turno.estado == 'completado' && turno.resenia != ''" class="btn btn-primary mb-1">Completar Encuesta</button>
